@@ -15,13 +15,14 @@ interface ButtonProps {
     bgColor?: Colors
     typography?: Typography
     weight?: TypographyWeight
+    disabled?: boolean
 }
 
 const Button = styled.button<ButtonProps>(
-    ({ full, color = 'gray800', bgColor = 'gray800' }) => ({
+    ({ full, color = 'gray800', bgColor = 'gray800', disabled }) => ({
         width: full ? `100%` : '',
-        backgroundColor: colors[bgColor],
-        color: colors[color],
+        backgroundColor: disabled ? colors['gray200'] : colors[bgColor],
+        color: disabled ? colors['gray300'] : colors[color],
         textAlign: 'center',
         padding: '11px 27px',
         borderRadius: '8px',

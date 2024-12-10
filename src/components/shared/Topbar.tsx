@@ -15,14 +15,10 @@ const Topbar = () => {
 
     const renderTitle = () => {
         if (location.pathname === '/signin') {
-            return (
-                <Text align="center" css={TextStyles}>
-                    기로록
-                </Text>
-            )
+            return <Text align="center">기로록</Text>
         } else if (location.pathname === '/signup') {
             return (
-                <Text align="center" css={TextStyles}>
+                <Text typography="t3" weight="bold" align="center">
                     회원가입
                 </Text>
             )
@@ -43,12 +39,7 @@ const TopbarStyles = css`
     width: 100%;
     height: 50px;
     position: relative;
-    border-bottom: 1px solid #333;
-`
-
-const TextStyles = css`
-    font-size = 20px;
-    font-weight: 20px
+    border-bottom: 1px solid var(--gray100);
 `
 
 const BackButtonStyles = css`

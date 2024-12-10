@@ -3,7 +3,7 @@ import HomePage from '@pages/HomePage'
 import SignIn from '@pages/SignIn'
 import Redirection from '@pages/Redirection'
 import Navbar from '@shared/Navbar'
-import AuthGuard from '@components/auth/AuthGuard'
+
 import Topbar from '@shared/Topbar'
 import styled from '@emotion/styled'
 import Signup from '@pages/Signup'
@@ -25,7 +25,7 @@ function App() {
     const showTopBar = !['/'].includes(location.pathname)
 
     return (
-        <AuthGuard>
+        <>
             {showTopBar && <Topbar />}
             <Container>
                 <Routes>
@@ -38,8 +38,8 @@ function App() {
                     ></Route> */}
                 </Routes>
             </Container>
-            <Navbar />
-        </AuthGuard>
+            {/* <Navbar /> */}
+        </>
     )
 }
 

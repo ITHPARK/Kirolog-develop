@@ -6,9 +6,12 @@ import Text from '@shared/Text'
 import Spacing from '@shared/Spacing'
 import Input from '@shared/Input'
 import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 import Button from '@shared/Button'
 import FixedBottomButton from '@shared/FixedBottomButton'
 import Errormessage from '../shared/Errormessage'
+import { useAlertContext } from '@context/AlertContext'
+import AgreeText from '@components/signup/AgreeText'
 
 const UserTextForm = ({
     onSubmit,
@@ -17,46 +20,88 @@ const UserTextForm = ({
 }) => {
     const [isIdChecked, setIsIdChecked] = useState<boolean>(false)
     const [isFocus, setIsFocus] = useState<boolean>(false)
+    const [formData, setFormData] = useState<any>(null) // 폼 데이터 저장 상태 추가
+
+    const { open } = useAlertContext()
 
     const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        reset,
-        trigger,
-        getValues,
-        setValue,
-        setError,
+        register, //특정 폼의 유효성 검사 생성자
+        handleSubmit, // form 전체 제출 함수 (유효성 검사가 완료되면 객체로 데이터를 반환)
+        formState: { errors, isValid }, //부가적인 폼의 상태를 제공(리액트 쿼리와 유사)
+        reset, //각 폼의  데이터를 초기화시킴
+        trigger, //실행시 유효성 검사를 실행하는 수동 검사
+        setError, //에러 생성자
+        getValues, //각 폼의 데이터를 가져오는 함수
+        setValue, //각 폼의 데이터를 set하는 setter
+        watch, //폼 변화 추적
     } = useForm({
-        mode: 'onBlur',
+        mode: 'onChange', // 유효성 검사 즉시 실행 (onChange로 변경)
+        reValidateMode: 'onChange', // 필드 값이 변경될 때마다 유효성 검사
     })
 
+    const formValues = watch()
+    console.log(formValues)
+
     const handleChechkId = () => {
-        alert('사용 가능한 아이디입니다.')
+        //백엔드에 아이디 중복검사 요청
+        alert('사용가능한 아이디입니다.')
         setIsIdChecked(true)
     }
 
-    const handleBlur = async () => {
+    //유저 아이디 검사
+    const handleChangeUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue('userId', e.target.value)
+        //최초 포커스 했을 이후에는 중복검사 메세지 출력
         setIsFocus(true)
-        // trigger를 비동기적으로 호출하여 유효성 검사 실행
-        await trigger('userId')
+        // onChange 시 유효성 검사 실행
+        trigger('userId')
     }
 
     const handleDeleteId = () => {
+        //아이디 입력란 초기화
         reset({
             userId: '',
         })
     }
 
-    // const handlePasswordConfirm = () => {
-    //     const { password, confirmPassword } = getValues()
-    //     if (password !== confirmPassword) {
-    //         setError('confirmPassword', {
-    //             type: 'manual',
-    //             message: '비밀번호가 일치하지 않습니다.',
-    //         })
-    //     }
-    // }
+    //비밀번호 유효성검사
+    const handleChangePasswordConfirm = (
+        e: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setValue('confirmPassword', e.target.value)
+
+        // 트리거를 실행하여 최신값으로 유효성 검사 실행
+        trigger('confirmPassword')
+
+        const { password, confirmPassword } = getValues()
+
+        if (password !== confirmPassword) {
+            //일치하지 않다면 에러 생성
+            setError('confirmPassword', {
+                type: 'manual',
+                message: '비밀번호가 일치하지 않습니다.',
+            })
+        }
+    }
+
+    const handleChangeAgree = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { checked } = e.target
+
+        // react-hook-form에 체크 상태 반영
+        setValue('agree', checked)
+
+        // 즉시 유효성 검사 실행
+        trigger('agree')
+    }
+
+    //약관동의 처리방침 알럿을 여는 함수
+    const handleClickAgree = (type: number) => {
+        open({
+            Component: AgreeText,
+            componentProps: { type: type },
+            onButtonClick1: () => {},
+        })
+    }
 
     return (
         <div>
@@ -65,7 +110,12 @@ const UserTextForm = ({
                 onSubmit={handleSubmit(onSubmit)}
                 style={{ paddingTop: '16px' }}
             >
-                <Flex direction="column">
+                <Flex
+                    direction="column"
+                    css={css`
+                        position: relative;
+                    `}
+                >
                     <Text typography="t2" color="gray600" weight="bold">
                         아이디
                     </Text>
@@ -90,7 +140,7 @@ const UserTextForm = ({
                                             '영문 소문자와 대문자, 숫자만 사용하며, 영문자로 시작하는 4~12자의 아이디를 입력해주세요.',
                                     },
                                 })}
-                                onBlur={handleBlur}
+                                onChange={handleChangeUserId} // onChange로 유효성 검사
                             />
                             <button
                                 type="button"
@@ -110,19 +160,29 @@ const UserTextForm = ({
                             중복확인
                         </Button>
                     </Flex>
-                    {errors.userId?.message && (
-                        <Errormessage message={String(errors.userId.message)} />
-                    )}
-                    {getValues('userId')?.length > 0 &&
-                        isFocus &&
-                        !isIdChecked && (
-                            <Errormessage message="아이디 중복검사를 해주세요." />
+                    <ErrorMessageContainer>
+                        {errors.userId?.message && (
+                            <Errormessage
+                                message={String(errors.userId.message)}
+                            />
                         )}
+                        {getValues('userId')?.length > 0 &&
+                            !errors.userId?.message &&
+                            isFocus &&
+                            !isIdChecked && (
+                                <Errormessage message="아이디 중복검사를 해주세요." />
+                            )}
+                    </ErrorMessageContainer>
                 </Flex>
 
                 {/* 비밀번호 확인 */}
                 <Spacing size={72} />
-                <Flex direction="column">
+                <Flex
+                    direction="column"
+                    css={css`
+                        position: relative;
+                    `}
+                >
                     <Text typography="t2" color="gray600" weight="bold">
                         비밀번호
                     </Text>
@@ -135,11 +195,6 @@ const UserTextForm = ({
                             required: '비밀번호를 입력해주세요',
                         })}
                     />
-                </Flex>
-                <Flex direction="column">
-                    <Text typography="t2" color="gray600" weight="bold">
-                        비밀번호 확인
-                    </Text>
                     <Spacing size={8} />
                     <Input
                         type="password"
@@ -148,25 +203,106 @@ const UserTextForm = ({
                         {...register('confirmPassword', {
                             required: '비밀번호 확인을 입력해주세요',
                         })}
-                        // onBlur={handlePasswordConfirm} // 비밀번호 확인을 검증하는 함수 호출
+                        onChange={handleChangePasswordConfirm} // onChange로 비밀번호 확인
                     />
-                    {errors.password?.message && (
-                        <Errormessage
-                            message={String(errors.password.message)}
-                        />
-                    )}
-                    {errors.confirmPassword?.message && (
-                        <Errormessage
-                            message={String(errors.confirmPassword.message)}
-                        />
-                    )}
+                    <ErrorMessageContainer>
+                        {errors.password?.message && (
+                            <Errormessage
+                                message={String(errors.password.message)}
+                            />
+                        )}
+                        {errors.confirmPassword?.message && (
+                            <Errormessage
+                                message={String(errors.confirmPassword.message)}
+                            />
+                        )}
+                    </ErrorMessageContainer>
+                </Flex>
+
+                <Spacing size={166} />
+
+                <Flex
+                    direction="column"
+                    align="center"
+                    css={css`
+                        padding: 0 12px;
+                    `}
+                >
+                    <AgreeContainer justify="space-between">
+                        <Flex align="center">
+                            <Text typography="t2" color="gray800" weight="bold">
+                                서비스 이용약관 동의
+                            </Text>
+                            <Spacing size={4} direction="horizontal" />
+                            <Text typography="t1" color="red">
+                                (필수)
+                            </Text>
+                        </Flex>
+                        <div>
+                            <Input
+                                type="checkbox"
+                                id="agree"
+                                {...register('agree', {
+                                    required: '약관에 동의해주세요.', // 필수 체크 메시지 설정
+                                })}
+                                onChange={handleChangeAgree}
+                            />
+                            <label htmlFor="agree" css={checkLabel}></label>
+                        </div>
+                    </AgreeContainer>
+
+                    <Flex
+                        as="ul"
+                        direction="column"
+                        css={css`
+                            margin-top: 12px;
+                            gap: 12px;
+                        `}
+                    >
+                        <li onClick={() => handleClickAgree(1)}>
+                            <Flex justify="space-between">
+                                <Text
+                                    typography="t1"
+                                    color="gray800"
+                                    weight="regular"
+                                >
+                                    서비스 이용약관에 동의합니다.
+                                </Text>
+                                <AgreeArrow></AgreeArrow>
+                            </Flex>
+                        </li>
+                        <li onClick={() => handleClickAgree(2)}>
+                            <Flex justify="space-between">
+                                <Text
+                                    typography="t1"
+                                    color="gray800"
+                                    weight="regular"
+                                >
+                                    개인정보 수집ㆍ이용에 동의합니다.
+                                </Text>
+                                <AgreeArrow></AgreeArrow>
+                            </Flex>
+                        </li>
+                        <li onClick={() => handleClickAgree(3)}>
+                            <Flex justify="space-between">
+                                <Text
+                                    typography="t1"
+                                    color="gray800"
+                                    weight="regular"
+                                >
+                                    개인정보 제 3자 제공 동의합니다.
+                                </Text>
+                                <AgreeArrow></AgreeArrow>
+                            </Flex>
+                        </li>
+                    </Flex>
                 </Flex>
             </form>
             <FixedBottomButton
                 label="확인"
                 type="submit"
                 form="userInfo"
-                disabled={!isIdChecked}
+                disabled={!isValid || !isIdChecked}
             />
         </div>
     )
@@ -177,6 +313,33 @@ const circleStyles = css`
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
+`
+
+const checkLabel = css`
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: url('/images/check-circle-2.svg') no-repeat center;
+    background-size: 100% 100%;
+`
+
+const AgreeContainer = styled(Flex)`
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--gray200);
+`
+
+const ErrorMessageContainer = styled.div`
+    position: absolute;
+    left: 10px;
+    top: calc(100% + 8px);
+`
+
+const AgreeArrow = styled.span`
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url('/images/arrow_right.svg') no-repeat center;
+    background-size: 100% 100%;
 `
 
 export default UserTextForm

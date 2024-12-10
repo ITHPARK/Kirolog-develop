@@ -33,6 +33,9 @@ const FixedBottomButton = ({
                 disabled={disabled}
                 form={form}
                 type={type}
+                typography="t3"
+                bgColor="gray800"
+                color="white"
             >
                 {label}
             </Button>

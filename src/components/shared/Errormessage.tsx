@@ -10,7 +10,6 @@ const Errormessage = ({ message }: { message?: string }) => {
                 align="left"
                 css={css`
                     padding-left: 10px;
-                    margin-top: 8px;
                     width: 100%;
                 `}
             >
