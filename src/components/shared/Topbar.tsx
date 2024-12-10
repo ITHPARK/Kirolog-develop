@@ -1,54 +1,77 @@
 import React, { useState, useEffect } from 'react'
 import { css } from '@emotion/react'
-
-import { useLocation } from 'react-router-dom'
+import styled from '@emotion/styled'
 import Flex from '@shared/Flex'
 import Text from '@shared/Text'
-import { useNavigate } from 'react-router-dom'
+import { createPortal } from 'react-dom'
 
-const Topbar = () => {
-    //현재 경로를 가져온다.
-    const location = useLocation()
+interface TopProps {
+    left?: React.ReactNode
+    leftOnClick?: () => void
+    title: string
+    right?: React.ReactNode
+    rightOnClick?: () => void
+}
 
-    //경로이동을 위한 훅
-    const navigate = useNavigate()
+const Topbar = ({
+    left,
+    leftOnClick,
+    title,
+    right,
+    rightOnClick,
+}: TopProps) => {
+    const $portal = document.getElementById('topbar')
 
-    const renderTitle = () => {
-        if (location.pathname === '/signin') {
-            return <Text align="center">기로록</Text>
-        } else if (location.pathname === '/signup') {
-            return (
-                <Text typography="t3" weight="bold" align="center">
-                    회원가입
-                </Text>
-            )
-        }
+    if ($portal == null) {
+        return null
     }
 
-    return (
-        <Flex css={TopbarStyles} justify="center" align="center">
-            <button onClick={() => navigate(-1)} css={BackButtonStyles}>
-                뒤로
-            </button>
-            {renderTitle()}
-        </Flex>
+    return createPortal(
+        <TopbarStyles css={TopbarStyles} justify="spaceBetween" align="center">
+            {left != null && (
+                <button onClick={leftOnClick} css={leftButtonStyles}>
+                    {left}
+                </button>
+            )}
+            <Text
+                typography="t3"
+                weight="bold"
+                color="gray800"
+                align="center"
+                css={css`
+                    flex: 1;
+                `}
+            >
+                {title}
+            </Text>
+            {right != null && (
+                <button onClick={rightOnClick} css={rightButtonStyles}>
+                    {right}
+                </button>
+            )}
+        </TopbarStyles>,
+        $portal,
     )
 }
 
-const TopbarStyles = css`
+const TopbarStyles = styled(Flex)`
     width: 100%;
     height: 50px;
     position: relative;
     border-bottom: 1px solid var(--gray100);
 `
 
-const BackButtonStyles = css`
-    color: red;
-    position: absolute;
-    left: 10px;
+const leftButtonStyles = css`
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 10;
+    position: absolute;
+`
+const rightButtonStyles = css`
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
 `
 
 export default Topbar

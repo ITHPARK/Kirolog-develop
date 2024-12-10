@@ -3,10 +3,10 @@ import HomePage from '@pages/HomePage'
 import SignIn from '@pages/SignIn'
 import Redirection from '@pages/Redirection'
 import Navbar from '@shared/Navbar'
-
 import Topbar from '@shared/Topbar'
 import styled from '@emotion/styled'
 import Signup from '@pages/Signup'
+import ImageTest from '@components/ImageTest'
 
 // Navbar를 포함하는 컴포넌트들과 아닌 컴포넌트 구분
 const LayoutWithNavbar = () => (
@@ -26,10 +26,9 @@ function App() {
 
     return (
         <>
-            {showTopBar && <Topbar />}
             <Container>
                 <Routes>
-                    <Route path="/" element={<HomePage />}></Route>
+                    <Route path="/main" element={<HomePage />}></Route>
                     <Route path="/signin" element={<SignIn />}></Route>
                     <Route path="/signup" element={<Signup />}></Route>
                     {/* <Route
@@ -37,6 +36,7 @@ function App() {
                         element={<Redirection />}
                     ></Route> */}
                 </Routes>
+                {/* <ImageTest /> */}
             </Container>
             {/* <Navbar /> */}
         </>

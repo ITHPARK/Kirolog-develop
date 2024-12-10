@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import CalendarBox from '@components/calendar/CalendarBox'
 import CalendarFeed from '@components/calendar/CalendarFeed'
 import Test from '@components/Test'
-import ImageTest from '@components/ImageTest'
 
 import { useAlertContext } from '@context/AlertContext'
 
@@ -24,7 +23,6 @@ const HomePage = () => {
             {/* <CalendarBox /> */}
             {/* <CalendarFeed /> */}
             {/* <Splash /> */}
-            <ImageTest />
         </div>
     )
 }

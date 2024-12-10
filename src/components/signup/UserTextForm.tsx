@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { SigninProps } from '@models/signin'
 import Flex from '@shared/Flex'
@@ -34,13 +34,12 @@ const UserTextForm = ({
         getValues, //각 폼의 데이터를 가져오는 함수
         setValue, //각 폼의 데이터를 set하는 setter
         watch, //폼 변화 추적
+        clearErrors,
     } = useForm({
         mode: 'onChange', // 유효성 검사 즉시 실행 (onChange로 변경)
         reValidateMode: 'onChange', // 필드 값이 변경될 때마다 유효성 검사
     })
-
     const formValues = watch()
-    console.log(formValues)
 
     const handleChechkId = () => {
         //백엔드에 아이디 중복검사 요청
@@ -50,17 +49,17 @@ const UserTextForm = ({
 
     //유저 아이디 검사
     const handleChangeUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue('userId', e.target.value)
+        setValue('username', e.target.value)
         //최초 포커스 했을 이후에는 중복검사 메세지 출력
         setIsFocus(true)
         // onChange 시 유효성 검사 실행
-        trigger('userId')
+        trigger('username')
     }
 
     const handleDeleteId = () => {
         //아이디 입력란 초기화
         reset({
-            userId: '',
+            username: '',
         })
     }
 
@@ -68,19 +67,17 @@ const UserTextForm = ({
     const handleChangePasswordConfirm = (
         e: React.ChangeEvent<HTMLInputElement>,
     ) => {
-        setValue('confirmPassword', e.target.value)
+        const conPass = watch('confirmPassword')
+        const pass = watch('password')
 
-        // 트리거를 실행하여 최신값으로 유효성 검사 실행
-        trigger('confirmPassword')
-
-        const { password, confirmPassword } = getValues()
-
-        if (password !== confirmPassword) {
-            //일치하지 않다면 에러 생성
+        //일치하지 않는다면
+        if (conPass !== pass) {
             setError('confirmPassword', {
                 type: 'manual',
                 message: '비밀번호가 일치하지 않습니다.',
             })
+        } else {
+            clearErrors('confirmPassword')
         }
     }
 
@@ -132,7 +129,7 @@ const UserTextForm = ({
                                 type="text"
                                 id="id"
                                 placeholder="아이디"
-                                {...register('userId', {
+                                {...register('username', {
                                     required: '아이디를 입력해주세요',
                                     pattern: {
                                         value: /^[a-zA-Z][a-zA-Z0-9]{3,11}$/, // 수정된 정규식
@@ -161,13 +158,13 @@ const UserTextForm = ({
                         </Button>
                     </Flex>
                     <ErrorMessageContainer>
-                        {errors.userId?.message && (
+                        {errors.username?.message && (
                             <Errormessage
-                                message={String(errors.userId.message)}
+                                message={String(errors.username.message)}
                             />
                         )}
-                        {getValues('userId')?.length > 0 &&
-                            !errors.userId?.message &&
+                        {getValues('username')?.length > 0 &&
+                            !errors.username?.message &&
                             isFocus &&
                             !isIdChecked && (
                                 <Errormessage message="아이디 중복검사를 해주세요." />
@@ -211,11 +208,14 @@ const UserTextForm = ({
                                 message={String(errors.password.message)}
                             />
                         )}
-                        {errors.confirmPassword?.message && (
-                            <Errormessage
-                                message={String(errors.confirmPassword.message)}
-                            />
-                        )}
+                        {errors.confirmPassword?.message &&
+                            formValues.password.length > 0 && (
+                                <Errormessage
+                                    message={String(
+                                        errors.confirmPassword.message,
+                                    )}
+                                />
+                            )}
                     </ErrorMessageContainer>
                 </Flex>
 
