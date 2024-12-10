@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, Outlet, useLocation } from 'react-router-dom'
+import HomePage from '@pages/HomePage'
+import SignIn from '@pages/SignIn'
+import Redirection from '@pages/Redirection'
+import Navbar from '@shared/Navbar'
+import AuthGuard from '@components/auth/AuthGuard'
+import Topbar from '@shared/Topbar'
+import styled from '@emotion/styled'
+import Signup from '@pages/Signup'
+
+// Navbar를 포함하는 컴포넌트들과 아닌 컴포넌트 구분
+const LayoutWithNavbar = () => (
+    <>
+        <Navbar />
+        <Outlet />
+    </>
+)
+
+const LayoutWithoutNavbar = () => <Outlet />
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const location = useLocation()
+
+    // 특정 페이지에서는 TopBar를 렌더링하지 않음
+    const showTopBar = !['/'].includes(location.pathname)
+
+    return (
+        <AuthGuard>
+            {showTopBar && <Topbar />}
+            <Container>
+                <Routes>
+                    <Route path="/" element={<HomePage />}></Route>
+                    <Route path="/signin" element={<SignIn />}></Route>
+                    <Route path="/signup" element={<Signup />}></Route>
+                    {/* <Route
+                        path="/kakao/callback"
+                        element={<Redirection />}
+                    ></Route> */}
+                </Routes>
+            </Container>
+            <Navbar />
+        </AuthGuard>
+    )
 }
 
-export default App;
+const Container = styled.div`
+    padding: 0 20px;
+`
+
+export default App
