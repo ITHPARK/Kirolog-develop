@@ -7,6 +7,7 @@ import Text from '@shared/Text'
 import Flex from '@shared/Flex'
 import Spacing from '@shared/Spacing'
 import DateTitle from '@components/calendar/DateTitle'
+import { Link } from 'react-router-dom'
 
 interface Props {
     date: string
@@ -76,46 +77,51 @@ const CalendarFeed = () => {
                     feedList.map((item, index) => {
                         return (
                             <li key={index}>
-                                <Flex direction="column">
+                                <Link to={`/diary/${item.task}`}>
                                     <Flex direction="column">
-                                        <Text typography="t1" color="gray400">
-                                            12.09
-                                        </Text>
-                                        <Spacing size={8} />
-                                        <Flex align="center">
+                                        <Flex direction="column">
                                             <Text
-                                                typography="t3"
-                                                weight="bold"
-                                                color="gray800"
+                                                typography="t1"
+                                                color="gray400"
                                             >
-                                                행복함
+                                                12.09
                                             </Text>
-                                            <Spacing
-                                                size={4}
-                                                direction="horizontal"
-                                            />
-                                            <span>아이콘</span>
+                                            <Spacing size={8} />
+                                            <Flex align="center">
+                                                <Text
+                                                    typography="t3"
+                                                    weight="bold"
+                                                    color="gray800"
+                                                >
+                                                    행복함
+                                                </Text>
+                                                <Spacing
+                                                    size={4}
+                                                    direction="horizontal"
+                                                />
+                                                <span>아이콘</span>
+                                            </Flex>
+                                            <Text
+                                                typography="t2"
+                                                weight="regular"
+                                                color="gray700"
+                                                css={css`
+                                                    overflow: hidden;
+                                                    text-overflow: ellipsis;
+                                                    display: -webkit-box;
+                                                    -webkit-line-clamp: 5;
+                                                    -webkit-box-orient: vertical;
+                                                `}
+                                            >
+                                                가나다라마바사 가나다라마바사
+                                                가나다라마바사 가나다라마바사
+                                                가나다라마바사 가나다라마바사
+                                                가나다라마바사 가나다라마바사
+                                                가나다라마바사
+                                            </Text>
                                         </Flex>
-                                        <Text
-                                            typography="t2"
-                                            weight="regular"
-                                            color="gray700"
-                                            css={css`
-                                                overflow: hidden;
-                                                text-overflow: ellipsis;
-                                                display: -webkit-box;
-                                                -webkit-line-clamp: 5;
-                                                -webkit-box-orient: vertical;
-                                            `}
-                                        >
-                                            가나다라마바사 가나다라마바사
-                                            가나다라마바사 가나다라마바사
-                                            가나다라마바사 가나다라마바사
-                                            가나다라마바사 가나다라마바사
-                                            가나다라마바사
-                                        </Text>
                                     </Flex>
-                                </Flex>
+                                </Link>
                             </li>
                         )
                     })
