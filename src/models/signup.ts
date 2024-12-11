@@ -4,3 +4,8 @@ export interface CreateUserProps {
     password: string
     username: string
 }
+
+export interface CreateUserInfo {
+    password: string
+    username: string
+}

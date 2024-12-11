@@ -67,7 +67,7 @@ const UserTextForm = ({
     const handleChangePasswordConfirm = (
         e: React.ChangeEvent<HTMLInputElement>,
     ) => {
-        const conPass = watch('confirmPassword')
+        const conPass = e.target.value
         const pass = watch('password')
 
         //일치하지 않는다면

@@ -3,8 +3,10 @@ import Input from '@shared/Input'
 import axios from 'axios'
 
 const ImageTest = () => {
+    //파일이 저장될 state
     const [image, setImage] = useState<File | null>(null)
 
+    //input에서 파일을 선택하고 선택한 파일을 state에 업데이트
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0] // Optional chaining으로 첫 번째 파일을 선택
         console.log(selectedFile)
@@ -16,19 +18,24 @@ const ImageTest = () => {
         }
     }
 
+    //api요청 함수
     const handleUpload = async () => {
+        //선택된 이미지가 없다면
         console.log(image)
         if (!image) {
             alert('이미지를 선택해주세요.')
             return
         }
 
+        //FormData 객체를 생성
         const formData = new FormData()
+        //이미지 파일 추가
         formData.append('file', image)
 
+        //엔드포인트로 파일과 함께 api 요청보내기
         try {
-            const response = await axios.post(
-                ' https://test-kilolog.s3.amazonaws.com/youngkyu/2024-12-10/test_image.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA6ODU3QT72WGEK4DK%2F20241210%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Date=20241210T145908Z&X-Amz-Expires=8640&X-Amz-SignedHeaders=host&X-Amz-Security-Token=IQoJb3JpZ2luX2VjENf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLW5vcnRoZWFzdC0yIkgwRgIhAPKJArY0cOFCJNdm5VZrJQqjrT8t9SYQZKT%2FFfr0kYZ6AiEA%2FY%2FxZNnpFK%2BtpoLcrtRIadb7pWao5hHVnQpc%2Ffr3rgwqigMIkP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw5OTIzODI1MTg1MjciDHTM7T0DZsGR47ZU0CreAowIuZEdV%2F%2Fqyb7saE4QO5Kn%2F3baRctDbXrJKxlBKyLWAe%2FFv%2F3tiWoWFkxyDZYN6usrvNHlOARHhLYaPXBBgAAvNHEw5x9vK%2FNWoYclnV9PDhc05qT%2BJXMxHZbp9AIkdllhz1wrR%2FtEuf59le58ju2%2BTbwcFjhA28i7eUGNjOREywYi%2Fw%2BgUE2ExrBRgbZ7%2BqLyj6Wjg0Eyu%2F0kC5sX1jC9S78muqGSIAho3KhIGrbJktqwDtwLw4ND%2FO5JewtL%2FAfVgu2RMrppJkltTE%2FXoimn5HKchrrLKvVVfKRf3SLWZPwNgamQfgwNRq9CoEqX1KplzAZqJ0AjtzKzkgbWPV7Q%2FD8xqM65pM1dPNoy3pikEZ%2FfHctSD3JQfq8nvfzLTf%2BErJXKsFFDjpFnEJa9uAUz1%2FaE%2FBWcjVHuy9ya6e6ZRyL%2BOnUVJobpGo4GjXG7XhHryvpcGhTz0VDwxmzJMLmu4boGOp0BQJqoWTctl8OmcY4McdtQf8SRD253j9sItKs2xweHj0mgqeOBaZ7OQzUxRqPvc1joTvYG7ctMUPYPN25%2FmiJZ9MaJytgsU8YvissDwa6nywrI4MWsNSlW9DFt5J%2BXZlu%2BqAudARTAXWWWIOAlHGw%2FkkrpncEowQCODBWP5pj6OzHea4M3EcY3olwaUBTxXc%2Fote0W5M5sfhZcWiCGsw%3D%3D&X-Amz-Signature=7077f76822b4816e60d0fc5f790fab2c7623752d00053fc75d86d54a52f50734',
+            const response = await axios.put(
+                'https://test-kilolog.s3.amazonaws.com/youngkyu/2024-12-10/test_image.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA6ODU3QT7WHYQOAK2%2F20241211%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Date=20241211T055312Z&X-Amz-Expires=8640&X-Amz-SignedHeaders=host&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOb%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLW5vcnRoZWFzdC0yIkcwRQIgdw8w8HTJfP01U7Uo5S5cnC8o7600ssWqPT4lBSxExkUCIQCrsyuSnA7mS3Ab1AU1inMtP5dp%2BuTOyxhHcq%2FSgsEaJiqKAwif%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDk5MjM4MjUxODUyNyIMgeXjwdIUc0aILPAVKt4C%2F6T0MfLTdqTcH4cXti4trdciQT%2BFssYAWQVs%2BZ7Kfmc9Brb2lpUcfqpeeImfwmGF%2F12oH7%2BZEG%2Fb%2BCtpwoJnAXMKE7N2ebAlwV4g8NhFmw9amP1owy%2Bf0Nww0%2BtoAL4%2Fq5YkkALHkS6FCFLFNLga7FHePkZAcOOkZBo9pO%2B8Jpe7qjYZl%2FQxYlxs28hK%2B3mK5nQsrcepEpxtUTsOwqoi3aXuc4jvAalqsFNXV7Xqnd6nq03SYEHMtOcsopDTbt%2B8rwDew7jShgj9hNlzDyeNYJ4ym%2BkKsLDyS9vkZj6PHYtU%2FlhAUZSaLgK2xtNQ9hZBhfmR3C3X75945L5YRFbjjVrzEs%2FTIUhos3ATesLx5BDNZpSw%2FczfDOuKn2fuJPgQCVDojQFjGC52EeQZaR17sIcmRBmNV%2FfALy8CHfpIJaOZeZSdyWQUBq7%2Fi3B5FeZEPeXDJFbd9vE4wmKy5fgwxtHkugY6ngHtc%2FcU4oXp0Gotd11bn3DJlGTecOvageFDTXXnnlwM5qRkEfaiEMS5U5j0I72eFRfsqs88NWhuHD8F4WgUHV1Em%2BMzGrgPhYYN7PRLMCcPgQCUddPqp%2BdeG1JkFzxdKBcbG037Sdl4BjpZd4uxbLQVBixKeN6sDiRouPbDodojnSUVj%2BxeBmescvUVqFZlhS9iTuSjhy4%2BWhf%2BNAI%2BQg%3D%3D&X-Amz-Signature=39f51073fea392d5b1285a9f064b90924f78720c3e84f93eaa45654039d1185e',
                 formData,
                 {
                     headers: {
@@ -38,6 +45,7 @@ const ImageTest = () => {
             )
             console.log('파일 업로드 성공:', response.data)
         } catch (e) {
+            //에러처리
             console.log(e)
         }
     }

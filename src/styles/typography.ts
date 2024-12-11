@@ -21,11 +21,18 @@ export const typographyMap = {
         font-size: 24px;
         line-height: 1.4;
     `,
+    t6: css`
+        font-size: 26px;
+        line-height: 1.5;
+    `,
 }
 
 export const typographyWeight = {
     bold: css`
         font-weight: 700;
+    `,
+    semiBold: css`
+        font-weight: 600;
     `,
     medium: css`
         font-weight: 500;

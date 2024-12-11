@@ -9,6 +9,7 @@ import { BrowserRouter } from 'react-router-dom'
 import Splash from '@components/Splash'
 import AuthGuard from '@components/auth/AuthGuard'
 import { AlerContextProvider } from '@context/AlertContext'
+import { DrawerContextProvider } from '@context/DrawContext'
 
 const client = new QueryClient()
 
@@ -39,9 +40,11 @@ const Root = () => {
             <QueryClientProvider client={client}>
                 <BrowserRouter>
                     <AlerContextProvider>
-                        <AuthGuard>
-                            {firstLoading ? <Splash /> : <App />}
-                        </AuthGuard>
+                        <DrawerContextProvider>
+                            <AuthGuard>
+                                {firstLoading ? <Splash /> : <App />}
+                            </AuthGuard>
+                        </DrawerContextProvider>
                     </AlerContextProvider>
                 </BrowserRouter>
             </QueryClientProvider>

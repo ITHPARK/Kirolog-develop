@@ -1,7 +1,12 @@
 import styled from '@emotion/styled'
 
-const Dimmed = ({ children }: { children: React.ReactNode }) => {
-    return <Container>{children}</Container>
+interface DimmedProps {
+    children: React.ReactNode
+    onClick?: () => void
+}
+
+const Dimmed = ({ children, onClick }: DimmedProps) => {
+    return <Container onClick={onClick}>{children}</Container>
 }
 
 const Container = styled.div`

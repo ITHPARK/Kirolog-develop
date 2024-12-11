@@ -3,9 +3,10 @@ import Calendar from 'react-calendar'
 import calendarStyles from '@styles/calendarStyles'
 import { css } from '@emotion/react'
 import useFormatDate from '@hooks/useFormatDate'
-
-type ValuePiece = Date | null
-type Value = ValuePiece | [ValuePiece, ValuePiece]
+import Text from '@shared/Text'
+import { useDrawerContext } from '@/context/DrawContext'
+import CalendarPicker from '@components/calendar/CalendarPicker'
+import useFormatPickerDate from '@hooks/useFormatPickerDate'
 
 interface Props {
     date: string
@@ -14,6 +15,9 @@ interface Props {
 
 const CalendarFeed = () => {
     const [feedDate, setFeedDate] = useState<Props[] | null>(null)
+    const [pickerDate, setPickerDate] = useState<Date>(new Date())
+
+    const { open } = useDrawerContext()
 
     const todos = [
         { date: '2024-09-01', task: 'Workout' },
@@ -46,27 +50,36 @@ const CalendarFeed = () => {
         }
     }
 
+    const handleClickPopup = () => {
+        open({
+            Component: CalendarPicker,
+            componentProps: { setPickerDate: setPickerDate },
+            onClose: () => {},
+        })
+    }
+
     return (
         <div css={calendarStyles}>
-            <Calendar
-                className="feed_calendar"
-                view="year"
-                onActiveStartDateChange={handleChange}
-                minDetail="year"
-            />
+            <Text
+                display="inline-block"
+                typography="t6"
+                weight="semiBold"
+                css={dateTitle}
+                onClick={handleClickPopup}
+            >
+                {useFormatPickerDate(pickerDate)}
+            </Text>
 
-            {todos != null
-                ? feedDate?.map((item) => {
-                      return (
-                          <div style={{ marginBottom: '20px' }}>
-                              <p>날짜: {item.date}</p>
-                              <p>내용: {item.task}</p>
-                          </div>
-                      )
-                  })
-                : ''}
+            {/* <Flex></Flex> */}
         </div>
     )
 }
+
+const dateTitle = css`
+    padding-right: 22px;
+    margin-bottom: 20px;
+    background: url('/images/calendar/arrow_bottom.svg') no-repeat right center;
+    background-size: 14px 7px;
+`
 
 export default CalendarFeed

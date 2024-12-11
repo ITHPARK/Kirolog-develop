@@ -2,20 +2,39 @@ import React, { useState, useEffect } from 'react'
 import Calendar from 'react-calendar'
 import calendarStyles from '@styles/calendarStyles'
 import useFormatDate from '@hooks/useFormatDate'
+import moment from 'moment'
+import styled from '@emotion/styled'
+import { css } from '@emotion/react'
+import Text from '@shared/Text'
+import { useDrawerContext } from '@/context/DrawContext'
+import CalendarPicker from '@components/calendar/CalendarPicker'
+import useFormatPickerDate from '@hooks/useFormatPickerDate'
+import Flex from '@shared/Flex'
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
 
 const CalendarBox = () => {
-    //내가 선택한 월  함수
+    const { open } = useDrawerContext()
+
+    // 내가 선택한 날짜
     const [selectedDate, setSelectedDate] = useState<Value>(new Date())
 
-    //내가 선택한 날짜의 월
+    // 내가 선택한 날짜의 월
     const [currentMonth, setCurrentMonth] = useState<number | null>(
         new Date().getMonth() + 1,
     )
 
+    const [pickerDate, setPickerDate] = useState<Date>(new Date())
+
     const formatDate = useFormatDate()
+    const today = new Date()
+    const minDate = new Date(today.getFullYear(), today.getMonth(), 1) // 이번 달의 첫 날
+    const maxDate = new Date(today.getFullYear(), today.getMonth() + 1, 0) // 다음 달의 마지막 날
+
+    useEffect(() => {
+        setCurrentMonth(pickerDate.getMonth() + 1)
+    }, [pickerDate, currentMonth])
 
     //mock 데이터
     const todos = [
@@ -25,70 +44,77 @@ const CalendarBox = () => {
         { date: '2024-12-09', task: 'Meeting' },
     ]
 
-    //데이터의 날짜에 요소를 추가하는 함수(캐릭터 아이콘 추가 예정)
+    // 날짜에 아이콘 추가
     const getTileContent = ({ date }: { date: Date }) => {
-        //toLocaleDateString: JavaScript의 Date 객체에서 제공하는 메서드, 날짜를 지역화된 형식으로 문자열로 변환
-        //날짜를 YYYY. M. D. 형식으로 로 변환한다
         const dateStr = formatDate(date)
+        const today = formatDate(new Date())
 
-        //todos를 순회하면서 date에서 dateStr을 찾는다
-        const todo = todos.find((todo) => todo.date === dateStr)
+        if (dateStr <= today) {
+            const todo = todos.find((todo) => todo.date === dateStr)
 
-        if (todo) {
-            //요소를 리턴
-            return <div style={{ color: 'red' }}>●</div>
+            if (todo) {
+                return <DayCircle className="day_circle" />
+            }
+
+            return <DayCircle css={circleStyles1} className="day_circle" />
+        }
+
+        if (dateStr > today) {
+            return <DayCircle css={circleStyles2} className="day_circle" />
         }
     }
 
-    //달력에 표시하는 현재 월 말고는 색상을 흐리게 한다.
+    // 현재 월 표시
     const getTitleClass = ({ date, view }: { date: Date; view: string }) => {
-        //월 페이지일 때
-        if (view === 'month') {
-            //각 날짜의 월
-            const dayMonth = date.getMonth() + 1 //12월이 11월로 나와서 1을 더해줘야함
+        let classes = ''
 
-            if (currentMonth != dayMonth) {
-                return 'different-month'
+        const a = new Date(pickerDate)
+        a.setHours(0, 0, 0, 0)
+
+        if (view === 'month') {
+            const dayMonth = date.getMonth() + 1
+
+            if (date > a) {
+                classes += 'future-date '
+            }
+
+            if (currentMonth !== dayMonth) {
+                classes += 'different-month '
             }
         }
+
+        return classes
     }
 
-    //월 페이지를 변경할 때마다 해당 페이지가 표시하는 월을 가져오는 함수
-    const handleActiveStartDateChange = ({
-        activeStartDate,
-    }: {
-        activeStartDate: Date | null
-    }) => {
-        if (activeStartDate != null) {
-            console.log(activeStartDate.getMonth() + 1)
-            setCurrentMonth(activeStartDate.getMonth() + 1)
-        }
-    }
-
-    //날짜를 클릭했을 때
+    // 날짜 선택 시
     const handleChange = (
         value: Value,
         event: React.MouseEvent<HTMLButtonElement>,
     ) => {
         const currentDate = new Date()
 
+        const currMonth = formatDate(currentDate)
+            .split('-')
+            .slice(0, 2)
+            .join('')
+        const selectMonth =
+            value && value instanceof Date
+                ? formatDate(value).split('-').slice(0, 2).join('')
+                : ''
+
         if (value != null) {
-            //선택한 날짜가 현재날짜보다 이전일 때 동작한다. (오늘까지 포함)
+            if (currMonth > selectMonth || currMonth < selectMonth) {
+                return
+            }
+
             if (value < currentDate) {
-                //state를 오늘 날짜로 설정
                 setSelectedDate(value)
 
-                //value가 날짜 데이터라면 (setRange아니면 다 Date다)
                 if (value instanceof Date) {
                     const valueDate = formatDate(value)
-
-                    console.log(valueDate)
-
-                    //내가 선택한 날짜에 이미 추가된 일기 데이터가 있는지 여부 확인
                     const isData = todos.find((todo) => todo.date === valueDate)
 
                     if (isData != null) {
-                        //일기 데이터가 있는것
                         alert('내가쓴 일기를 볼것.')
                     } else {
                         alert('일기를 추가한다.')
@@ -98,29 +124,73 @@ const CalendarBox = () => {
         }
     }
 
-    useEffect(() => {
-        // console.log(selectedDate)
-    }, [selectedDate])
+    // 월 picker 클릭
+    const handleClickPopup = () => {
+        open({
+            Component: CalendarPicker,
+            componentProps: { setPickerDate: setPickerDate },
+            onClose: () => {},
+        })
+    }
 
     return (
         <div css={calendarStyles}>
-            <h2>일기쓴날짜</h2>
-            <br />
-            <ul>
-                <li>2024-12-04</li>
-                <li>2024-12-05</li>
-                <li>2024-12-07</li>
-                <li>2024-12-09</li>
-            </ul>
+            <Text
+                display="inline-block"
+                typography="t6"
+                weight="semiBold"
+                css={dateTitle}
+                onClick={handleClickPopup}
+            >
+                {useFormatPickerDate(pickerDate)}
+            </Text>
             <Calendar
                 onChange={handleChange}
-                value={selectedDate}
-                tileContent={getTileContent} //날짜(date)를 매개변수로 받아서 해당 날짜의 셀에 추가할 내용을 반환
-                tileClassName={getTitleClass} //날짜(date)를 매개변수로 받아서 해당 날짜에 클래스를 추가
-                onActiveStartDateChange={handleActiveStartDateChange}
+                activeStartDate={pickerDate}
+                tileContent={getTileContent}
+                tileClassName={getTitleClass}
+                locale="ko-KR"
+                formatDay={(locale, date) => moment(date).format('D')}
+                view="month"
+                minDate={minDate}
+                maxDate={maxDate}
             />
+            <Flex justify="flex-end">
+                <AddDiary />
+            </Flex>
         </div>
     )
 }
+
+const DayCircle = styled.div`
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+`
+
+const circleStyles1 = css`
+    background-color: var(--white);
+`
+
+const circleStyles2 = css`
+    background-color: var(--gray100);
+`
+
+const dateTitle = css`
+    padding-right: 22px;
+    margin-bottom: 20px;
+    background: url('/images/calendar/arrow_bottom.svg') no-repeat right center;
+    background-size: 14px 7px;
+`
+
+const AddDiary = styled.button`
+    margin-top: 52px;
+    width: 54px;
+    height: 54px;
+    background: url('/images/addDiary.svg') no-repeat center;
+    background-size: 22px;
+    background-color: #000;
+    border-radius: 50%;
+`
 
 export default CalendarBox
