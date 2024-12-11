@@ -34,7 +34,7 @@ const HomePage = () => {
                         onClick={handleClickTab}
                         css={tabState && activeButtonStyles}
                     >
-                        포스트
+                        다이어리
                     </button>
                 </li>
             </TabContainer>

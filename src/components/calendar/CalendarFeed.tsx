@@ -1,23 +1,27 @@
-import { useState } from 'react'
-import Calendar from 'react-calendar'
+import { useState, useEffect } from 'react'
 import calendarStyles from '@styles/calendarStyles'
 import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 import useFormatDate from '@hooks/useFormatDate'
 import Text from '@shared/Text'
-import { useDrawerContext } from '@/context/DrawContext'
-import CalendarPicker from '@components/calendar/CalendarPicker'
-import useFormatPickerDate from '@hooks/useFormatPickerDate'
+import Flex from '@shared/Flex'
+import Spacing from '@shared/Spacing'
+import DateTitle from '@components/calendar/DateTitle'
 
 interface Props {
     date: string
     task: string
 }
 
+interface CalendarPickerProps {
+    setPickerDate: React.Dispatch<React.SetStateAction<Date>>
+    // other props
+}
+
 const CalendarFeed = () => {
     const [feedDate, setFeedDate] = useState<Props[] | null>(null)
     const [pickerDate, setPickerDate] = useState<Date>(new Date())
-
-    const { open } = useDrawerContext()
+    const [feedList, setFeedList] = useState<any[]>([])
 
     const todos = [
         { date: '2024-09-01', task: 'Workout' },
@@ -50,36 +54,127 @@ const CalendarFeed = () => {
         }
     }
 
-    const handleClickPopup = () => {
-        open({
-            Component: CalendarPicker,
-            componentProps: { setPickerDate: setPickerDate },
-            onClose: () => {},
-        })
+    useEffect(() => {
+        const month = formatDate(pickerDate).split('-').slice(0, 2).join('-') // 현재 선택된 월
+
+        const filteredTodos = todos.filter(
+            (todo) => todo.date.split('-').slice(0, 2).join('-') === month, //  월을 기준으로 필터링
+        )
+
+        setFeedList(filteredTodos) // 필터링된 todo 항목들 출력
+    }, [pickerDate])
+
+    const handleClickFeed = () => {
+        alert('일기 생성 페이지로 이동')
     }
 
     return (
         <div css={calendarStyles}>
-            <Text
-                display="inline-block"
-                typography="t6"
-                weight="semiBold"
-                css={dateTitle}
-                onClick={handleClickPopup}
-            >
-                {useFormatPickerDate(pickerDate)}
-            </Text>
-
-            {/* <Flex></Flex> */}
+            <DateTitle pickerDate={pickerDate} setPickerDate={setPickerDate} />
+            <FeedContainer as="ul">
+                {feedList.length > 0 ? (
+                    feedList.map((item, index) => {
+                        return (
+                            <li key={index}>
+                                <Flex direction="column">
+                                    <Flex direction="column">
+                                        <Text typography="t1" color="gray400">
+                                            12.09
+                                        </Text>
+                                        <Spacing size={8} />
+                                        <Flex align="center">
+                                            <Text
+                                                typography="t3"
+                                                weight="bold"
+                                                color="gray800"
+                                            >
+                                                행복함
+                                            </Text>
+                                            <Spacing
+                                                size={4}
+                                                direction="horizontal"
+                                            />
+                                            <span>아이콘</span>
+                                        </Flex>
+                                        <Text
+                                            typography="t2"
+                                            weight="regular"
+                                            color="gray700"
+                                            css={css`
+                                                overflow: hidden;
+                                                text-overflow: ellipsis;
+                                                display: -webkit-box;
+                                                -webkit-line-clamp: 5;
+                                                -webkit-box-orient: vertical;
+                                            `}
+                                        >
+                                            가나다라마바사 가나다라마바사
+                                            가나다라마바사 가나다라마바사
+                                            가나다라마바사 가나다라마바사
+                                            가나다라마바사 가나다라마바사
+                                            가나다라마바사
+                                        </Text>
+                                    </Flex>
+                                </Flex>
+                            </li>
+                        )
+                    })
+                ) : (
+                    <li onClick={handleClickFeed}>
+                        <Flex
+                            direction="column"
+                            justify="center"
+                            align="center"
+                            css={css`
+                                height: 100%;
+                            `}
+                        >
+                            <img
+                                src="/images/diaryPlus.svg"
+                                alt="플러스 아이콘"
+                                css={addDiaryImg}
+                            />
+                            <Spacing size={9} />
+                            <Text
+                                typography="t2"
+                                color="gray500"
+                                align="center"
+                            >
+                                캘린더에서 일기를
+                                <br />
+                                작성해 보세요!
+                            </Text>
+                        </Flex>
+                    </li>
+                )}
+            </FeedContainer>
         </div>
     )
 }
 
-const dateTitle = css`
-    padding-right: 22px;
-    margin-bottom: 20px;
-    background: url('/images/calendar/arrow_bottom.svg') no-repeat right center;
-    background-size: 14px 7px;
+const FeedContainer = styled(Flex)`
+    width: 100%;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    li {
+        padding: 18px;
+        width: calc(50% - 5px);
+        height: 200px;
+        background-color: var(--gray100);
+        border: 1px solid var(--gray200);
+        border-radius: 6px;
+
+        P {
+            overflow: hidden; // 너비를 넘어가면 안보이게
+            text-overflow: ellipsis; // 글자가 넘어가면 말줄임(...) 표시
+        }
+    }
+`
+
+const addDiaryImg = css`
+    width: 22px;
+    height: 22px;
 `
 
 export default CalendarFeed
