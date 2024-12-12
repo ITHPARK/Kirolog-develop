@@ -9,6 +9,7 @@ import DiaryDetail from '@components/diary/DiaryDetail'
 import ImageTest from './components/ImageTest'
 import CalendartBox from '@components/calendar/CalendarBox'
 import CalendartFeed from '@components/calendar/CalendarFeed'
+import AddDiaryAi from '@pages/AddDiaryAi'
 
 // Navbar를 포함하는 컴포넌트들과 아닌 컴포넌트 구분
 const LayoutWithNavbar = () => (
@@ -33,14 +34,14 @@ function App() {
 
                     <Route path="/diary/write/my" element={<DiaryDetail />} />
 
-                    <Route path="/diary/write/ai" element={<DiaryDetail />} />
+                    <Route path="/diary/write/ai" element={<AddDiaryAi />} />
 
                     <Route path="/signin" element={<SignIn />} />
 
                     <Route path="/signup" element={<Signup />} />
                 </Routes>
 
-                <ImageTest />
+                {/* <ImageTest /> */}
             </Container>
             {/* <Navbar /> */}
         </>

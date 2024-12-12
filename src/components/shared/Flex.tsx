@@ -14,6 +14,7 @@ const Flex = styled.div<FlexProps>(({ direction, justify, align }) => ({
     alignItems: align,
     justifyContent: justify,
     width: '100%',
+    flexWrap: 'wrap',
 }))
 
 export default Flex
