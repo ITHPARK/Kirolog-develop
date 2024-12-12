@@ -5,7 +5,8 @@ import { createPortal } from 'react-dom'
 import { css } from '@emotion/react'
 import { keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
-import { useState } from 'react'
+
+import { useRef } from 'react'
 
 interface ImageSelectorProps {
     onSetImage: (item: File) => void
@@ -29,6 +30,7 @@ const ImageSelector = ({
     //선택한 이미지 파일 가져와서 부모에게 전달하는 함수
     const handleSetImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         //선택한 이미지
+
         const image = e.target.files?.[0]
 
         if (image) {

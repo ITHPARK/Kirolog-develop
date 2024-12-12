@@ -4,6 +4,8 @@ import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
 import SelectImage from '@components/diary/SelectImage'
 import TagCategory from '@components/diary/TagCategory'
 import useFormatDate from '@/hooks/useFormatDate'
+import AddKeyword from '@components/diary/AddKeyword'
+import DiaryResult from '@components/diary/DiaryResult'
 
 const AddDiaryAi = () => {
     const formatData = useFormatDate()
@@ -25,6 +27,9 @@ const AddDiaryAi = () => {
         <div>
             {step === 1 && <TagCategory />}
             {step === 2 && <SelectImage />}
+            {step === 3 && <AddKeyword />}
+            {/* <AiDiaryCreateLoading></AiDiaryCreateLoading> */}
+            <DiaryResult />
         </div>
     )
 }

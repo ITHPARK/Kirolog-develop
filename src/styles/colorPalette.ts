@@ -4,6 +4,7 @@ import { css } from '@emotion/react'
 export const colorPalette = css`
     :root {
         --red: #df5755;
+        --red500: #e02727;
         --white: #fff;
         --gray100: #f7f8fa;
         --gray200: #eaebed;
@@ -22,6 +23,7 @@ export const colorPalette = css`
 export const colors = {
     white: 'var(--white)',
     red: 'var(--red)',
+    red500: 'var(--red500)',
     gray100: 'var(--gray100)',
     gray200: 'var(--gray200)',
     gray300: 'var(--gray300)',

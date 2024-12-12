@@ -49,7 +49,7 @@ const SelectImage = () => {
                         align="center"
                     >
                         현재 감정을 표현할 <br />
-                        <span>본인이 찍은</span>
+                        <span css={textcustom}>본인이 찍은 </span>
                         사진을 올려주세요
                     </Text>
                 </Flex>

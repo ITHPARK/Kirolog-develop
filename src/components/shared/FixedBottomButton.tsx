@@ -3,6 +3,7 @@ import React from 'react'
 import { createPortal } from 'react-dom'
 import { keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
+import { SerializedStyles } from '@emotion/react'
 
 interface FixedBottomButtonProps {
     label: string
@@ -10,6 +11,7 @@ interface FixedBottomButtonProps {
     disabled?: boolean
     form?: string
     type: 'button' | 'submit' | 'reset' | undefined
+    css?: SerializedStyles
 }
 
 const FixedBottomButton = ({
@@ -18,6 +20,7 @@ const FixedBottomButton = ({
     disabled,
     form,
     type,
+    css,
 }: FixedBottomButtonProps) => {
     const $portal = document.getElementById('bottomButton')
 
@@ -26,7 +29,7 @@ const FixedBottomButton = ({
     }
 
     return createPortal(
-        <Container>
+        <Container css={css}>
             <Button
                 onClick={onClick}
                 full={true}

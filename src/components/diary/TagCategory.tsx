@@ -2,13 +2,11 @@ import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
 
 import Flex from '@shared/Flex'
 import Input from '@shared/Input'
-import React from 'react'
 import Spacing from '@shared/Spacing'
 import Text from '@shared/Text'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
 
 const TagCategory = () => {
     const { step, setStep } = useAddDiaryStep()
