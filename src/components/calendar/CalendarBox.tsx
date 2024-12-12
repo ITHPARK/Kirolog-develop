@@ -10,12 +10,16 @@ import { useDrawerContext } from '@/context/DrawContext'
 import CalendarPicker from '@components/calendar/CalendarPicker'
 import useFormatPickerDate from '@hooks/useFormatPickerDate'
 import Flex from '@shared/Flex'
+import AddPopup from '@components/diary/AddPopup'
+import { useNavigate } from 'react-router-dom'
+import TabContainer from '@shared/TabContainer'
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
 
 const CalendarBox = () => {
     const { open } = useDrawerContext()
+    const navigate = useNavigate()
 
     // 내가 선택한 날짜
     const [selectedDate, setSelectedDate] = useState<Value>(new Date())
@@ -133,8 +137,28 @@ const CalendarBox = () => {
         })
     }
 
+    const handleClickAddDiary = () => {
+        open({
+            Component: AddPopup,
+
+            onClose: () => {},
+        })
+    }
+
     return (
         <div css={calendarStyles}>
+            <TabContainer as="ul">
+                <li>
+                    <button onClick={() => {}} css={activeButtonStyles}>
+                        캘린더
+                    </button>
+                </li>
+                <li>
+                    <button onClick={() => navigate('/main/diary')}>
+                        다이어리
+                    </button>
+                </li>
+            </TabContainer>
             <Text
                 display="inline-block"
                 typography="t6"
@@ -156,7 +180,7 @@ const CalendarBox = () => {
                 maxDate={maxDate}
             />
             <Flex justify="flex-end">
-                <AddDiary />
+                <AddDiary onClick={handleClickAddDiary} />
             </Flex>
         </div>
     )
@@ -191,6 +215,10 @@ const AddDiary = styled.button`
     background-size: 22px;
     background-color: #000;
     border-radius: 50%;
+`
+
+const activeButtonStyles = css`
+    background-color: var(--white);
 `
 
 export default CalendarBox

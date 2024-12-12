@@ -34,7 +34,7 @@ const DrawerContainer = styled.div<{ open: boolean | string }>`
     position: fixed;
     bottom: 0;
     right: 0;
-    height: 350px;
+
     width: 100%;
     background-color: var(--white);
     color: white;
@@ -47,7 +47,7 @@ const DrawerContainer = styled.div<{ open: boolean | string }>`
 
 // Drawer 내용
 const DrawerContent = styled.div`
-    padding: 20px;
+    padding-bottom: 75px;
     display: flex;
     flex-direction: column;
     position: relative;

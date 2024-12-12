@@ -7,7 +7,8 @@ import Text from '@shared/Text'
 import Flex from '@shared/Flex'
 import Spacing from '@shared/Spacing'
 import DateTitle from '@components/calendar/DateTitle'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import TabContainer from '@shared/TabContainer'
 
 interface Props {
     date: string
@@ -34,6 +35,7 @@ const CalendarFeed = () => {
         { date: '2024-12-07', task: 'Workout' },
         { date: '2024-12-09', task: 'Meeting' },
     ]
+    const navigate = useNavigate()
 
     const formatDate = useFormatDate()
 
@@ -71,6 +73,19 @@ const CalendarFeed = () => {
 
     return (
         <div css={calendarStyles}>
+            <TabContainer as="ul">
+                <li>
+                    <button onClick={() => navigate('/main/calendar')}>
+                        캘린더
+                    </button>
+                </li>
+                <li>
+                    <button onClick={() => {}} css={activeButtonStyles}>
+                        다이어리
+                    </button>
+                </li>
+            </TabContainer>
+
             <DateTitle pickerDate={pickerDate} setPickerDate={setPickerDate} />
             <FeedContainer as="ul">
                 {feedList.length > 0 ? (
@@ -183,4 +198,7 @@ const addDiaryImg = css`
     height: 22px;
 `
 
+const activeButtonStyles = css`
+    background-color: var(--white);
+`
 export default CalendarFeed

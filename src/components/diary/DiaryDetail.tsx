@@ -4,12 +4,18 @@ import Flex from '@shared/Flex'
 import Text from '@shared/Text'
 import styled from '@emotion/styled'
 import Spacing from '@shared/Spacing'
+import { useNavigate } from 'react-router-dom'
 
 const DiaryDetail = () => {
+    const navigate = useNavigate()
+
+    const handleClickBack = () => {
+        navigate(-1)
+    }
     return (
         <div>
             <Spacing size={30} />
-            <Topbar title="회원가입" left="뒤로" />
+            <Topbar title="날짜" left="뒤로" leftOnClick={handleClickBack} />
             <Flex direction="column">
                 <ImageArea></ImageArea>
                 <Spacing size={20} />
