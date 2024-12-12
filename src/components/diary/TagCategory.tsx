@@ -1,25 +1,41 @@
-import React from 'react'
+import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
+
 import Flex from '@shared/Flex'
-import Text from '@shared/Text'
 import Input from '@shared/Input'
+import React from 'react'
 import Spacing from '@shared/Spacing'
-import styled from '@emotion/styled'
+import Text from '@shared/Text'
 import { css } from '@emotion/react'
+import styled from '@emotion/styled'
+import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 
-const TagCategory = ({ onSubmit }: { onSubmit: (value: string) => void }) => {
-    const [selectedValue, setSelectedValue] = useState<string>('')
+const TagCategory = () => {
+    const { step, setStep } = useAddDiaryStep()
+    const { diaryData, setDiaryData } = useAddDiaryData()
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault() // 기본 동작 방지
-        if (selectedValue) {
-            onSubmit(selectedValue)
+    // 폼 데이터 타입 지정
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<{ emotion: string }>({
+        mode: 'onChange',
+    })
+
+    // 폼 제출 함수
+    const handleFormSubmit = (data: { emotion: string }) => {
+        if (data.emotion) {
+            //감정 추가가
+            setStep(1)
+            setDiaryData({ ...diaryData, mood: data.emotion })
         } else {
             alert('감정을 선택해주세요.')
         }
     }
 
     return (
-        <form onSubmit={}>
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
             <Spacing size={30} />
             <Flex direction="column">
                 <Text typography="t4" weight="bold" color="gray800">
@@ -46,64 +62,66 @@ const TagCategory = ({ onSubmit }: { onSubmit: (value: string) => void }) => {
                     as="ul"
                     css={css`
                         gap: 12px 8px;
+                        flex-wrap: wrap;
                     `}
                 >
                     <li>
                         <Input
-                            name="emotion"
+                            {...register('emotion', { required: true })}
                             id="cat1"
                             type="radio"
+                            value="기쁨"
                             css={inputStyles}
                         />
                         <LabelBox htmlFor="cat1">기쁨</LabelBox>
                     </li>
                     <li>
                         <Input
-                            name="emotion"
+                            {...register('emotion', { required: true })}
                             id="cat2"
                             type="radio"
+                            value="설렘"
                             css={inputStyles}
                         />
                         <LabelBox htmlFor="cat2">설렘</LabelBox>
                     </li>
                     <li>
                         <Input
-                            name="emotion"
+                            {...register('emotion', { required: true })}
                             id="cat3"
                             type="radio"
+                            value="뿌듯함"
                             css={inputStyles}
                         />
-                        <LabelBox htmlFor="cat3"> 뿌듯함</LabelBox>
+                        <LabelBox htmlFor="cat3">뿌듯함</LabelBox>
                     </li>
                     <li>
                         <Input
-                            name="emotion"
+                            {...register('emotion', { required: true })}
                             id="cat4"
                             type="radio"
+                            value="감동"
                             css={inputStyles}
                         />
                         <LabelBox htmlFor="cat4">감동</LabelBox>
                     </li>
                     <li>
                         <Input
-                            name="emotion"
+                            {...register('emotion', { required: true })}
                             id="cat5"
                             type="radio"
+                            value="만족감"
                             css={inputStyles}
                         />
                         <LabelBox htmlFor="cat5">만족감</LabelBox>
                     </li>
-                    <li>
-                        <Input
-                            name="emotion"
-                            id="cat6"
-                            type="radio"
-                            css={inputStyles}
-                        />
-                        <LabelBox htmlFor="cat6">만족감</LabelBox>
-                    </li>
                 </Flex>
             </CatgoryContainer>
+            {errors.emotion && (
+                <Text typography="t3" color="red">
+                    감정을 선택해주세요.
+                </Text>
+            )}
             <button type="submit">전송</button>
         </form>
     )
@@ -135,6 +153,7 @@ const LabelBox = styled.label`
     line-height: 1.5;
     border-radius: 32px;
     background: var(--gray100);
+    white-space: nowrap;
 `
 
 export default TagCategory

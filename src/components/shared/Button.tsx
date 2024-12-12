@@ -1,13 +1,14 @@
-import { CSSProperties } from 'react'
-import styled from '@emotion/styled'
-import { css } from '@emotion/react'
-import { colors, Colors } from '@styles/colorPalette'
+import { Colors, colors } from '@styles/colorPalette'
 import {
     Typography,
+    TypographyWeight,
     typographyMap,
     typographyWeight,
-    TypographyWeight,
 } from '@/styles/typography'
+
+import { CSSProperties } from 'react'
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 interface ButtonProps {
     full?: boolean
@@ -24,7 +25,7 @@ const Button = styled.button<ButtonProps>(
         backgroundColor: disabled ? colors['gray200'] : colors[bgColor],
         color: disabled ? colors['gray300'] : colors[color],
         textAlign: 'center',
-        padding: '11px 27px',
+        padding: '14px 27px',
         borderRadius: '8px',
     }),
     ({ typography = 't3' }) => typographyMap[typography],

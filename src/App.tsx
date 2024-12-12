@@ -1,15 +1,16 @@
-import { Routes, Route, Outlet } from 'react-router-dom'
-import SignIn from '@pages/SignIn'
-import Redirection from '@pages/Redirection'
-import Navbar from '@shared/Navbar'
-import styled from '@emotion/styled'
-import Signup from '@pages/Signup'
+import { Outlet, Route, Routes } from 'react-router-dom'
+
+import AddDiaryAi from '@pages/AddDiaryAi'
 import CalendarPicker from '@components/calendar/CalendarPicker'
-import DiaryDetail from '@components/diary/DiaryDetail'
-import ImageTest from './components/ImageTest'
 import CalendartBox from '@components/calendar/CalendarBox'
 import CalendartFeed from '@components/calendar/CalendarFeed'
-import AddDiaryAi from '@pages/AddDiaryAi'
+import DiaryDetail from '@components/diary/DiaryDetail'
+import ImageTest from './components/ImageTest'
+import Navbar from '@shared/Navbar'
+import Redirection from '@pages/Redirection'
+import SignIn from '@pages/SignIn'
+import Signup from '@pages/Signup'
+import styled from '@emotion/styled'
 
 // Navbar를 포함하는 컴포넌트들과 아닌 컴포넌트 구분
 const LayoutWithNavbar = () => (
