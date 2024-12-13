@@ -33,7 +33,7 @@ const Alert = ({
         <Dimmed>
             <AlertContiner>
                 {Component != null && <Component {...componentProps} />}
-                <Spacing size={30} />
+
                 <Flex
                     justify="flex-end"
                     css={css`

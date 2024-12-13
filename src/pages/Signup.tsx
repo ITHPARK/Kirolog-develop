@@ -6,13 +6,9 @@ import { CreateUserProps } from '@models/signup'
 import { useMutation } from '@tanstack/react-query'
 import { createAccount } from '@remote/user'
 import { CreateUserInfo } from '@models/signup'
+import Close from '@shared/ico/Close'
 
 const Signup = () => {
-    const [first, setfirst] = useState({
-        username: 'ithpark',
-        password: 'test1!',
-    })
-
     //리액트 쿼리 useMutation 설정
     const mutate = useMutation({
         mutationFn: async (data: CreateUserInfo) => {
@@ -28,30 +24,29 @@ const Signup = () => {
 
     //폼 결과를 가져온다.
     const handleSubmit = (signupValues: CreateUserProps) => {
-        setfirst({
+        console.log(signupValues)
+
+        // 회원 가입 실행
+        mutate.mutate({
             username: signupValues.username,
             password: signupValues.password,
         })
-
-        //실행
-        mutate.mutate(first)
     }
 
     const navigate = useNavigate()
 
     const handleClick = () => {
-        navigate('/')
+        navigate('/signin')
     }
 
     return (
         <div>
             <Topbar
                 title="회원가입"
-                right="홈으로"
+                right={<Close />}
                 rightOnClick={handleClick}
             />
             <UserTextForm onSubmit={handleSubmit} />
-            <button>버튼</button>
         </div>
     )
 }

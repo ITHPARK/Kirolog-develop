@@ -21,7 +21,6 @@ const UserTextForm = ({
 }) => {
     const [isIdChecked, setIsIdChecked] = useState<boolean>(false)
     const [isFocus, setIsFocus] = useState<boolean>(false)
-    const [formData, setFormData] = useState<any>(null) // 폼 데이터 저장 상태 추가
 
     const { open } = useAlertContext()
 
@@ -247,6 +246,7 @@ const UserTextForm = ({
                                     required: '약관에 동의해주세요.', // 필수 체크 메시지 설정
                                 })}
                                 onChange={handleChangeAgree}
+                                css={inputCheck}
                             />
                             <label htmlFor="agree" css={checkLabel}></label>
                         </div>
@@ -316,12 +316,18 @@ const circleStyles = css`
     transform: translateY(-50%);
 `
 
+const inputCheck = css`
+    &:checked + label {
+        background-position: right center;
+    }
+`
+
 const checkLabel = css`
     display: block;
-    width: 24px;
-    height: 24px;
-    background: url('/images/check-circle-2.svg') no-repeat center;
-    background-size: 100% 100%;
+    width: 20px;
+    height: 20px;
+    background: url('/images/login/check.png') no-repeat left center;
+    background-size: auto 100%;
 `
 
 const AgreeContainer = styled(Flex)`

@@ -4,8 +4,16 @@ import Flex from '@shared/Flex'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import Spacing from '@shared/Spacing'
+import { useNavigate } from 'react-router-dom'
 
-const AddPopup = () => {
+const AddPopup = ({ onClose }: { onClose: () => void }) => {
+    const navigate = useNavigate()
+
+    const handleClickAdd = (type: string) => {
+        navigate(`/diary/write/${type}`)
+        onClose()
+    }
+
     return (
         <div>
             <Flex
@@ -24,7 +32,7 @@ const AddPopup = () => {
             </Flex>
             <Spacing size={20} />
             <Flex direction="column">
-                <AddButton css={aiAdd}>
+                <AddButton css={aiAdd} onClick={() => handleClickAdd('ai')}>
                     <Text
                         typography="t4"
                         weight="bold"
@@ -41,7 +49,7 @@ const AddPopup = () => {
                     </Text>
                 </AddButton>
                 <Spacing size={11} />
-                <AddButton css={normalAdd}>
+                <AddButton css={normalAdd} onClick={() => handleClickAdd('my')}>
                     <Text
                         typography="t4"
                         weight="bold"

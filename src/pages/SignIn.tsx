@@ -55,7 +55,7 @@ const SignIn = () => {
 }
 
 const LoginContainer = styled(Flex)`
-    padding-top: 110px;
+    padding-top: 112px;
 `
 
 const imageStyles = css`

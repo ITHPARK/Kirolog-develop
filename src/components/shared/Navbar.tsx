@@ -1,17 +1,28 @@
+import { useEffect, useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { createPortal } from 'react-dom'
 import Flex from '@shared/Flex'
 import Spacing from '@shared/Spacing'
 import Text from '@shared/Text'
-import { createPortal } from 'react-dom'
 import styled from '@emotion/styled'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
 
 const Navbar = () => {
     const [menu, setMenu] = useState<boolean[]>([false, true, false])
     const navigate = useNavigate()
+    const location = useLocation() // 현재 경로를 추적
 
     const navPortal = document.getElementById('nav')
 
+    useEffect(() => {
+        // 현재 경로에 맞게 메뉴 상태 업데이트
+        if (location.pathname === '/report') {
+            setMenu([true, false, false])
+        } else if (location.pathname === '/my') {
+            setMenu([false, false, true])
+        } else {
+            setMenu([false, true, false])
+        }
+    }, [location.pathname]) // 경로가 바뀔 때마다 실행
     if (navPortal == null) {
         return null
     }

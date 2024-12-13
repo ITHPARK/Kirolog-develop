@@ -25,7 +25,7 @@ const Button = styled.button<ButtonProps>(
         backgroundColor: disabled ? colors['gray200'] : colors[bgColor],
         color: disabled ? colors['gray300'] : colors[color],
         textAlign: 'center',
-        padding: '14px 27px',
+        padding: '13px 27px',
         borderRadius: '8px',
     }),
     ({ typography = 't3' }) => typographyMap[typography],

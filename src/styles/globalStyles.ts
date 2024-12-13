@@ -7,6 +7,7 @@ export default css`
         --alert-zindex: 11;
     }
     ${colorPalette} // 색상을 추가
+    
 
     html,
     body,
@@ -89,7 +90,8 @@ export default css`
     mark,
     audio,
     video,
-    input {
+    input ,
+    textarea {
         margin: 0;
         padding: 0;
         border: 0;
@@ -97,6 +99,22 @@ export default css`
         font: inherit;
         vertical-align: baseline;
         box-sizing: border-box;
+        font-family:
+            'Pretendard Variable',
+            Pretendard,
+            -apple-system,
+            BlinkMacSystemFont,
+            system-ui,
+            Roboto,
+            'Helvetica Neue',
+            'Segoe UI',
+            'Apple SD Gothic Neo',
+            'Noto Sans KR',
+            'Malgun Gothic',
+            'Apple Color Emoji',
+            'Segoe UI Emoji',
+            'Segoe UI Symbol',
+            sans-serif;
     }
     /* HTML5 display-role reset for older browsers */
     article,

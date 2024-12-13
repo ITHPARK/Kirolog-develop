@@ -14,12 +14,11 @@ import styled from '@emotion/styled'
 import { useAlertContext } from '@context/AlertContext'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import LabelBox from '@shared/LabelBox'
 
 const TagCategory = () => {
     const { step, setStep } = useAddDiaryStep()
     const { diaryData, setDiaryData } = useAddDiaryData()
-    const { open } = useAlertContext()
-    const navigate = useNavigate()
 
     // 폼 데이터 타입 지정
     const {
@@ -61,13 +60,7 @@ const TagCategory = () => {
                     </CategoryTitle>
                 </div>
                 <Spacing size={16} />
-                <Flex
-                    as="ul"
-                    css={css`
-                        gap: 12px 8px;
-                        flex-wrap: wrap;
-                    `}
-                >
+                <LabelContainer as="ul">
                     <li>
                         <Input
                             id="cat1"
@@ -118,7 +111,7 @@ const TagCategory = () => {
                         />
                         <LabelBox htmlFor="cat5">만족감</LabelBox>
                     </li>
-                </Flex>
+                </LabelContainer>
             </CatgoryContainer>
             {errors.emotion && (
                 <Text typography="t3" color="red">
@@ -141,21 +134,26 @@ const CatgoryContainer = styled(Flex)`
     border-bottom: 1px solid var(--gray100);
 `
 
+const LabelContainer = styled(Flex)`
+    gap: 12px 8px;
+    flex-wrap: wrap;
+`
+
 const CategoryTitle = styled(Text)`
     padding: 8px 15px;
     display: inline-block;
 `
 
-const LabelBox = styled.label`
-    display: block;
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--gray700);
-    line-height: 1.5;
-    border-radius: 32px;
-    background: var(--gray100);
-    white-space: nowrap;
-`
+// const LabelBox = styled.label`
+//     display: block;
+//     padding: 10px 20px;
+//     font-size: 14px;
+//     font-weight: 500;
+//     color: var(--gray700);
+//     line-height: 1.5;
+//     border-radius: 32px;
+//     background: var(--gray100);
+//     white-space: nowrap;
+// `
 
 export default TagCategory

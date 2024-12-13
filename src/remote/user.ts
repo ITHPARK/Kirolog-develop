@@ -4,15 +4,15 @@ import axios from 'axios'
 export const createAccount = async (userData: CreateUserInfo) => {
     try {
         const response = await axios.post(
-            'http://127.0.0.1:8000/api/accounts/signup/',
-            userData, //{username: , password: }
+            'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com//api/accounts/signup/',
+            userData, //{유저아이디, 패스워드}
             {
                 headers: {
-                    //api키 추가
-                    Authorization: `Bearer ${process.env.REACT_APP_LOCAL_SECRET_KEY}`,
+                    'Content-Type': 'application/json',
                 },
             },
         )
+
         console.log(response.data)
     } catch (e) {
         console.log(e)

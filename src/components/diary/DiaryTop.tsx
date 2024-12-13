@@ -55,7 +55,7 @@ const DiaryTop = () => {
     return (
         <Topbar
             title={diaryData.date ? diaryData.date : ''}
-            left={<ArrowLeft />}
+            left={step > 1 ? <ArrowLeft /> : null}
             right={<Close />}
             leftOnClick={handleClickArrow}
             rightOnClick={handleClickReset}
