@@ -6,6 +6,8 @@ import FixedBottomButton from '@shared/FixedBottomButton'
 import Flex from '@shared/Flex'
 import MyMoodContainer from '@components/diary/MyMoodContainer'
 import Spacing from '@shared/Spacing'
+import Text from '@shared/Text'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import usePreviewImage from '@hooks/usePreviewImage'
 
@@ -13,6 +15,7 @@ const DiaryResult = () => {
     const [text, setText] = useState<string>('') // 초기값 설정
     const [imageSrc, setImageSrc] = useState<string | null>(null)
     const [isContent, setIsContent] = useState<boolean>(true)
+    const [isPlaceholder, setIsPlaceholder] = useState<boolean>(true)
 
     const { setStep } = useAddDiaryStep()
     const { diaryData, setDiaryData } = useAddDiaryData()
@@ -31,8 +34,17 @@ const DiaryResult = () => {
         }
     }, [diaryData, preview])
 
+    useEffect(() => {
+        if (text.length > 0) {
+            setIsPlaceholder(false)
+        } else {
+            setIsPlaceholder(true)
+        }
+    }, [text])
+
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value) // 값 업데이트
+        console.log(123)
 
         //값이 없으면 버튼 비활성화
         if (e.target.value.length > 0) {
@@ -45,8 +57,6 @@ const DiaryResult = () => {
     const handleClick = () => {
         setStep(1)
         setDiaryData({ ...diaryData, content: text })
-
-        console.log(diaryData)
     }
 
     return (
@@ -55,13 +65,33 @@ const DiaryResult = () => {
             <MyMoodContainer mood={diaryData.mood} />
             <Flex direction="column">
                 <Spacing size={20} />
-                <DiaryImageBox imageSrc={imageSrc} />
-                <Spacing size={20} />
-                <DiaryContent
-                    onChange={handleChange}
-                    value={text}
-                    placeholder={'작성한 일기'}
-                ></DiaryContent>
+                {imageSrc !== null && (
+                    <>
+                        <DiaryImageBox imageSrc={imageSrc} />
+                        <Spacing size={20} />
+                    </>
+                )}
+                <div
+                    css={css`
+                        position: relative;
+                    `}
+                >
+                    <DiaryContent onChange={handleChange} value={text} />
+                    {isPlaceholder && (
+                        <PlaceholderWrap direction="column">
+                            <Text typography="t3" color="gray300">
+                                오늘은 어떤 하루였나요?
+                            </Text>
+                            <Text
+                                typography="t1"
+                                weight="regular"
+                                color="gray300"
+                            >
+                                오늘느낀 감정을 세세하고 솔직하게 기록해보세요.
+                            </Text>
+                        </PlaceholderWrap>
+                    )}
+                </div>
             </Flex>
             <FixedBottomButton
                 type="button"
@@ -73,9 +103,10 @@ const DiaryResult = () => {
     )
 }
 
-export default DiaryResult
-
 const DiaryContent = styled.textarea`
+    position: relative;
+    width: 100%;
+    background-color: transparent;
     font-size: 16px;
     font-weight: 500;
     color: var(--gray800);
@@ -83,4 +114,18 @@ const DiaryContent = styled.textarea`
     border: none;
     outline: none;
     min-height: 250px;
+    z-index: 10;
 `
+
+const ContentContainer = styled.div`
+    position: relative;
+`
+
+const PlaceholderWrap = styled(Flex)`
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9;
+`
+
+export default DiaryResult

@@ -5,22 +5,22 @@ import { createPortal } from 'react-dom'
 import { css } from '@emotion/react'
 import { keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
-
+import { useAddDiaryStep } from '@store/useAddDiary'
 import { useRef } from 'react'
 
 interface ImageSelectorProps {
     onSetImage: (item: File) => void
-    onClickSkip?: () => void
     skipButton?: boolean
     description?: boolean
 }
 
 const ImageSelector = ({
     onSetImage,
-    onClickSkip,
     skipButton = false,
     description,
 }: ImageSelectorProps) => {
+    const { step, setStep } = useAddDiaryStep()
+
     const $portal = document.getElementById('bottomButton')
 
     if ($portal == null) {
@@ -37,6 +37,11 @@ const ImageSelector = ({
             //부모 함수의 파라미터로 전달
             onSetImage(image)
         }
+    }
+
+    const handleClickSkip = () => {
+        console.log(2321321)
+        setStep(1)
     }
 
     return createPortal(
@@ -66,6 +71,7 @@ const ImageSelector = ({
                         `}
                         justify="center"
                         align="center"
+                        onClick={handleClickSkip}
                     >
                         <Text
                             typography="t2"

@@ -1,10 +1,9 @@
-import React from 'react'
 import Flex from '@shared/Flex'
+import React from 'react'
 import styled from '@emotion/styled'
 
 const TabContainer = styled(Flex)`
     padding: 5px;
-    margin-top: 20px;
     margin-bottom: 24px;
     width: 100%;
     gap: 5px;

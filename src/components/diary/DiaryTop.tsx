@@ -25,6 +25,7 @@ const DiaryTop = () => {
                 description: '작성 중인 내용인 저장되지 않아요!',
             },
             onButtonClick1: () => {
+                setStep(1, true)
                 setDiaryData({
                     date: null,
                     mood: '',
@@ -32,6 +33,7 @@ const DiaryTop = () => {
                     content: '',
                     keyword: [],
                 })
+                navigate('/')
             },
             onButtonClick2: () => {},
             buttonLabel1: '네',

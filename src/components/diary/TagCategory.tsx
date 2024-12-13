@@ -37,28 +37,6 @@ const TagCategory = () => {
         setStep(1) // 바로 다음 스텝으로 이동
     }
 
-    const handleClickReset = () => {
-        open({
-            Component: Alert,
-            componentProps: {
-                title: '작성을 취소할건가요?',
-                description: '작성 중인 내용인 저장되지 않아요!',
-            },
-            onButtonClick1: () => {
-                setDiaryData({
-                    date: null,
-                    mood: '',
-                    image: null,
-                    content: '',
-                    keyword: [],
-                })
-            },
-            onButtonClick2: () => {},
-            buttonLabel1: '네',
-            buttonLabel2: '아니요',
-        })
-    }
-
     return (
         <>
             <Spacing size={30} />

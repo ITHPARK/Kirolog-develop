@@ -4,10 +4,13 @@ import useFormatDate from '@hooks/useFormatDate'
 
 export const useAddDiaryStep = create<{
     step: number
-    setStep: (delta: number) => void
+    setStep: (deltaOrValue: number, isAbsolute?: boolean) => void
 }>((set) => ({
     step: 1, // 초기 값
-    setStep: (delta: number) => set((state) => ({ step: state.step + delta })), // delta에 따라 step을 증가 또는 감소
+    setStep: (deltaOrValue, isAbsolute = false) =>
+        set((state) => ({
+            step: isAbsolute ? deltaOrValue : state.step + deltaOrValue,
+        })), // isAbsolute가 true이면 값을 설정, false이면 증가/감소
 }))
 
 export const useAddDiaryData = create<{

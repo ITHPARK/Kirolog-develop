@@ -168,16 +168,11 @@ export default css`
     }
 
     #root {
+        position: relative;
+        padding-bottom: 20px;
         height: calc(100vh - 60px);
         overflow-y: auto;
         flex: 1;
-    }
-
-    #nav {
-        width: 100%;
-        position: fixed;
-        left: 0;
-        bottom: 0;
     }
 
     img {
@@ -196,7 +191,25 @@ export default css`
         height: 100%;
     }
 
+    #nav {
+        position: relative;
+        width: 100%;
+        :after {
+            content: '';
+            width: 100%;
+            height: 20px;
+            background: #fff;
+            position: absolute;
+            left: 0;
+            top: -20px;
+        }
+    }
+
     #bottomButton {
         z-index: 1001;
+    }
+
+    #modal-portal {
+        z-index: 1002;
     }
 `

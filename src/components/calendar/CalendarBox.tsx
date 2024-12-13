@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+
+import AddPopup from '@components/diary/AddPopup'
 import Calendar from 'react-calendar'
+import CalendarPicker from '@components/calendar/CalendarPicker'
+import Flex from '@shared/Flex'
+import Spacing from '@shared/Spacing'
+import TabContainer from '@shared/TabContainer'
+import Text from '@shared/Text'
 import calendarStyles from '@styles/calendarStyles'
-import useFormatDate from '@hooks/useFormatDate'
+import { css } from '@emotion/react'
 import moment from 'moment'
 import styled from '@emotion/styled'
-import { css } from '@emotion/react'
-import Text from '@shared/Text'
 import { useDrawerContext } from '@/context/DrawContext'
-import CalendarPicker from '@components/calendar/CalendarPicker'
+import useFormatDate from '@hooks/useFormatDate'
 import useFormatPickerDate from '@hooks/useFormatPickerDate'
-import Flex from '@shared/Flex'
-import AddPopup from '@components/diary/AddPopup'
 import { useNavigate } from 'react-router-dom'
-import TabContainer from '@shared/TabContainer'
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
@@ -147,6 +149,7 @@ const CalendarBox = () => {
 
     return (
         <div css={calendarStyles}>
+            <Spacing size={20} />
             <TabContainer as="ul">
                 <li>
                     <button onClick={() => {}} css={activeButtonStyles}>
@@ -154,9 +157,7 @@ const CalendarBox = () => {
                     </button>
                 </li>
                 <li>
-                    <button onClick={() => navigate('/main/diary')}>
-                        다이어리
-                    </button>
+                    <button onClick={() => navigate('/diary')}>다이어리</button>
                 </li>
             </TabContainer>
             <Text
