@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
+import React, { useEffect, useState } from 'react'
+
 import Flex from '@shared/Flex'
 import Text from '@shared/Text'
 import { createPortal } from 'react-dom'
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 interface TopProps {
     left?: React.ReactNode

@@ -1,33 +1,36 @@
-import { useEffect, useState } from 'react'
-import Flex from '@shared/Flex'
-import Text from '@shared/Text'
-import styled from '@emotion/styled'
-import { css } from '@emotion/react'
-import Spacing from '@shared/Spacing'
-import FixedBottomButton from '@shared/FixedBottomButton'
 import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
+import { useEffect, useState } from 'react'
+
 import DiaryImageBox from '@components/diary/DiaryImageBox'
-import { useForm } from 'react-hook-form'
+import FixedBottomButton from '@shared/FixedBottomButton'
+import Flex from '@shared/Flex'
+import MyMoodContainer from '@components/diary/MyMoodContainer'
+import Spacing from '@shared/Spacing'
+import Text from '@shared/Text'
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
+import usePreviewImage from '@hooks/usePreviewImage'
 
 const AddKeyword = () => {
-    const [imageSrc, setImageSrc] = useState<string | null | ArrayBuffer>(null)
+    const [imageSrc, setImageSrc] = useState<string | null>(null)
     const [keywords, setKeywords] = useState(['', '', '']) // 키워드 상태
 
     const { step, setStep } = useAddDiaryStep()
     const { diaryData, setDiaryData } = useAddDiaryData()
 
+    //이미지 파일을 볼 수 있게 포맷하는 훅
+    const preview = usePreviewImage()
+
     useEffect(() => {
+        //이미지 뷰어 생성
         const image = diaryData.image
 
         if (image) {
-            //파일을 읽은 결과를 가져온다.
-            const reader = new FileReader()
-            reader.readAsDataURL(image)
-            reader.onloadend = () => {
-                setImageSrc(reader.result)
-            }
+            preview(image, (result) => {
+                setImageSrc(result)
+            })
         }
-    }, [diaryData])
+    }, [diaryData, preview])
 
     // 키워드 입력 핸들러
     const handleKeywordChange = (index: number, value: string) => {
@@ -42,7 +45,6 @@ const AddKeyword = () => {
     const handleAddKeywrod = () => {
         setDiaryData({ ...diaryData, keyword: keywords })
         setStep(1)
-        console.log(123123)
     }
 
     // 버튼 활성화 여부
@@ -51,14 +53,8 @@ const AddKeyword = () => {
     return (
         <>
             <Flex direction="column">
-                <MyMoodContainer justify="space-between" align="center">
-                    <Text typography="t2" color="gray800">
-                        오늘 당신의 감정은
-                    </Text>
-                    <Text typography="t2" color="gray800" weight="bold">
-                        기쁨
-                    </Text>
-                </MyMoodContainer>
+                <Spacing size={8} />
+                <MyMoodContainer mood="기쁨" />
                 <Spacing size={20} />
                 <DiaryImageBox imageSrc={imageSrc} />
                 <Spacing size={20} />
@@ -127,13 +123,6 @@ const AddKeyword = () => {
         </>
     )
 }
-
-const MyMoodContainer = styled(Flex)`
-    padding: 16px 30px 16px 20px;
-    width: 100%;
-    background: var(--gray100);
-    border-radius: 8px;
-`
 
 const KeywordInput = styled.input`
     padding: 12px 0 8px 0;

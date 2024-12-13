@@ -1,10 +1,10 @@
-import styled from '@emotion/styled'
-import { css } from '@emotion/react'
-import { colors } from '@styles/colorPalette'
-import Dimmed from '@shared/Dimmed'
-import Text from '@shared/Text'
-import Flex from '@shared/Flex'
 import Button from '@shared/Button'
+import Dimmed from '@shared/Dimmed'
+import Flex from '@shared/Flex'
+import Spacing from '@shared/Spacing'
+import { colors } from '@styles/colorPalette'
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 interface AlertProps {
     open?: boolean
@@ -33,6 +33,7 @@ const Alert = ({
         <Dimmed>
             <AlertContiner>
                 {Component != null && <Component {...componentProps} />}
+                <Spacing size={30} />
                 <Flex
                     justify="flex-end"
                     css={css`
@@ -73,7 +74,8 @@ const Alert = ({
 }
 
 const AlertContiner = styled.div`
-    padding: 24px;
+    padding: 28px 13px 13px;
+    min-width: 273px;
     position: absolute;
     left: 50%;
     top: 50%;

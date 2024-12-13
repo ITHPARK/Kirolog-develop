@@ -24,7 +24,6 @@ const SelectImage = () => {
 
     return (
         <>
-            <Topbar title="날짜" />
             <Flex direction="column" justify="center">
                 <Spacing size={100} />
                 <Flex justify="center">

@@ -1,11 +1,10 @@
 import { Outlet, Route, Routes } from 'react-router-dom'
 
 import AddDiaryAi from '@pages/AddDiaryAi'
-import CalendarPicker from '@components/calendar/CalendarPicker'
+import ArrowLeft from '@shared/ico/ArrowLeft'
 import CalendartBox from '@components/calendar/CalendarBox'
 import CalendartFeed from '@components/calendar/CalendarFeed'
 import DiaryDetail from '@components/diary/DiaryDetail'
-import ImageTest from './components/ImageTest'
 import Navbar from '@shared/Navbar'
 import Redirection from '@pages/Redirection'
 import SignIn from '@pages/SignIn'
@@ -41,7 +40,6 @@ function App() {
 
                     <Route path="/signup" element={<Signup />} />
                 </Routes>
-
                 {/* <ImageTest /> */}
             </Container>
             {/* <Navbar /> */}

@@ -1,5 +1,4 @@
 import { colorPalette } from './colorPalette'
-
 import { css } from '@emotion/react'
 
 export default css`
@@ -195,5 +194,9 @@ export default css`
         display: flex;
         flex-direction: column;
         height: 100%;
+    }
+
+    #bottomButton {
+        z-index: 1001;
     }
 `

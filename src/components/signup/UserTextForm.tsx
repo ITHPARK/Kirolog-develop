@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-import { SigninProps } from '@models/signin'
+import React, { useEffect, useState } from 'react'
+
+import AgreeText from '@components/signup/AgreeText'
+import Button from '@shared/Button'
+import Errormessage from '../shared/Errormessage'
+import FixedBottomButton from '@shared/FixedBottomButton'
 import Flex from '@shared/Flex'
-import Text from '@shared/Text'
-import Spacing from '@shared/Spacing'
 import Input from '@shared/Input'
+import { SigninProps } from '@models/signin'
+import Spacing from '@shared/Spacing'
+import Text from '@shared/Text'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import Button from '@shared/Button'
-import FixedBottomButton from '@shared/FixedBottomButton'
-import Errormessage from '../shared/Errormessage'
 import { useAlertContext } from '@context/AlertContext'
-import AgreeText from '@components/signup/AgreeText'
+import { useForm } from 'react-hook-form'
 
 const UserTextForm = ({
     onSubmit,
@@ -338,7 +339,7 @@ const AgreeArrow = styled.span`
     display: block;
     width: 16px;
     height: 16px;
-    background: url('/images/arrow_right.svg') no-repeat center;
+    background: url('/images/arrow_right_16.svg') no-repeat center;
     background-size: 100% 100%;
 `
 

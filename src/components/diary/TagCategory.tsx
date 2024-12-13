@@ -1,16 +1,25 @@
 import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
 
+import Alert from '@shared/Alert/Alert'
+import ArrowLeft from '@shared/ico/ArrowLeft'
+import Close from '@shared/ico/Close'
+import DiaryTop from '@components/diary/DiaryTop'
 import Flex from '@shared/Flex'
 import Input from '@shared/Input'
 import Spacing from '@shared/Spacing'
 import Text from '@shared/Text'
+import Topbar from '../shared/Topbar'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
+import { useAlertContext } from '@context/AlertContext'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 const TagCategory = () => {
     const { step, setStep } = useAddDiaryStep()
     const { diaryData, setDiaryData } = useAddDiaryData()
+    const { open } = useAlertContext()
+    const navigate = useNavigate()
 
     // 폼 데이터 타입 지정
     const {
@@ -22,18 +31,36 @@ const TagCategory = () => {
     })
 
     // 폼 제출 함수
-    const handleFormSubmit = (data: { emotion: string }) => {
-        if (data.emotion) {
-            //감정 추가가
-            setStep(1)
-            setDiaryData({ ...diaryData, mood: data.emotion })
-        } else {
-            alert('감정을 선택해주세요.')
-        }
+    // 감정 선택 핸들러
+    const handleEmotionChange = (emotion: string) => {
+        setDiaryData({ ...diaryData, mood: emotion })
+        setStep(1) // 바로 다음 스텝으로 이동
+    }
+
+    const handleClickReset = () => {
+        open({
+            Component: Alert,
+            componentProps: {
+                title: '작성을 취소할건가요?',
+                description: '작성 중인 내용인 저장되지 않아요!',
+            },
+            onButtonClick1: () => {
+                setDiaryData({
+                    date: null,
+                    mood: '',
+                    image: null,
+                    content: '',
+                    keyword: [],
+                })
+            },
+            onButtonClick2: () => {},
+            buttonLabel1: '네',
+            buttonLabel2: '아니요',
+        })
     }
 
     return (
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <>
             <Spacing size={30} />
             <Flex direction="column">
                 <Text typography="t4" weight="bold" color="gray800">
@@ -65,51 +92,51 @@ const TagCategory = () => {
                 >
                     <li>
                         <Input
-                            {...register('emotion', { required: true })}
                             id="cat1"
                             type="radio"
                             value="기쁨"
                             css={inputStyles}
+                            onChange={() => handleEmotionChange('기쁨')}
                         />
                         <LabelBox htmlFor="cat1">기쁨</LabelBox>
                     </li>
                     <li>
                         <Input
-                            {...register('emotion', { required: true })}
                             id="cat2"
                             type="radio"
                             value="설렘"
                             css={inputStyles}
+                            onChange={() => handleEmotionChange('설렘')}
                         />
                         <LabelBox htmlFor="cat2">설렘</LabelBox>
                     </li>
                     <li>
                         <Input
-                            {...register('emotion', { required: true })}
                             id="cat3"
                             type="radio"
                             value="뿌듯함"
                             css={inputStyles}
+                            onChange={() => handleEmotionChange('뿌듯함')}
                         />
                         <LabelBox htmlFor="cat3">뿌듯함</LabelBox>
                     </li>
                     <li>
                         <Input
-                            {...register('emotion', { required: true })}
                             id="cat4"
                             type="radio"
                             value="감동"
                             css={inputStyles}
+                            onChange={() => handleEmotionChange('감동')}
                         />
                         <LabelBox htmlFor="cat4">감동</LabelBox>
                     </li>
                     <li>
                         <Input
-                            {...register('emotion', { required: true })}
                             id="cat5"
                             type="radio"
                             value="만족감"
                             css={inputStyles}
+                            onChange={() => handleEmotionChange('만족감')}
                         />
                         <LabelBox htmlFor="cat5">만족감</LabelBox>
                     </li>
@@ -120,8 +147,7 @@ const TagCategory = () => {
                     감정을 선택해주세요.
                 </Text>
             )}
-            <button type="submit">전송</button>
-        </form>
+        </>
     )
 }
 
