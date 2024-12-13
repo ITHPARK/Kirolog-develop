@@ -190,6 +190,31 @@ const UserTextForm = ({
                         placeholder="비밀번호"
                         {...register('password', {
                             required: '비밀번호를 입력해주세요',
+                            minLength: {
+                                value: 8,
+                                message:
+                                    '비밀번호는 최소 8자 이상이어야 합니다',
+                            },
+                            validate: {
+                                noOnlyNumbers: (value) =>
+                                    !/^\d+$/.test(value) ||
+                                    '숫자만 있는 비밀번호는 사용할 수 없습니다',
+                                noEmailFormat: (value) =>
+                                    !/^[^@]+@[^@]+\.[^@]+$/.test(value) ||
+                                    '이메일 형식의 비밀번호는 사용할 수 없습니다',
+                                noCommonPasswords: (value) => {
+                                    const commonPasswords = [
+                                        'password',
+                                        '123456',
+                                        'qwerty',
+                                        '12345678',
+                                    ]
+                                    return (
+                                        !commonPasswords.includes(value) ||
+                                        '흔한 비밀번호는 사용할 수 없습니다'
+                                    )
+                                },
+                            },
                         })}
                     />
                     <Spacing size={8} />

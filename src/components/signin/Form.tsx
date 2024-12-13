@@ -29,7 +29,7 @@ const From = ({
                     type="text"
                     id="id"
                     placeholder="아이디 입력"
-                    {...register('userId', {
+                    {...register('username', {
                         required: '아이디를 입력해주세요',
                     })}
                 />
@@ -44,8 +44,8 @@ const From = ({
                     })}
                 />
 
-                {errors.userId && (
-                    <Errormessage message={errors.userId?.message} />
+                {errors.username && (
+                    <Errormessage message={errors.username?.message} />
                 )}
                 {errors.password && (
                     <Errormessage message={errors.password?.message} />
