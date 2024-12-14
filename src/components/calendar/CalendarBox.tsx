@@ -15,6 +15,11 @@ import { useDrawerContext } from '@/context/DrawContext'
 import useFormatDate from '@hooks/useFormatDate'
 import useFormatPickerDate from '@hooks/useFormatPickerDate'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { getDiary } from '@remote/diary'
+import { useDiaryStore } from '@store/useDiary'
+import { DiaryProps } from '@models/diary'
+import DayCircle from '@components/calendar/DayCircle'
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
@@ -22,6 +27,8 @@ type Value = ValuePiece | [ValuePiece, ValuePiece]
 const CalendarBox = () => {
     const { open } = useDrawerContext()
     const navigate = useNavigate()
+    const { diarys, setDiarys } = useDiaryStore()
+    const formatDate = useFormatDate()
 
     // 내가 선택한 날짜
     const [selectedDate, setSelectedDate] = useState<Value>(new Date())
@@ -33,22 +40,27 @@ const CalendarBox = () => {
 
     const [pickerDate, setPickerDate] = useState<Date>(new Date())
 
-    const formatDate = useFormatDate()
-    const today = new Date()
-    const minDate = new Date(today.getFullYear(), today.getMonth(), 1) // 이번 달의 첫 날
-    const maxDate = new Date(today.getFullYear(), today.getMonth() + 1, 0) // 다음 달의 마지막 날
+    const { data, isLoading } = useQuery({
+        queryKey: ['diary'],
+        queryFn: () => getDiary(),
+        retry: false,
+    })
+
+    useEffect(() => {
+        //리액트 쿼리로 데이터를 받으면 전역에 저장
+        if (data != null && data.length > 0) {
+            //받은 모든 일기 리스트에서 ymd를 (2024=12-14)형식으로 바꾼다.
+            const format = data.map((item: DiaryProps) => {
+                const formatDate = item.ymd.split('T')[0]
+                return { ...item, ymd: formatDate }
+            })
+            setDiarys(format)
+        }
+    }, [data])
 
     useEffect(() => {
         setCurrentMonth(pickerDate.getMonth() + 1)
     }, [pickerDate, currentMonth])
-
-    //mock 데이터
-    const todos = [
-        { date: '2024-12-04', task: 'Workout' },
-        { date: '2024-12-05', task: 'Workout' },
-        { date: '2024-12-07', task: 'Workout' },
-        { date: '2024-12-09', task: 'Meeting' },
-    ]
 
     // 날짜에 아이콘 추가
     const getTileContent = ({ date }: { date: Date }) => {
@@ -56,17 +68,24 @@ const CalendarBox = () => {
         const today = formatDate(new Date())
 
         if (dateStr <= today) {
-            const todo = todos.find((todo) => todo.date === dateStr)
+            const diary = diarys.find((item) => item.ymd === dateStr)
 
-            if (todo) {
-                return <DayCircle className="day_circle" />
+            //일기를 쓴 날에 추가
+            if (diary) {
+                return (
+                    <DayCircle
+                        moodStr={diary.moods}
+                        onClick={() => navigate(`/diary/${diary.id}`)}
+                    />
+                )
+            } else if (dateStr === today) {
+                //오늘 아직 일기를 쓰지 않았다면 클릭했을 때 일기 추가 팝업뜬다.
+                return <DayCircle today={true} onClick={handleClickAddDiary} />
             }
-
-            return <DayCircle css={circleStyles1} className="day_circle" />
         }
 
         if (dateStr > today) {
-            return <DayCircle css={circleStyles2} className="day_circle" />
+            return <DayCircle />
         }
     }
 
@@ -92,44 +111,6 @@ const CalendarBox = () => {
         return classes
     }
 
-    // 날짜 선택 시
-    const handleChange = (
-        value: Value,
-        event: React.MouseEvent<HTMLButtonElement>,
-    ) => {
-        const currentDate = new Date()
-
-        const currMonth = formatDate(currentDate)
-            .split('-')
-            .slice(0, 2)
-            .join('')
-        const selectMonth =
-            value && value instanceof Date
-                ? formatDate(value).split('-').slice(0, 2).join('')
-                : ''
-
-        if (value != null) {
-            if (currMonth > selectMonth || currMonth < selectMonth) {
-                return
-            }
-
-            if (value < currentDate) {
-                setSelectedDate(value)
-
-                if (value instanceof Date) {
-                    const valueDate = formatDate(value)
-                    const isData = todos.find((todo) => todo.date === valueDate)
-
-                    if (isData != null) {
-                        alert('내가쓴 일기를 볼것.')
-                    } else {
-                        alert('일기를 추가한다.')
-                    }
-                }
-            }
-        }
-    }
-
     // 월 picker 클릭
     const handleClickPopup = () => {
         open({
@@ -142,7 +123,6 @@ const CalendarBox = () => {
     const handleClickAddDiary = () => {
         open({
             Component: AddPopup,
-
             onClose: () => {},
         })
     }
@@ -170,15 +150,23 @@ const CalendarBox = () => {
                 {useFormatPickerDate(pickerDate)}
             </Text>
             <Calendar
-                onChange={handleChange}
+                // onChange={handleChange}
                 activeStartDate={pickerDate}
                 tileContent={getTileContent}
                 tileClassName={getTitleClass}
                 locale="ko-KR"
                 formatDay={(locale, date) => moment(date).format('D')}
                 view="month"
-                minDate={minDate}
-                maxDate={maxDate}
+                minDate={
+                    new Date(pickerDate.getFullYear(), pickerDate.getMonth(), 1)
+                }
+                maxDate={
+                    new Date(
+                        pickerDate.getFullYear(),
+                        pickerDate.getMonth() + 1,
+                        0,
+                    )
+                } // 다음 달의 마지막 날}
             />
             <Flex justify="flex-end">
                 <AddDiary onClick={handleClickAddDiary} />
@@ -186,20 +174,6 @@ const CalendarBox = () => {
         </div>
     )
 }
-
-const DayCircle = styled.div`
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-`
-
-const circleStyles1 = css`
-    background-color: var(--white);
-`
-
-const circleStyles2 = css`
-    background-color: var(--gray100);
-`
 
 const dateTitle = css`
     padding-right: 22px;

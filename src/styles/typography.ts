@@ -1,9 +1,13 @@
 import { css } from '@emotion/react'
 
 export const typographyMap = {
+    t0: css`
+        font-size: 10px;
+        line-height: 1.5;
+    `,
     t1: css`
         font-size: 12px;
-        line-height: 1.4;
+        line-height: 1.5;
     `,
     t2: css`
         font-size: 14px;
@@ -15,11 +19,11 @@ export const typographyMap = {
     `,
     t4: css`
         font-size: 20px;
-        line-height: 1.4;
+        line-height: 1.5;
     `,
     t5: css`
         font-size: 24px;
-        line-height: 1.4;
+        line-height: 1.5;
     `,
     t6: css`
         font-size: 26px;

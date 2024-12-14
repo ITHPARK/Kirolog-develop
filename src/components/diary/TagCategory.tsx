@@ -15,25 +15,7 @@ import { useAlertContext } from '@context/AlertContext'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import LabelBox from '@shared/LabelBox'
-
-const mood = {
-    type1: {
-        title: '희',
-        subMood: ['기쁨', '설렘', '뿌듯', '감동', '만족', '행복'],
-    },
-    type2: {
-        title: '노',
-        subMood: ['분노', '짜증', '억울', '불쾌', '좌절', '답답', '초조'],
-    },
-    type3: {
-        title: '애',
-        subMood: ['슬픔', '속상', '우울', '외로움', '후회', '무기력', '그리움'],
-    },
-    type4: {
-        title: '락',
-        subMood: ['즐거움', '따듯', '기대', '여유', '평온'],
-    },
-}
+import { mood } from '@utils/moodContent'
 
 const TagCategory = () => {
     const { step, setStep } = useAddDiaryStep()
@@ -82,7 +64,7 @@ const TagCategory = () => {
                         </CategoryTitle>
                         <Spacing size={16} />
                         <LabelContainer as="ul">
-                            {subMood.map((emotion, index) => (
+                            {subMood.map((emotion: string, index: number) => (
                                 <li key={index}>
                                     <Input
                                         id={`cat${typeKey}-${index}`}
@@ -138,17 +120,5 @@ const CategoryTitle = styled(Text)`
     padding: 8px 15px;
     display: inline-block;
 `
-
-// const LabelBox = styled.label`
-//     display: block;
-//     padding: 10px 20px;
-//     font-size: 14px;
-//     font-weight: 500;
-//     color: var(--gray700);
-//     line-height: 1.5;
-//     border-radius: 32px;
-//     background: var(--gray100);
-//     white-space: nowrap;
-// `
 
 export default TagCategory

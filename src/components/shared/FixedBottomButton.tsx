@@ -4,6 +4,8 @@ import { createPortal } from 'react-dom'
 import { keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
 import { SerializedStyles } from '@emotion/react'
+import Text from '@shared/Text'
+import Spacing from '@shared/Spacing'
 
 interface FixedBottomButtonProps {
     label: string
@@ -12,6 +14,8 @@ interface FixedBottomButtonProps {
     form?: string
     type: 'button' | 'submit' | 'reset' | undefined
     css?: SerializedStyles
+    bggray?: boolean
+    description?: string
 }
 
 const FixedBottomButton = ({
@@ -21,6 +25,8 @@ const FixedBottomButton = ({
     form,
     type,
     css,
+    bggray,
+    description,
 }: FixedBottomButtonProps) => {
     const $portal = document.getElementById('bottomButton')
 
@@ -29,7 +35,20 @@ const FixedBottomButton = ({
     }
 
     return createPortal(
-        <Container css={css}>
+        <Container css={css} bggray={bggray}>
+            {description && (
+                <>
+                    <Text
+                        typography="t1"
+                        weight="regular"
+                        color="gray600"
+                        align="center"
+                    >
+                        {description}
+                    </Text>
+                    <Spacing size={16} />
+                </>
+            )}
             <Button
                 onClick={onClick}
                 full={true}
@@ -53,9 +72,11 @@ const slideup = keyframes`
   }
 `
 
-const Container = styled.div`
+const Container = styled.div<{ bggray?: boolean }>`
+    /* bggray의 타입을 optional로 변경 */
     padding: 20px 18px 53px;
-    background-color: #fff;
+    background-color: ${(props) =>
+        props.bggray ? '#f7f8fa' : '#fff'}; /* props.bggray로 조건 처리 */
     transform: translateY(100%);
     animation: ${slideup} 0.5s ease-in-out forwards;
 `

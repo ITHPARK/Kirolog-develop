@@ -207,20 +207,8 @@ export default css`
         display: flex;
         flex-direction: column;
         height: 100%;
-    }
-
-    #nav {
         position: relative;
         width: 100%;
-        :after {
-            content: '';
-            width: 100%;
-            height: 20px;
-            background: #fff;
-            position: absolute;
-            left: 0;
-            top: -20px;
-        }
     }
 
     #bottomButton {
@@ -229,5 +217,25 @@ export default css`
 
     #modal-portal {
         z-index: 1002;
+    }
+
+    .custom-pagination .swiper-pagination-bullet {
+        position: relative;
+        left: 0;
+        width: 8px;
+        height: 8px;
+        background-color: #dddfe4;
+    }
+
+    .custom-pagination
+        .swiper-pagination-bullet.swiper-pagination-bullet-active {
+        width: 23px;
+        height: 8px;
+        background-color: var(--gray500);
+        border-radius: 100px;
+    }
+
+    .swiper-slide {
+        padding: 0 25px;
     }
 `

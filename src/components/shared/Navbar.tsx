@@ -99,11 +99,23 @@ const NavStyles = styled(Flex)`
     width: 100%;
     height: 90px;
     padding: 10px;
+    position: relative;
     background-color: #fff;
     border-top: 1px solid var(--gray200);
 
     li {
         flex: 1;
+    }
+
+    &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 20px;
+        position: absolute;
+        left: 0;
+        top: -21px;
+        background-color: #fff;
     }
 `
 

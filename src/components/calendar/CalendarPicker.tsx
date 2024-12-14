@@ -5,6 +5,7 @@ import Flex from '@shared/Flex'
 import Text from '@shared/Text'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
+import Spacing from '@shared/Spacing'
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
@@ -76,6 +77,7 @@ const CalendarPicker = ({ onClose, setPickerDate }: PickerProps) => {
                     )
                 })}
             </MonthPicker>
+            <Spacing size={22} />
         </div>
     )
 }

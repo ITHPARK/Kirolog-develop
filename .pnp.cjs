@@ -58,7 +58,7 @@ const RAW_RUNTIME_STATE =
           ["react-hook-form", "virtual:b8fcc630d4cdf6f5693ec939d13ca2659f27d0f31acc2eec2a01819a31edc20ab22e7e0ea996211ab2c2610ebbb5621c8fbf5ae3a4f39de5828c13009956051f#npm:7.54.0"],\
           ["react-router-dom", "virtual:b8fcc630d4cdf6f5693ec939d13ca2659f27d0f31acc2eec2a01819a31edc20ab22e7e0ea996211ab2c2610ebbb5621c8fbf5ae3a4f39de5828c13009956051f#npm:7.0.2"],\
           ["react-scripts", "virtual:b8fcc630d4cdf6f5693ec939d13ca2659f27d0f31acc2eec2a01819a31edc20ab22e7e0ea996211ab2c2610ebbb5621c8fbf5ae3a4f39de5828c13009956051f#npm:5.0.1"],\
-          ["swiper", "npm:11.1.15"],\
+          ["swiper", "npm:10.3.1"],\
           ["typescript", "patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=289587"],\
           ["web-vitals", "npm:2.1.4"],\
           ["zustand", "virtual:b8fcc630d4cdf6f5693ec939d13ca2659f27d0f31acc2eec2a01819a31edc20ab22e7e0ea996211ab2c2610ebbb5621c8fbf5ae3a4f39de5828c13009956051f#npm:5.0.2"]\
@@ -7121,7 +7121,7 @@ const RAW_RUNTIME_STATE =
           ["react-hook-form", "virtual:b8fcc630d4cdf6f5693ec939d13ca2659f27d0f31acc2eec2a01819a31edc20ab22e7e0ea996211ab2c2610ebbb5621c8fbf5ae3a4f39de5828c13009956051f#npm:7.54.0"],\
           ["react-router-dom", "virtual:b8fcc630d4cdf6f5693ec939d13ca2659f27d0f31acc2eec2a01819a31edc20ab22e7e0ea996211ab2c2610ebbb5621c8fbf5ae3a4f39de5828c13009956051f#npm:7.0.2"],\
           ["react-scripts", "virtual:b8fcc630d4cdf6f5693ec939d13ca2659f27d0f31acc2eec2a01819a31edc20ab22e7e0ea996211ab2c2610ebbb5621c8fbf5ae3a4f39de5828c13009956051f#npm:5.0.1"],\
-          ["swiper", "npm:11.1.15"],\
+          ["swiper", "npm:10.3.1"],\
           ["typescript", "patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=289587"],\
           ["web-vitals", "npm:2.1.4"],\
           ["zustand", "virtual:b8fcc630d4cdf6f5693ec939d13ca2659f27d0f31acc2eec2a01819a31edc20ab22e7e0ea996211ab2c2610ebbb5621c8fbf5ae3a4f39de5828c13009956051f#npm:5.0.2"]\
@@ -17807,10 +17807,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["swiper", [\
-      ["npm:11.1.15", {\
-        "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/swiper-npm-11.1.15-30ca9116f5-10c0.zip/node_modules/swiper/",\
+      ["npm:10.3.1", {\
+        "packageLocation": "../../../../AppData/Local/Yarn/Berry/cache/swiper-npm-10.3.1-76fd5fe27f-10c0.zip/node_modules/swiper/",\
         "packageDependencies": [\
-          ["swiper", "npm:11.1.15"]\
+          ["swiper", "npm:10.3.1"]\
         ],\
         "linkType": "HARD"\
       }]\

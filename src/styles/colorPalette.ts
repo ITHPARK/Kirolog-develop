@@ -16,8 +16,10 @@ export const colorPalette = css`
         --gray800: #1c1d1f;
         --slate700: #334155;
         --slate900: #0f172a;
+        --primary100: #dbdbff;
         --primary300: #9f97fc;
         --primary400: #938af8;
+        --primary500: #8479ff;
     }
 `
 
@@ -35,8 +37,10 @@ export const colors = {
     gray800: 'var(--gray800)',
     slate700: 'var(--slate700)',
     slate900: 'var(--slate900)',
+    primary100: 'var(--primary100)',
     primary300: 'var(--primary300)',
     primary400: 'var(--primary400)',
+    primary500: 'var(--primary500)',
 }
 
 //color의 타입을 정의 키값만 사용하면 되기때문에 keyof 를 사용

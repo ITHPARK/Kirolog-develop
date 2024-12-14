@@ -8,10 +8,26 @@ import ArrowLeft from '@shared/ico/ArrowLeft'
 import { useNavigate } from 'react-router-dom'
 import { useAlertContext } from '@context/AlertContext'
 import Alert from '@shared/Alert/Alert'
+import { useAuth } from '@context/AuthContext'
+import { useMutation } from '@tanstack/react-query'
+import { deleteUser } from '@remote/user'
+import useUserStore from '@store/useUserStore'
 
 const Account = () => {
     const navigate = useNavigate()
     const { open } = useAlertContext()
+    const { logout } = useAuth()
+    const { user } = useUserStore()
+
+    const mutate = useMutation({
+        mutationFn: async (username: string) => {
+            return await deleteUser(username)
+        },
+        onSuccess: () => {
+            logout()
+            alert('탈퇴가 완료되었습니다.')
+        },
+    })
 
     const handleClickLogout = () => {
         open({
@@ -20,7 +36,9 @@ const Account = () => {
                 title: '로그아웃 하시겠어요?',
                 description: '다음에 또 만나요!',
             },
-            onButtonClick1: () => {},
+            onButtonClick1: () => {
+                logout()
+            },
             onButtonClick2: () => {},
             buttonLabel1: '네',
             buttonLabel2: '아니요',
@@ -34,7 +52,11 @@ const Account = () => {
                 description:
                     "서비스탈퇴 시 ‘기로록'에 저장되어있던\n 모든 데이터는 삭제되며, 복구가 불가능합니다.",
             },
-            onButtonClick1: () => {},
+            onButtonClick1: () => {
+                if (user?.username) {
+                    mutate.mutate(user.username)
+                }
+            },
             onButtonClick2: () => {},
             buttonLabel1: '네',
             buttonLabel2: '아니요',

@@ -63,6 +63,7 @@ const AddPopup = ({ onClose }: { onClose: () => void }) => {
                         더 세세한 그날의 감정을 직접 남겨보세요!
                     </Text>
                 </AddButton>
+                <Spacing size={11} />
             </Flex>
         </div>
     )

@@ -1,23 +1,35 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import Dimmed from '@shared/Dimmed'
+import { keyframes } from '@emotion/react'
 
 interface DrawerProps {
     open?: boolean
     Component?: React.ComponentType<any> | null
     componentProps?: any // Component에 전달할 props
     onClose?: () => void
+    closeGray?: boolean
 }
 
 // Drawer 컴포넌트
-const Drawer = ({ open, Component, componentProps, onClose }: DrawerProps) => {
+const Drawer = ({
+    open,
+    Component,
+    componentProps,
+    onClose,
+    closeGray,
+}: DrawerProps) => {
     return (
         <>
             <Dimmed onClick={onClose}> </Dimmed>
             <DrawerContainer open={open ? open : '1'}>
                 <DrawerContent>
                     <CloseButton onClick={onClose}>
-                        <img src="/images/close.svg" alt="닫기" />
+                        {closeGray ? (
+                            <img src="/images/close_gray.svg" alt="닫기" />
+                        ) : (
+                            <img src="/images/close.svg" alt="닫기" />
+                        )}
                     </CloseButton>
                     {Component != null && (
                         <Component {...componentProps} onClose={onClose} />
@@ -27,6 +39,12 @@ const Drawer = ({ open, Component, componentProps, onClose }: DrawerProps) => {
         </>
     )
 }
+
+const slideup = keyframes`
+  to {
+    transform: translateY(0);
+  }
+`
 
 // Drawer 기본 스타일링
 const DrawerContainer = styled.div<{ open: boolean | string }>`
@@ -39,15 +57,15 @@ const DrawerContainer = styled.div<{ open: boolean | string }>`
     background-color: var(--white);
     color: white;
     border-radius: 12px 12px 0 0;
-    transition: transform 0.5s ease-in-out;
-    transform: ${({ open }) => (open ? 'translateY(0)' : 'translateY(100%)')};
+    transform: translateY(100%);
+    animation: ${slideup} 0.5s ease-in-out forwards;
 
     z-index: 1000;
 `
 
 // Drawer 내용
 const DrawerContent = styled.div`
-    padding-bottom: 75px;
+    padding-bottom: 54px;
     display: flex;
     flex-direction: column;
     position: relative;

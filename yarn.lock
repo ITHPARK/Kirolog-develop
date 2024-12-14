@@ -4554,7 +4554,7 @@ __metadata:
     react-hook-form: "npm:^7.54.0"
     react-router-dom: "npm:^7.0.2"
     react-scripts: "npm:5.0.1"
-    swiper: "npm:^11.1.15"
+    swiper: "npm:^10.0.0"
     typescript: "npm:^4.4.2"
     web-vitals: "npm:^2.1.0"
     zustand: "npm:^5.0.2"
@@ -13127,10 +13127,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swiper@npm:^11.1.15":
-  version: 11.1.15
-  resolution: "swiper@npm:11.1.15"
-  checksum: 10c0/3faabc5b33c0663513e8e41c4ef7920d4c9a1ca6b988848f2e51e1db0d01471a1bae22fce3177b9d3ab2c128fc6df23074415ae7957bd0f8542fd7387fa5263d
+"swiper@npm:^10.0.0":
+  version: 10.3.1
+  resolution: "swiper@npm:10.3.1"
+  checksum: 10c0/1e9ad5480cbf451d99fab280553d5105eb314f381d98610771f0808cac03962d87967a190696686d62bce8e4ebcbf34962c369f9d502b34fef1582ced17f6f98
   languageName: node
   linkType: hard
 

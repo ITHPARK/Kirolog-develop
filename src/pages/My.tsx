@@ -12,13 +12,9 @@ import useUserStore from '@/store/useUserStore'
 
 const My = () => {
     const { user } = useUserStore()
-
-    const personality = ['내향적', '감성적', '즉흥적']
-    const favorite = ['음악', '독서', '예술']
+    const navigate = useNavigate()
 
     console.log(user)
-
-    const navigate = useNavigate()
 
     return (
         <Flex direction="column">
@@ -51,7 +47,7 @@ const My = () => {
             >
                 <Flex
                     justify="space-between"
-                    onClick={() => navigate('/my/account')}
+                    onClick={() => navigate('/interest')}
                 >
                     <Text typography="t2" weight="bold">
                         요즘 나의 성격, 관심사
@@ -60,7 +56,7 @@ const My = () => {
                 </Flex>
                 <CatgoryContainer direction="column">
                     <LabelContainer as="ul">
-                        {personality.map((item) => {
+                        {(user?.personalities || []).map((item) => {
                             return (
                                 <li>
                                     <Label>{item}</Label>
@@ -70,9 +66,9 @@ const My = () => {
                     </LabelContainer>
                     <Spacing size={8} />
                     <LabelContainer as="ul">
-                        {favorite.map((item) => {
+                        {(user?.interests || []).map((item) => {
                             return (
-                                <li>
+                                <li key={item}>
                                     <Label>{item}</Label>
                                 </li>
                             )

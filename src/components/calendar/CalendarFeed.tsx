@@ -9,75 +9,67 @@ import Spacing from '@shared/Spacing'
 import DateTitle from '@components/calendar/DateTitle'
 import { Link, useNavigate } from 'react-router-dom'
 import TabContainer from '@shared/TabContainer'
-
-interface Props {
-    date: string
-    task: string
-}
-
-interface CalendarPickerProps {
-    setPickerDate: React.Dispatch<React.SetStateAction<Date>>
-    // other props
-}
+import { useDiaryStore } from '@store/useDiary'
+import { DiaryProps } from '@models/diary'
+import MoodIcon from '@components/diary/MoodIcon'
+import { useDrawerContext } from '@/context/DrawContext'
+import AddPopup from '@components/diary/AddPopup'
 
 const CalendarFeed = () => {
-    const [feedDate, setFeedDate] = useState<Props[] | null>(null)
     const [pickerDate, setPickerDate] = useState<Date>(new Date())
-    const [feedList, setFeedList] = useState<any[]>([])
+    const [feedList, setFeedList] = useState<DiaryProps[]>([])
+    const { open } = useDrawerContext()
 
-    const todos = [
-        { date: '2024-09-01', task: 'Workout' },
-        { date: '2024-09-02', task: 'Workout' },
-        { date: '2024-09-03', task: 'Workout' },
-        { date: '2024-09-04', task: 'Workout' },
-        { date: '2024-09-05', task: 'Workout' },
-        { date: '2024-12-05', task: 'Workout' },
-        { date: '2024-12-07', task: 'Workout' },
-        { date: '2024-12-09', task: 'Meeting' },
-    ]
+    const { diarys } = useDiaryStore()
+
     const navigate = useNavigate()
 
     const formatDate = useFormatDate()
 
-    const handleChange = (data: Record<string, any>) => {
-        if (data.action === 'drillDown') {
-            // activeStartDate를 포맷하여 'YYYY-MM-DD' 형식으로 변환
-            const date = formatDate(data.activeStartDate)
-                .split('-') // '-' 기준으로 나누기
-                .slice(0, 2) // 연도와 월만 추출
-                .join('-') // 연-월 형식으로 합치기
+    const handleClickAddDiary = () => {
+        open({
+            Component: AddPopup,
 
-            const feed = todos.filter((todo) => {
-                // todo.date에서 연도와 월만 추출하여 비교
-                const a = todo.date.split('-').slice(0, 2).join('-')
-                return a === date
-            })
-
-            setFeedDate(feed)
-        }
+            onClose: () => {},
+        })
     }
+
+    // const handleChange = (data: Record<string, any>) => {
+    //     if (data.action === 'drillDown') {
+    //         // activeStartDate를 포맷하여 'YYYY-MM-DD' 형식으로 변환
+    //         const date = formatDate(data.activeStartDate)
+    //             .split('-') // '-' 기준으로 나누기
+    //             .slice(0, 2) // 연도와 월만 추출
+    //             .join('-') // 연-월 형식으로 합치기
+
+    //         const feed = diarys.filter((diary) => {
+    //             // todo.date에서 연도와 월만 추출하여 비교
+    //             const a = diary.ymd.split('-').slice(0, 2).join('-')
+    //             return a === date
+    //         })
+
+    //         setFeedDate(feed)
+    //     }
+    // }
 
     useEffect(() => {
         const month = formatDate(pickerDate).split('-').slice(0, 2).join('-') // 현재 선택된 월
 
-        const filteredTodos = todos.filter(
-            (todo) => todo.date.split('-').slice(0, 2).join('-') === month, //  월을 기준으로 필터링
+        const filteredDiary = diarys.filter(
+            (diary) => diary.ymd.split('-').slice(0, 2).join('-') === month, //  월을 기준으로 필터링
         )
 
-        setFeedList(filteredTodos) // 필터링된 todo 항목들 출력
-    }, [pickerDate])
+        setFeedList(filteredDiary) // 필터링된 todo 항목들 출력
+    }, [pickerDate, diarys])
 
-    const handleClickFeed = () => {
-        alert('일기 생성 페이지로 이동')
-    }
+    const handleClickFeed = () => {}
 
     return (
         <div css={calendarStyles}>
+            <Spacing size={20} />
             <TabContainer as="ul">
                 <li>
-                    <button onClick={() => navigate('/main/calendar')}>
-                        캘린더
-                    </button>
+                    <button onClick={() => navigate('/')}>캘린더</button>
                 </li>
                 <li>
                     <button onClick={() => {}} css={activeButtonStyles}>
@@ -92,14 +84,20 @@ const CalendarFeed = () => {
                     feedList.map((item, index) => {
                         return (
                             <li key={index}>
-                                <Link to={`/diary/${item.task}`}>
+                                <Link to={`/diary/${item.id}`}>
                                     <Flex direction="column">
-                                        <Flex direction="column">
+                                        {item.images && <ImageArea />}
+                                        <Flex
+                                            direction="column"
+                                            css={css`
+                                                flex: 1;
+                                            `}
+                                        >
                                             <Text
                                                 typography="t1"
                                                 color="gray400"
                                             >
-                                                12.09
+                                                {`${item.ymd.split('-')[1]}.${item.ymd.split('-')[2]}`}
                                             </Text>
                                             <Spacing size={8} />
                                             <Flex align="center">
@@ -114,7 +112,9 @@ const CalendarFeed = () => {
                                                     size={4}
                                                     direction="horizontal"
                                                 />
-                                                <span>아이콘</span>
+                                                <MoodIcon
+                                                    moodStr={item.moods}
+                                                />
                                             </Flex>
                                             <Text
                                                 typography="t2"
@@ -128,11 +128,7 @@ const CalendarFeed = () => {
                                                     -webkit-box-orient: vertical;
                                                 `}
                                             >
-                                                가나다라마바사 가나다라마바사
-                                                가나다라마바사 가나다라마바사
-                                                가나다라마바사 가나다라마바사
-                                                가나다라마바사 가나다라마바사
-                                                가나다라마바사
+                                                {item.content}
                                             </Text>
                                         </Flex>
                                     </Flex>
@@ -149,6 +145,7 @@ const CalendarFeed = () => {
                             css={css`
                                 height: 100%;
                             `}
+                            onClick={() => handleClickAddDiary()}
                         >
                             <img
                                 src="/images/diaryPlus.svg"
@@ -161,7 +158,7 @@ const CalendarFeed = () => {
                                 color="gray500"
                                 align="center"
                             >
-                                캘린더에서 일기를
+                                일기를
                                 <br />
                                 작성해 보세요!
                             </Text>
@@ -191,6 +188,14 @@ const FeedContainer = styled(Flex)`
             text-overflow: ellipsis; // 글자가 넘어가면 말줄임(...) 표시
         }
     }
+`
+
+const ImageArea = styled.img`
+    flex: 1;
+    width: 100%;
+    background: #ddd;
+    border-radius: 8px;
+    object-fit: cover;
 `
 
 const addDiaryImg = css`

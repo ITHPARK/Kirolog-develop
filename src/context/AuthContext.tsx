@@ -25,9 +25,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const logout = useCallback(() => {
         localStorage.removeItem('accessToken') // 토큰 삭제
+        localStorage.removeItem('refreshToken')
         localStorage.removeItem('username')
+        setUser(null)
         navigate('/signin') // 로그아웃 후 로그인 페이지로 이동
-    }, [navigate])
+    }, [])
 
     const refreshTokenValue = localStorage.getItem('refreshToken')
 
@@ -44,17 +46,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     })
 
     useEffect(() => {
-        console.log(isError, tokenRefreshing.current)
-
         if (isError && refreshTokenValue && !tokenRefreshing.current) {
             tokenRefreshing.current = true // 중복 실행 방지 플래그 설정
-            console.log(
-                '토큰이 만료되었습니다. 리프레시 토큰을 사용하여 갱신합니다.',
-            )
 
             refreshToken(refreshTokenValue)
                 .then((refreshedToken) => {
-                    console.log('갱신된 토큰: ', refreshedToken)
                     localStorage.setItem('accessToken', refreshedToken.access) // 새 액세스 토큰 저장
 
                     refetch() // 데이터 재요청

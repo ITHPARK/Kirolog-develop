@@ -55,3 +55,16 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
         throw e
     }
 }
+
+export const getDiary = async () => {
+    const response = await axios.get(
+        'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/diaries/',
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+        },
+    )
+
+    return response.data
+}

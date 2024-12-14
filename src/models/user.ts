@@ -25,5 +25,5 @@ export interface UserProps {
     nickname?: string
     profilePicture?: string
     interests?: string[]
-    personalities?: string
+    personalities?: string[]
 }

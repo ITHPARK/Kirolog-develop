@@ -6,7 +6,7 @@ import CalendartBox from '@components/calendar/CalendarBox'
 import CalendartFeed from '@components/calendar/CalendarFeed'
 import DiaryDetail from '@components/diary/DiaryDetail'
 import Navbar from '@shared/Navbar'
-import Redirection from '@pages/Redirection'
+
 import SignIn from '@pages/SignIn'
 import Signup from '@pages/Signup'
 import styled from '@emotion/styled'
@@ -17,16 +17,27 @@ import TermsList from '@pages/my/TermsList'
 import Nickname from '@pages/my/Nickname'
 import Account from '@pages/my/Account'
 import PrivateRoute from '@components/auth/PrivateRoute'
-import TagCategory from '@components/diary/TagCategory'
+
+import Report from '@pages/Report'
+import Tutorial from '@pages/Tutorial'
+import Interest from '@pages/Interest'
 
 // Navbar를 포함하는 컴포넌트들과 아닌 컴포넌트 구분
 const LayoutWithNavbar = () => {
     const location = useLocation()
     const isMyPage = location.pathname === '/my'
+    const isReportPage = location.pathname === '/report'
+    const isOnboardingPage = location.pathname === '/onboarding'
 
     return (
         <>
-            <Container className={isMyPage ? 'no-padding' : ''}>
+            <Container
+                className={
+                    isMyPage || isReportPage || isOnboardingPage
+                        ? 'no-padding'
+                        : ''
+                }
+            >
                 <Outlet />
             </Container>
             <Navbar />
@@ -34,11 +45,15 @@ const LayoutWithNavbar = () => {
     )
 }
 
-const LayoutWithoutNavbar = () => (
-    <Container>
-        <Outlet />
-    </Container>
-)
+const LayoutWithoutNavbar = () => {
+    const location = useLocation()
+    const isOnboardingPage = location.pathname === '/onboarding'
+    return (
+        <Container className={isOnboardingPage ? 'no-padding' : ''}>
+            <Outlet />
+        </Container>
+    )
+}
 
 function App() {
     return (
@@ -67,6 +82,14 @@ function App() {
                         element={
                             <PrivateRoute>
                                 <My />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/report"
+                        element={
+                            <PrivateRoute>
+                                <Report />
                             </PrivateRoute>
                         }
                     />
@@ -107,14 +130,6 @@ function App() {
                         }
                     />
                     <Route
-                        path="/report"
-                        element={
-                            <PrivateRoute>
-                                <DiaryDetail />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
                         path="/diary/:id"
                         element={
                             <PrivateRoute>
@@ -135,6 +150,22 @@ function App() {
                         element={
                             <PrivateRoute>
                                 <AddDiaryAi />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/onboarding"
+                        element={
+                            <PrivateRoute>
+                                <Tutorial />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/interest"
+                        element={
+                            <PrivateRoute>
+                                <Interest />
                             </PrivateRoute>
                         }
                     />
