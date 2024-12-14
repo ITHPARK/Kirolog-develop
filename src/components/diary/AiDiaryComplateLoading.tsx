@@ -6,7 +6,13 @@ import Text from '@shared/Text'
 import { createPortal } from 'react-dom'
 import styled from '@emotion/styled'
 
-const AiDiaryComplateLoading = () => {
+interface AiDiaryComplateLoadingProps {
+    onClick: () => void // onClick을 props로 전달받기 위한 타입 정의
+}
+
+const AiDiaryComplateLoading: React.FC<AiDiaryComplateLoadingProps> = ({
+    onClick,
+}) => {
     const $portal = document.getElementById('splash')
 
     if ($portal == null) {
@@ -34,7 +40,7 @@ const AiDiaryComplateLoading = () => {
                     </Text>
                 </SplashContent>
             </SplashContainer>
-            <FixedBottomButton type="button" label="확인" />
+            <FixedBottomButton type="button" label="확인" onClick={onClick} />
         </>,
         $portal,
     )

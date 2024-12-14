@@ -1,19 +1,11 @@
 import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
-
-import Alert from '@shared/Alert/Alert'
-import ArrowLeft from '@shared/ico/ArrowLeft'
-import Close from '@shared/ico/Close'
-import DiaryTop from '@components/diary/DiaryTop'
 import Flex from '@shared/Flex'
 import Input from '@shared/Input'
 import Spacing from '@shared/Spacing'
 import Text from '@shared/Text'
-import Topbar from '../shared/Topbar'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { useAlertContext } from '@context/AlertContext'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import LabelBox from '@shared/LabelBox'
 import { mood } from '@utils/moodContent'
 
@@ -49,16 +41,18 @@ const TagCategory = () => {
                     1가지 감정만 선택할 수 있어요.
                 </Text>
             </Flex>
+            <Spacing size={29} />
 
             {Object.keys(mood).map((typeKey) => {
                 const { title, subMood } = mood[typeKey as keyof typeof mood]
 
                 return (
-                    <div key={typeKey}>
+                    <CatgoryContainer key={typeKey} direction="column">
                         <CategoryTitle
                             typography="t2"
                             weight="bold"
                             color="gray700"
+                            type={title}
                         >
                             {title}
                         </CategoryTitle>
@@ -85,7 +79,7 @@ const TagCategory = () => {
                                 </li>
                             ))}
                         </LabelContainer>
-                    </div>
+                    </CatgoryContainer>
                 )
             })}
 
@@ -116,9 +110,26 @@ const LabelContainer = styled(Flex)`
     flex-wrap: wrap;
 `
 
-const CategoryTitle = styled(Text)`
-    padding: 8px 15px;
-    display: inline-block;
+const CategoryTitle = styled(Text)<{ type: string }>`
+    padding: 8px 14px;
+    display: block;
+
+    background: ${(props) =>
+        props.type
+            ? `url(/images/moodicon/${
+                  props.type === '희'
+                      ? 'happiness'
+                      : props.type === '노'
+                        ? 'anger'
+                        : props.type === '애'
+                          ? 'sadness'
+                          : props.type === '락'
+                            ? 'enjoyment'
+                            : ''
+              }.png) no-repeat left 6px center `
+            : ''};
+
+    background-size: 30px;
 `
 
 export default TagCategory

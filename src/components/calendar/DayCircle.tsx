@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { mood } from '@utils/moodContent'
-import { SerializedStyles, css } from '@emotion/react'
 
 interface CircleProps {
     onClick?: () => void

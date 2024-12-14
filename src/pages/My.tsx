@@ -14,8 +14,6 @@ const My = () => {
     const { user } = useUserStore()
     const navigate = useNavigate()
 
-    console.log(user)
-
     return (
         <Flex direction="column">
             <Flex

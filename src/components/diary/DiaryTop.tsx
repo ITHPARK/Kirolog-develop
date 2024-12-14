@@ -27,6 +27,7 @@ const DiaryTop = () => {
             onButtonClick1: () => {
                 setStep(1, true)
                 setDiaryData({
+                    headDate: null,
                     date: null,
                     moods: '',
                     image: null,
@@ -54,7 +55,7 @@ const DiaryTop = () => {
 
     return (
         <Topbar
-            title={diaryData.date ? diaryData.date : ''}
+            title={diaryData.headDate ? diaryData.headDate : ''}
             left={step > 1 ? <ArrowLeft /> : null}
             right={<Close />}
             leftOnClick={handleClickArrow}

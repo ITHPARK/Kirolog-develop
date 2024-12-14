@@ -1,7 +1,8 @@
 export interface addDiaryProps {
+    headDate?: string | null
     date: string | null
     moods: string
-    image?: File | null
+    image?: any
     content?: string
     keyword?: string[]
 }

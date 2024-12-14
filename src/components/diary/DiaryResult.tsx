@@ -10,6 +10,10 @@ import Text from '@shared/Text'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import usePreviewImage from '@hooks/usePreviewImage'
+import { useMutation } from '@tanstack/react-query'
+import { addDiaryProps, responseAddDiaryProps } from '@models/addDiary'
+import { crateMyDiary } from '@remote/diary'
+import { useLocation } from 'react-router-dom'
 
 const DiaryResult = () => {
     const [text, setText] = useState<string>('') // 초기값 설정
@@ -19,9 +23,35 @@ const DiaryResult = () => {
 
     const { setStep } = useAddDiaryStep()
     const { diaryData, setDiaryData } = useAddDiaryData()
+    const location = useLocation()
+    const lastSegment = location.pathname.split('/').pop()
 
     //이미지 파일을 볼 수 있게 포맷하는 훅
     const preview = usePreviewImage()
+
+    const mutate = useMutation({
+        mutationFn: async (data: addDiaryProps) => {
+            return await crateMyDiary(data)
+        },
+        onSuccess: (data) => {
+            console.log(data)
+        },
+    })
+
+    useEffect(() => {
+        console.log(diaryData)
+
+        if (
+            lastSegment === 'my' &&
+            diaryData.content &&
+            diaryData.content.length > 0
+        ) {
+            console.log(123)
+            mutate.mutate(diaryData)
+        } else if (lastSegment === 'ai') {
+            console.log(123)
+        }
+    }, [diaryData])
 
     useEffect(() => {
         //이미지 뷰어 생성
@@ -44,7 +74,6 @@ const DiaryResult = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value) // 값 업데이트
-        console.log(123)
 
         //값이 없으면 버튼 비활성화
         if (e.target.value.length > 0) {
@@ -55,7 +84,7 @@ const DiaryResult = () => {
     }
 
     const handleClick = () => {
-        setStep(1)
+        // setStep(1)
         setDiaryData({ ...diaryData, content: text })
     }
 

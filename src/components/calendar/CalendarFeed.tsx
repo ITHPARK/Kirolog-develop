@@ -82,6 +82,7 @@ const CalendarFeed = () => {
             <FeedContainer as="ul">
                 {feedList.length > 0 ? (
                     feedList.map((item, index) => {
+                        console.log(item)
                         return (
                             <li key={index}>
                                 <Link to={`/diary/${item.id}`}>
@@ -106,7 +107,7 @@ const CalendarFeed = () => {
                                                     weight="bold"
                                                     color="gray800"
                                                 >
-                                                    행복함
+                                                    {item.moods}
                                                 </Text>
                                                 <Spacing
                                                     size={4}

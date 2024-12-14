@@ -67,6 +67,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         if (data) {
+            console.log(data)
             setUser({
                 username: localStorage.getItem('username') || '',
                 nickname: data.nickname,
@@ -76,6 +77,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             })
         }
     }, [data]) // data가 바뀔 때마다 실행
+
+    useEffect(() => {
+        if (user?.interests?.length === 0 && user?.personalities?.length == 0) {
+            navigate('/onboarding')
+        }
+    }, [user])
 
     if (isLoading) {
         return <div>유저 데이터를 가져오는 중입니다.</div>

@@ -28,13 +28,51 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
             ymd: diaryDate.date,
             moods: diaryDate.moods,
             hashtags: hashtags,
-            images: [diaryDate.image],
+            images: [diaryDate.image?.name || ''],
         }
 
         console.log(reqData)
 
         const response = await axios.post(
             'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/diaries/ai/',
+            reqData,
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    'Content-Type': 'application/json',
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        // 에러를 상위로 전달
+        if (axios.isAxiosError(e)) {
+            console.error('Axios 에러:', e.response?.data || e.message)
+        } else {
+            console.error('미확인 error:', e)
+        }
+        throw e
+    }
+}
+
+export const crateMyDiary = async (diaryDate: addDiaryProps) => {
+    try {
+        const hashtags = diaryDate.keyword?.map((item) => `#${item}`).join(',')
+
+        console.log(hashtags)
+
+        const reqData = {
+            ymd: diaryDate.date,
+            moods: diaryDate.moods,
+            content: diaryDate.content,
+            images: [diaryDate.image?.name || ''],
+        }
+
+        console.log(reqData)
+
+        const response = await axios.post(
+            'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/diaries/',
             reqData,
             {
                 headers: {

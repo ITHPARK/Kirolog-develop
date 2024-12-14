@@ -19,6 +19,7 @@ const DiaryDetail = () => {
     const { diarys } = useDiaryStore()
 
     useEffect(() => {
+        //특정 일기만 가져온다.
         const diaryData = diarys.find((item) => item.id === Number(id))
 
         setDayDiary(diaryData)
@@ -53,14 +54,14 @@ const DiaryDetail = () => {
             <Flex direction="column">
                 {dayDiary?.images.length > 0 && (
                     <>
-                        <ImageArea></ImageArea>
+                        <ImageArea src={dayDiary?.images[0].presignedUrl} />
                         <Spacing size={20} />
                     </>
                 )}
 
                 <Flex align="center">
                     <Text typography="t3" weight="bold" color="gray800">
-                        행복함
+                        {dayDiary.moods}
                     </Text>
                     <Spacing size={4} direction="horizontal" />
                     <MoodIcon moodStr={dayDiary.moods} />

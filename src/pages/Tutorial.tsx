@@ -39,7 +39,7 @@ const Tutorial = () => {
         const swiper = swiperRef.current?.swiper
         if (swiper) {
             if (swiper.activeIndex === swiper.slides.length - 1) {
-                navigate('/')
+                navigate('/interest')
             } else {
                 swiper.slideNext() // 마지막 슬라이드가 아니면 다음 슬라이드로 이동
             }
@@ -68,7 +68,7 @@ const Tutorial = () => {
                     padding: 0 20px;
                 `}
             >
-                <button onClick={() => navigate('/')}>
+                <button onClick={() => navigate('/interest')}>
                     <Text typography="t3" color="gray600">
                         Skip
                     </Text>

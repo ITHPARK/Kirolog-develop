@@ -19,10 +19,17 @@ const AddDiaryAi = () => {
     //처음 일기 쓰기 진입할 때만 날짜 설정
     useEffect(() => {
         const today = new Date()
+        const dayNames = ['일', '월', '화', '수', '목', '금', '토']
+        const dayOfWeek = today.getDay()
+        const dayName = dayNames[dayOfWeek]
 
-        const formatType = `${today.getMonth() + 1}월 ${today.getDate()}일`
+        const formatType = `${today.getMonth() + 1}월 ${today.getDate()}일 ${dayName}`
 
-        setDiaryData({ ...diaryData, date: formatDate(today) })
+        setDiaryData({
+            ...diaryData,
+            date: formatDate(today),
+            headDate: formatType,
+        })
     }, [])
 
     useEffect(() => {

@@ -25,7 +25,7 @@ const SignIn = () => {
             localStorage.setItem('username', variables.username)
             localStorage.setItem('accessToken', data.access)
             localStorage.setItem('refreshToken', data.refresh)
-            navigate('/')
+            console.log(data)
         },
         onError: (error) => {
             //axios 에러라면

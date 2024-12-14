@@ -69,8 +69,7 @@ const Interest = () => {
             })
 
             alert('관심사 추가를 완료했습니다.')
-
-            // navigate('/')
+            navigate('/')
         },
     })
 
@@ -92,7 +91,7 @@ const Interest = () => {
             <Topbar
                 title=""
                 left={<ArrowLeft />}
-                leftOnClick={() => navigate('/')}
+                leftOnClick={() => navigate(-1)}
             />
             {step === 1 && (
                 <Myinterest

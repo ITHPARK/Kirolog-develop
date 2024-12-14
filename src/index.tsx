@@ -16,7 +16,7 @@ const client = new QueryClient()
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 const Root = () => {
-    const [firstLoading, setFirstLoading] = useState(false)
+    const [firstLoading, setFirstLoading] = useState(true)
 
     useEffect(() => {
         // 로컬스토리지에서 'hasVisited' 값을 확인

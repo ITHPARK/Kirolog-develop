@@ -4,5 +4,5 @@ export interface DiaryProps {
     content: string
     moods: string
     hashtags: []
-    images: []
+    images: any
 }

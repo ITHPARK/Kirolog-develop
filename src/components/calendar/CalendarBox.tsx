@@ -46,8 +46,12 @@ const CalendarBox = () => {
         retry: false,
     })
 
+    // 항상 훅을 가장 상단에서 호출하도록 수정
+    const formattedPickerDate = useFormatPickerDate(pickerDate)
+
     useEffect(() => {
         //리액트 쿼리로 데이터를 받으면 전역에 저장
+        console.log(data)
         if (data != null && data.length > 0) {
             //받은 모든 일기 리스트에서 ymd를 (2024=12-14)형식으로 바꾼다.
             const format = data.map((item: DiaryProps) => {
@@ -127,6 +131,10 @@ const CalendarBox = () => {
         })
     }
 
+    if (isLoading) {
+        return <div>로딩중입니다.</div>
+    }
+
     return (
         <div css={calendarStyles}>
             <Spacing size={20} />
@@ -147,7 +155,7 @@ const CalendarBox = () => {
                 css={dateTitle}
                 onClick={handleClickPopup}
             >
-                {useFormatPickerDate(pickerDate)}
+                {formattedPickerDate}
             </Text>
             <Calendar
                 // onChange={handleChange}
@@ -166,7 +174,7 @@ const CalendarBox = () => {
                         pickerDate.getMonth() + 1,
                         0,
                     )
-                } // 다음 달의 마지막 날}
+                } // 다음 달의 마지막 날
             />
             <Flex justify="flex-end">
                 <AddDiary onClick={handleClickAddDiary} />

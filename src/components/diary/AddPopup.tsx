@@ -71,7 +71,8 @@ const AddPopup = ({ onClose }: { onClose: () => void }) => {
 
 const AddButton = styled.button`
     width: 100%;
-    padding: 24px 0 38px 28px;
+    min-height: 130px;
+    padding: 23px 0 34px 28px;
     border-radius: 12px;
     background: red;
 `
