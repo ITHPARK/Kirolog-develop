@@ -7,9 +7,9 @@ import globalStyles from '@/styles/globalStyles'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { BrowserRouter } from 'react-router-dom'
 import Splash from '@components/Splash'
-import AuthGuard from '@components/auth/AuthGuard'
 import { AlerContextProvider } from '@context/AlertContext'
 import { DrawerContextProvider } from '@context/DrawContext'
+import { AuthProvider } from '@context/AuthContext'
 
 const client = new QueryClient()
 
@@ -39,13 +39,13 @@ const Root = () => {
             <Global styles={globalStyles} />
             <QueryClientProvider client={client}>
                 <BrowserRouter>
-                    <AlerContextProvider>
-                        <DrawerContextProvider>
-                            <AuthGuard>
+                    <AuthProvider>
+                        <AlerContextProvider>
+                            <DrawerContextProvider>
                                 {firstLoading ? <Splash /> : <App />}
-                            </AuthGuard>
-                        </DrawerContextProvider>
-                    </AlerContextProvider>
+                            </DrawerContextProvider>
+                        </AlerContextProvider>
+                    </AuthProvider>
                 </BrowserRouter>
             </QueryClientProvider>
         </React.StrictMode>

@@ -16,6 +16,25 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import LabelBox from '@shared/LabelBox'
 
+const mood = {
+    type1: {
+        title: '희',
+        subMood: ['기쁨', '설렘', '뿌듯', '감동', '만족', '행복'],
+    },
+    type2: {
+        title: '노',
+        subMood: ['분노', '짜증', '억울', '불쾌', '좌절', '답답', '초조'],
+    },
+    type3: {
+        title: '애',
+        subMood: ['슬픔', '속상', '우울', '외로움', '후회', '무기력', '그리움'],
+    },
+    type4: {
+        title: '락',
+        subMood: ['즐거움', '따듯', '기대', '여유', '평온'],
+    },
+}
+
 const TagCategory = () => {
     const { step, setStep } = useAddDiaryStep()
     const { diaryData, setDiaryData } = useAddDiaryData()
@@ -32,7 +51,7 @@ const TagCategory = () => {
     // 폼 제출 함수
     // 감정 선택 핸들러
     const handleEmotionChange = (emotion: string) => {
-        setDiaryData({ ...diaryData, mood: emotion })
+        setDiaryData({ ...diaryData, moods: emotion })
         setStep(1) // 바로 다음 스텝으로 이동
     }
 
@@ -49,82 +68,58 @@ const TagCategory = () => {
                 </Text>
             </Flex>
 
-            <CatgoryContainer direction="column">
-                <div>
-                    <CategoryTitle
-                        typography="t2"
-                        weight="bold"
-                        color="gray700"
-                    >
-                        희
-                    </CategoryTitle>
-                </div>
-                <Spacing size={16} />
-                <LabelContainer as="ul">
-                    <li>
-                        <Input
-                            id="cat1"
-                            type="radio"
-                            value="기쁨"
-                            css={inputStyles}
-                            onChange={() => handleEmotionChange('기쁨')}
-                        />
-                        <LabelBox htmlFor="cat1">기쁨</LabelBox>
-                    </li>
-                    <li>
-                        <Input
-                            id="cat2"
-                            type="radio"
-                            value="설렘"
-                            css={inputStyles}
-                            onChange={() => handleEmotionChange('설렘')}
-                        />
-                        <LabelBox htmlFor="cat2">설렘</LabelBox>
-                    </li>
-                    <li>
-                        <Input
-                            id="cat3"
-                            type="radio"
-                            value="뿌듯함"
-                            css={inputStyles}
-                            onChange={() => handleEmotionChange('뿌듯함')}
-                        />
-                        <LabelBox htmlFor="cat3">뿌듯함</LabelBox>
-                    </li>
-                    <li>
-                        <Input
-                            id="cat4"
-                            type="radio"
-                            value="감동"
-                            css={inputStyles}
-                            onChange={() => handleEmotionChange('감동')}
-                        />
-                        <LabelBox htmlFor="cat4">감동</LabelBox>
-                    </li>
-                    <li>
-                        <Input
-                            id="cat5"
-                            type="radio"
-                            value="만족감"
-                            css={inputStyles}
-                            onChange={() => handleEmotionChange('만족감')}
-                        />
-                        <LabelBox htmlFor="cat5">만족감</LabelBox>
-                    </li>
-                </LabelContainer>
-            </CatgoryContainer>
-            {errors.emotion && (
+            {Object.keys(mood).map((typeKey) => {
+                const { title, subMood } = mood[typeKey as keyof typeof mood]
+
+                return (
+                    <div key={typeKey}>
+                        <CategoryTitle
+                            typography="t2"
+                            weight="bold"
+                            color="gray700"
+                        >
+                            {title}
+                        </CategoryTitle>
+                        <Spacing size={16} />
+                        <LabelContainer as="ul">
+                            {subMood.map((emotion, index) => (
+                                <li key={index}>
+                                    <Input
+                                        id={`cat${typeKey}-${index}`}
+                                        name="mood"
+                                        type="radio"
+                                        value={emotion}
+                                        css={inputStyles}
+                                        onChange={() =>
+                                            handleEmotionChange(emotion)
+                                        }
+                                        // checked={selectedEmotion === emotion}
+                                    />
+                                    <LabelBox
+                                        htmlFor={`cat${typeKey}-${index}`}
+                                    >
+                                        {emotion}
+                                    </LabelBox>
+                                </li>
+                            ))}
+                        </LabelContainer>
+                    </div>
+                )
+            })}
+
+            {/* {errors.emotion && (
                 <Text typography="t3" color="red">
                     감정을 선택해주세요.
                 </Text>
-            )}
+            )} */}
         </>
     )
 }
 
 const inputStyles = css`
     &:checked + label {
-        background-color: #4caf50;
+        color: var(--white);
+        background-color: var(--primary300);
     }
 `
 

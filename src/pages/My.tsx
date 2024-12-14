@@ -8,10 +8,15 @@ import LabelBox from '@shared/LabelBox'
 import { Link, useNavigate } from 'react-router-dom'
 import ArrowRight from '@shared/ico/ArrowRight'
 import Spacing from '@/components/shared/Spacing'
+import useUserStore from '@/store/useUserStore'
 
 const My = () => {
+    const { user } = useUserStore()
+
     const personality = ['내향적', '감성적', '즉흥적']
     const favorite = ['음악', '독서', '예술']
+
+    console.log(user)
 
     const navigate = useNavigate()
 
@@ -30,7 +35,7 @@ const My = () => {
                     onClick={() => navigate('/my/nickname')}
                 >
                     <Text typography="t5" weight="bold" color="primary400">
-                        로기는귀여워님(닉네임)
+                        {user?.nickname}님
                     </Text>
                     <Text typography="t5" weight="bold" color="gray800">
                         반가워요!
@@ -78,7 +83,7 @@ const My = () => {
             <Spacing size={8} color="gray100" />
             <Flex as="ul" direction="column">
                 <li>
-                    <Link to="" css={menu}>
+                    <Link to="/my/account" css={menu}>
                         계정관리
                     </Link>
                 </li>

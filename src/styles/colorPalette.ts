@@ -16,6 +16,7 @@ export const colorPalette = css`
         --gray800: #1c1d1f;
         --slate700: #334155;
         --slate900: #0f172a;
+        --primary300: #9f97fc;
         --primary400: #938af8;
     }
 `
@@ -34,6 +35,7 @@ export const colors = {
     gray800: 'var(--gray800)',
     slate700: 'var(--slate700)',
     slate900: 'var(--slate900)',
+    primary300: 'var(--primary300)',
     primary400: 'var(--primary400)',
 }
 

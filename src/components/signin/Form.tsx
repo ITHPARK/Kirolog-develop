@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { SigninProps } from '@models/signin'
+import { SigninProps } from '@/models/user'
 import Flex from '@shared/Flex'
 import Text from '@shared/Text'
 import Spacing from '@shared/Spacing'
@@ -44,12 +44,12 @@ const From = ({
                     })}
                 />
 
-                {errors.username && (
+                {/* {errors.username && (
                     <Errormessage message={errors.username?.message} />
                 )}
                 {errors.password && (
                     <Errormessage message={errors.password?.message} />
-                )}
+                )} */}
                 <Spacing size={12} />
 
                 <Button

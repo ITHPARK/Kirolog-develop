@@ -2,8 +2,8 @@ import { css } from '@emotion/react'
 
 export default css`
     .react-calendar {
-        width: 350px;
-        max-width: 100%;
+        width: 100%;
+        
 
         font-family: Arial, Helvetica, sans-serif;
         line-height: 1.125em;

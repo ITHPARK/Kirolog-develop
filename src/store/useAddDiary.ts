@@ -19,7 +19,7 @@ export const useAddDiaryData = create<{
 }>((set) => ({
     diaryData: {
         date: null,
-        mood: '',
+        moods: '',
         image: null,
         content: '',
         keyword: [],

@@ -1,7 +1,15 @@
 export interface addDiaryProps {
     date: string | null
-    mood: string
+    moods: string
     image?: File | null
-    content: string
+    content?: string
     keyword?: string[]
+}
+
+export interface responseAddDiaryProps {
+    date: string | null
+    moods: string
+    image?: File | null
+    content?: string
+    keyword: string
 }

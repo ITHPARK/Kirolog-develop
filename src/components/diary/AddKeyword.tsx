@@ -10,6 +10,10 @@ import Text from '@shared/Text'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import usePreviewImage from '@hooks/usePreviewImage'
+import { useMutation } from '@tanstack/react-query'
+import { addDiaryProps, responseAddDiaryProps } from '@models/addDiary'
+import { crateAiDiary } from '@remote/diary'
+import axios from 'axios'
 
 const AddKeyword = () => {
     const [imageSrc, setImageSrc] = useState<string | null>(null)
@@ -20,6 +24,13 @@ const AddKeyword = () => {
 
     //이미지 파일을 볼 수 있게 포맷하는 훅
     const preview = usePreviewImage()
+
+    // diaryData가 업데이트된 후에 mutate.mutate를 실행하도록 useEffect 사용
+    useEffect(() => {
+        if (diaryData.keyword && diaryData.keyword.length > 0) {
+            mutate.mutate(diaryData)
+        }
+    }, [diaryData]) // diaryData가 변경될 때마다 mutate 실행
 
     useEffect(() => {
         //이미지 뷰어 생성
@@ -32,11 +43,39 @@ const AddKeyword = () => {
         }
     }, [diaryData, preview])
 
+    const mutate = useMutation({
+        mutationFn: async (data: addDiaryProps) => {
+            return await crateAiDiary(data) //로그인 api 요청
+        },
+        onSuccess: (
+            data: responseAddDiaryProps,
+            variables: addDiaryProps,
+        ) => {},
+        onError: (error) => {
+            //axios 에러라면
+            if (axios.isAxiosError(error)) {
+                const response = error.response
+                if (response) {
+                    //아이디 비번이 틀린경우
+                    if (response.status === 401) {
+                        alert('아이디 및 비밀번호가 일치하지 않습니다.') // 로그인 오류 메세지 출력
+                    }
+                } else {
+                    alert('서버로부터 응답이 없습니다.') //그 외 에러
+                }
+            } else {
+                //axios 에러가 아닌 별도의 에러
+                alert('예상치 못한 오류가 발생했습니다.')
+                console.error(error)
+            }
+        },
+    })
+
     // 키워드 입력 핸들러
     const handleKeywordChange = (index: number, value: string) => {
         setKeywords((prevKeywords) => {
             const newKeywords = [...prevKeywords]
-            newKeywords[index] = value
+            newKeywords[index] = value.replace(/\s+/g, '')
             return newKeywords
         })
     }
@@ -44,7 +83,7 @@ const AddKeyword = () => {
     //키워드 추가
     const handleAddKeywrod = () => {
         setDiaryData({ ...diaryData, keyword: keywords })
-        setStep(1)
+        // setStep(1)
     }
 
     // 버튼 활성화 여부

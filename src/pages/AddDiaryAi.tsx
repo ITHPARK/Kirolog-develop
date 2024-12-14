@@ -14,6 +14,7 @@ const AddDiaryAi = () => {
     //zustand 전역 상태관리
     const { step } = useAddDiaryStep()
     const { diaryData, setDiaryData } = useAddDiaryData()
+    const formatDate = useFormatDate()
 
     //처음 일기 쓰기 진입할 때만 날짜 설정
     useEffect(() => {
@@ -21,7 +22,7 @@ const AddDiaryAi = () => {
 
         const formatType = `${today.getMonth() + 1}월 ${today.getDate()}일`
 
-        setDiaryData({ ...diaryData, date: formatType })
+        setDiaryData({ ...diaryData, date: formatDate(today) })
     }, [])
 
     useEffect(() => {

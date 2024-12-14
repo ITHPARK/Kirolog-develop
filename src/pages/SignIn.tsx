@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Flex from '@shared/Flex'
 import Text from '@shared/Text'
 import Form from '@/components/signin/Form'
@@ -6,33 +6,36 @@ import Button from '@shared/Button'
 import Spacing from '@shared/Spacing'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { SigninProps } from '@models/signin'
+import { SigninProps, TokenProps } from '@models/user'
 import { useMutation } from '@tanstack/react-query'
 import { login } from '@remote/user'
-import { CreateUserProps } from '@models/signup'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const SignIn = () => {
+    const [loginError, setLoginError] = useState(false)
     const navigate = useNavigate()
 
     //로그인 mutate
     const mutate = useMutation({
-        mutationFn: async (data: CreateUserProps) => {
-            await login(data)
+        mutationFn: async (data: SigninProps) => {
+            return await login(data) //로그인 api 요청
         },
-        onSuccess: (data, variables, context) => {
+        onSuccess: (data: TokenProps, variables: SigninProps) => {
+            localStorage.setItem('username', variables.username)
+            localStorage.setItem('accessToken', data.access)
+            localStorage.setItem('refreshToken', data.refresh)
             navigate('/')
-            // data: mutationFn이 반환한 데이터
-            // variables: mutation에 전달된 변수
-            // context: mutation 호출 전 onMutate에서 반환된 값
         },
         onError: (error) => {
             //axios 에러라면
             if (axios.isAxiosError(error)) {
                 const response = error.response
                 if (response) {
-                    alert(response.data.password) // 로그인 오류 메세지 출력
+                    //아이디 비번이 틀린경우
+                    if (response.status === 401) {
+                        alert('아이디 및 비밀번호가 일치하지 않습니다.') // 로그인 오류 메세지 출력
+                    }
                 } else {
                     alert('서버로부터 응답이 없습니다.') //그 외 에러
                 }
@@ -44,8 +47,16 @@ const SignIn = () => {
         },
     })
 
+    //로그인
     const handleClickLogin = (data: SigninProps) => {
-        console.log(data)
+        mutate.mutate({
+            username: data.username,
+            password: data.password,
+        })
+    }
+
+    if (mutate.isPending) {
+        return <div>로그인 중입니다,,</div>
     }
 
     return (
@@ -66,19 +77,6 @@ const SignIn = () => {
                     <Spacing size={40} />
                     <Form onSubmit={handleClickLogin} />
                 </Flex>
-
-                {/* <Flex direction="column">
-                    <Text>SNS 계정으로 로그인</Text>
-                    <Spacing size={60} />
-                    <Button
-                        color="#FFEB03"
-                        css={css`
-                            padding: 15px 0;
-                        `}
-                    >
-                        카카오 로그인
-                    </Button>
-                </Flex> */}
             </LoginContainer>
         </>
     )

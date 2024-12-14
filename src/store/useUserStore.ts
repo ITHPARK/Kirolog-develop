@@ -1,9 +1,5 @@
 import { create } from 'zustand'
-
-interface UserProps {
-    name: string
-    profilImage: string
-}
+import { UserProps } from '@models/user'
 
 const useUserStore = create<{
     user: UserProps | null

@@ -8,17 +8,45 @@ import { css } from '@emotion/react'
 import ArrowLeft from '@shared/ico/ArrowLeft'
 import { useNavigate } from 'react-router-dom'
 import FixedBottomButton from '@/components/shared/FixedBottomButton'
+import { replaceNickName } from '@remote/user'
+import { useMutation } from '@tanstack/react-query'
+import useUserStore from '@/store/useUserStore'
 
 const Nickname = () => {
     const [first, setfirst] = useState<number>(0)
+    const [change, setChange] = useState<string | null>(null)
     const navigate = useNavigate()
+    const { user, setUser } = useUserStore()
 
     const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
         setfirst(e.target.value.length)
+        setChange(e.target.value)
     }
     const handleChangeNickname = () => {
-        //닉네임 변경요청
+        if (user?.username && change) {
+            mutate.mutate({ username: user.username, after: change })
+        }
     }
+
+    const mutate = useMutation({
+        mutationFn: async ({
+            username,
+            after,
+        }: {
+            username: string
+            after: string
+        }) => {
+            return await replaceNickName(username, after)
+        },
+        onSuccess: (data, variables) => {
+            // nickname을 변경한 후 변수에서 'before' 값을 사용
+            setUser({
+                nickname: variables.after, // 'after'는 변경된 닉네임
+            })
+            navigate('/my') // 마이 페이지로 이동
+            alert('닉네임 변경이 완료되었습니다.') // 알림
+        },
+    })
 
     return (
         <div>

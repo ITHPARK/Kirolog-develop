@@ -1,4 +1,4 @@
-import { CreateUserInfo } from '@models/signup'
+import { SigninProps, CreateUserInfo, TokenProps } from '@/models/user'
 import axios from 'axios'
 
 //회원가입 요청
@@ -17,12 +17,16 @@ export const createAccount = async (userData: CreateUserInfo) => {
         return response.data
     } catch (e) {
         // 에러를 상위로 전달
-        console.error('회원가입 요청 실패:', e)
+        if (axios.isAxiosError(e)) {
+            console.error('Axios 에러:', e.response?.data || e.message)
+        } else {
+            console.error('미확인 error:', e)
+        }
         throw e
     }
 }
 
-export const login = async (userData: CreateUserInfo) => {
+export const login = async (userData: SigninProps) => {
     try {
         const response = await axios.post(
             'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/accounts/login/',
@@ -37,7 +41,85 @@ export const login = async (userData: CreateUserInfo) => {
         return response.data
     } catch (e) {
         // 에러를 상위로 전달
-        console.error('로그인 실패:', e)
+        if (axios.isAxiosError(e)) {
+            console.error('Axios 에러:', e.response?.data || e.message)
+        } else {
+            console.error('미확인 error:', e)
+        }
+        throw e
+    }
+}
+
+export const getUser = async (username: string, accessToken: string) => {
+    try {
+        const response = await axios.get(
+            `http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/accounts/${username}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        // 에러를 상위로 전달
+        if (axios.isAxiosError(e)) {
+            if (e.status === 401) {
+                console.log('토큰 만료 에러')
+            }
+            console.error('Axios 에러:', e.response?.data || e.message)
+        } else {
+            console.error('미확인 error:', e)
+        }
+        throw e
+    }
+}
+
+export const refreshToken = async (refresh: string) => {
+    try {
+        const response = await axios.post(
+            'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/accounts/token/refresh/',
+            { refresh: refresh },
+            {
+                headers: {
+                    Authorization: `Bearer ${refresh}`,
+                },
+            },
+        )
+        console.log(response.data)
+
+        return response.data
+    } catch (e) {
+        // 에러를 상위로 전달
+        if (axios.isAxiosError(e)) {
+            console.error('Axios 에러:', e.response?.data || e.message)
+        } else {
+            console.error('미확인 error:', e)
+        }
+        throw e
+    }
+}
+
+export const replaceNickName = async (user: string, after: string) => {
+    try {
+        const response = await axios.put(
+            `http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/accounts/update-nickname/${user}/`,
+            { nickname: after },
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            console.error('Axios 에러:', e.response?.data || e.message)
+        } else {
+            console.error('미확인 error:', e)
+        }
         throw e
     }
 }

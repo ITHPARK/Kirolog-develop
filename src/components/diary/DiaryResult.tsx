@@ -62,7 +62,7 @@ const DiaryResult = () => {
     return (
         <>
             <Spacing size={8} />
-            <MyMoodContainer mood={diaryData.mood} />
+            <MyMoodContainer mood={diaryData.moods} />
             <Flex direction="column">
                 <Spacing size={20} />
                 {imageSrc !== null && (
