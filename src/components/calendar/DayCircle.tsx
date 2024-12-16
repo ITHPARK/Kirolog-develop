@@ -1,6 +1,5 @@
-import React from 'react'
-import styled from '@emotion/styled'
 import { mood } from '@utils/moodContent'
+import styled from '@emotion/styled'
 
 interface CircleProps {
     onClick?: () => void

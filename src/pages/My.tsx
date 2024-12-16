@@ -1,13 +1,11 @@
-import Flex from '@shared/Flex'
-import React from 'react'
-import Text from '@shared/Text'
-import Input from '@shared/Input'
-import styled from '@emotion/styled'
-import { css } from '@emotion/react'
-import LabelBox from '@shared/LabelBox'
 import { Link, useNavigate } from 'react-router-dom'
+
 import ArrowRight from '@shared/ico/ArrowRight'
+import Flex from '@shared/Flex'
 import Spacing from '@/components/shared/Spacing'
+import Text from '@shared/Text'
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 import useUserStore from '@/store/useUserStore'
 
 const My = () => {
@@ -105,12 +103,10 @@ const My = () => {
 const CatgoryContainer = styled(Flex)`
     margin-top: 16px;
 `
-
 const LabelContainer = styled(Flex)`
     gap: 12px 8px;
     flex-wrap: wrap;
 `
-
 const Label = styled.span`
     display: block;
     padding: 10px 20px;
@@ -122,7 +118,6 @@ const Label = styled.span`
     background: var(--gray100);
     white-space: nowrap;
 `
-
 const menu = css`
     padding: 24px 20px;
     display: block;

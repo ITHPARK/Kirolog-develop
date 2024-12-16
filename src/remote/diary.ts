@@ -1,28 +1,9 @@
-import axios from 'axios'
 import { addDiaryProps } from '@models/addDiary'
+import axios from 'axios'
 
 export const crateAiDiary = async (diaryDate: addDiaryProps) => {
-    // const reqData = {
-    //     "ymd":
-    //     "2024-12-10"
-    //     ,
-    //     "content":
-    //     "내용1"
-    //     ,
-    //     "moods":
-    //     ”행복”
-    //     ,
-    //     "hashtags":
-    //     ”#성수동, #블프”
-    //     ,
-    //     "images":
-
-    //     }
     try {
-        console.log(diaryDate.keyword)
         const hashtags = diaryDate.keyword?.map((item) => `#${item}`).join(',')
-
-        console.log(hashtags)
 
         const reqData = {
             ymd: diaryDate.date,
@@ -30,8 +11,6 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
             hashtags: hashtags,
             images: [diaryDate.image?.name || ''],
         }
-
-        console.log(reqData)
 
         const response = await axios.post(
             'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/diaries/ai/',
@@ -58,8 +37,11 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
 
 export const crateMyDiary = async (diaryDate: addDiaryProps) => {
     try {
+<<<<<<< HEAD
         const hashtags = diaryDate.keyword?.map((item) => `#${item}`).join(',')
 
+=======
+>>>>>>> 33eb47a71c1de2ad8c88f7d70bca469c83661c85
         const reqData = {
             ymd: diaryDate.date,
             moods: diaryDate.moods,

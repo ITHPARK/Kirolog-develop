@@ -1,15 +1,15 @@
 import React, {
     createContext,
+    useCallback,
     useContext,
     useEffect,
-    useCallback,
-    useState,
     useRef,
 } from 'react'
 import { getUser, refreshToken } from '@remote/user'
+
+import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import useUserStore from '@/store/useUserStore'
-import { useNavigate } from 'react-router-dom'
 
 interface AuthContextType {
     logout: () => void

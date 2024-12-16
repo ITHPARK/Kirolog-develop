@@ -1,9 +1,8 @@
-import React from 'react'
 import Flex from '@shared/Flex'
-import Text from '@shared/Text'
 import Spacing from '@shared/Spacing'
-import styled from '@emotion/styled'
+import Text from '@shared/Text'
 import { createPortal } from 'react-dom'
+import styled from '@emotion/styled'
 
 const AiDiaryCreateLoading = () => {
     const $portal = document.getElementById('splash')

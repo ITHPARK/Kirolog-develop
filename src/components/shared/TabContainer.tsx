@@ -1,5 +1,4 @@
 import Flex from '@shared/Flex'
-import React from 'react'
 import styled from '@emotion/styled'
 
 const TabContainer = styled(Flex)`

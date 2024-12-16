@@ -1,7 +1,6 @@
-import React from 'react'
+import Spacing from '@shared/Spacing'
 import Text from '@shared/Text'
 import styled from '@emotion/styled'
-import Spacing from '@shared/Spacing'
 
 const AgreeText = ({ type }: { type: number }) => {
     console.log(type)

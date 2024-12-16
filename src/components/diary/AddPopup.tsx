@@ -1,9 +1,8 @@
-import React from 'react'
-import Text from '@shared/Text'
 import Flex from '@shared/Flex'
+import Spacing from '@shared/Spacing'
+import Text from '@shared/Text'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import Spacing from '@shared/Spacing'
 import { useNavigate } from 'react-router-dom'
 
 const AddPopup = ({ onClose }: { onClose: () => void }) => {

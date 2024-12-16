@@ -1,4 +1,3 @@
-import React from 'react'
 import { mood } from '@utils/moodContent'
 import styled from '@emotion/styled'
 

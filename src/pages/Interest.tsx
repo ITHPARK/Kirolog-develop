@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import Topbar from '@components/shared/Topbar'
+import { useEffect, useState } from 'react'
+
 import ArrowLeft from '@components/shared/ico/ArrowLeft'
-import { useNavigate } from 'react-router-dom'
-import Flex from '@shared/Flex'
-import Text from '@shared/Text'
 import { InterestProps } from '@models/interest'
 import Myinterest from '@components/interest/Myinterest'
-import { useMutation } from '@tanstack/react-query'
+import Topbar from '@components/shared/Topbar'
 import { addOnboarding } from '@remote/user'
+import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import useUserStore from '@store/useUserStore'
 
 const selet: { [key: string]: InterestProps } = {
