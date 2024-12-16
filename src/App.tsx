@@ -2,10 +2,9 @@ import { Outlet, Route, Routes } from 'react-router-dom'
 
 import AddDiaryAi from '@pages/AddDiaryAi'
 import AddDiaryMy from '@pages/AddDiaryMy'
-import CalendartBox from '@components/calendar/CalendarBox'
-import CalendartFeed from '@components/calendar/CalendarFeed'
 import DiaryDetail from '@components/diary/DiaryDetail'
 import Navbar from '@shared/Navbar'
+import CalendarContent from '@pages/CalendarContent'
 
 import SignIn from '@pages/SignIn'
 import Signup from '@pages/Signup'
@@ -64,17 +63,9 @@ function App() {
                     <Route
                         path="/"
                         element={
-                            <PrivateRoute>
-                                <CalendartBox />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="/diary"
-                        element={
-                            <PrivateRoute>
-                                <CalendartFeed />
-                            </PrivateRoute>
+                            // <PrivateRoute>
+                            <CalendarContent />
+                            // </PrivateRoute>
                         }
                     />
                     <Route

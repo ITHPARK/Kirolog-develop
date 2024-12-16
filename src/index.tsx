@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import reportWebVitals from './reportWebVitals'
 import { Global } from '@emotion/react'
 import globalStyles from '@/styles/globalStyles'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
@@ -10,6 +9,8 @@ import Splash from '@components/Splash'
 import { AlerContextProvider } from '@context/AlertContext'
 import { DrawerContextProvider } from '@context/DrawContext'
 import { AuthProvider } from '@context/AuthContext'
+
+import reportWebVitals from './reportWebVitals'
 
 const client = new QueryClient()
 

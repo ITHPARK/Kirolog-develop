@@ -60,8 +60,6 @@ export const crateMyDiary = async (diaryDate: addDiaryProps) => {
     try {
         const hashtags = diaryDate.keyword?.map((item) => `#${item}`).join(',')
 
-        console.log(hashtags)
-
         const reqData = {
             ymd: diaryDate.date,
             moods: diaryDate.moods,
@@ -69,10 +67,8 @@ export const crateMyDiary = async (diaryDate: addDiaryProps) => {
             images: [diaryDate.image?.name || ''],
         }
 
-        console.log(reqData)
-
         const response = await axios.post(
-            'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/diaries/',
+            'https://www.kirolog.com/api/diaries/',
             reqData,
             {
                 headers: {

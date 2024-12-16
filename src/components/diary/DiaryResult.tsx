@@ -34,6 +34,7 @@ const DiaryResult = () => {
             return await crateMyDiary(data)
         },
         onSuccess: (data) => {
+            console.log('요청성공')
             console.log(data)
         },
     })
@@ -49,7 +50,7 @@ const DiaryResult = () => {
             console.log(123)
             mutate.mutate(diaryData)
         } else if (lastSegment === 'ai') {
-            console.log(123)
+            console.log(321)
         }
     }, [diaryData])
 

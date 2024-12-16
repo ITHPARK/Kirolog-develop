@@ -54,9 +54,9 @@ const My = () => {
                 </Flex>
                 <CatgoryContainer direction="column">
                     <LabelContainer as="ul">
-                        {(user?.personalities || []).map((item) => {
+                        {(user?.personalities || []).map((item, index) => {
                             return (
-                                <li>
+                                <li key={index}>
                                     <Label>{item}</Label>
                                 </li>
                             )
