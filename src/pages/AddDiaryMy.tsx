@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react'
 import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
 
-import AddKeyword from '@components/diary/AddKeyword'
 import AiDiaryComplateLoading from '@components/diary/AiDiaryComplateLoading'
-import AiDiaryCreateLoading from '@components/diary/AiDiaryCreateLoading'
 import DiaryResult from '@components/diary/DiaryResult'
 import DiaryTop from '@components/diary/DiaryTop'
 import SelectImage from '@components/diary/SelectImage'
 import TagCategory from '@components/diary/TagCategory'
+import { useEffect } from 'react'
 import useFormatDate from '@/hooks/useFormatDate'
 import { useNavigate } from 'react-router-dom'
 

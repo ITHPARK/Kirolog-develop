@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import FixedBottomButton from '@shared/FixedBottomButton'
 import Flex from '@shared/Flex'
 import Input from '@shared/Input'
 import Text from '@shared/Text'
-import { createPortal } from 'react-dom'
 import { useForm } from 'react-hook-form'
 
 const UserAgreeForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {

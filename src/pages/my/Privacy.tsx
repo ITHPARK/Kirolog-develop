@@ -1,10 +1,9 @@
-import React from 'react'
-import Topbar from '@shared/Topbar'
-import Flex from '@shared/Flex'
-import Text from '@shared/Text'
-import Spacing from '@shared/Spacing'
-import { css } from '@emotion/react'
 import ArrowLeft from '@shared/ico/ArrowLeft'
+import Flex from '@shared/Flex'
+import Spacing from '@shared/Spacing'
+import Text from '@shared/Text'
+import Topbar from '@shared/Topbar'
+import { css } from '@emotion/react'
 import { useNavigate } from 'react-router-dom'
 
 const Privacy = () => {

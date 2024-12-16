@@ -1,6 +1,5 @@
 import { addDiaryProps } from '@models/addDiary'
 import { create } from 'zustand'
-import useFormatDate from '@hooks/useFormatDate'
 
 export const useAddDiaryStep = create<{
     step: number

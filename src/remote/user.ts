@@ -1,6 +1,6 @@
-import { SigninProps, CreateUserInfo, TokenProps } from '@/models/user'
+import { CreateUserInfo, SigninProps } from '@/models/user'
+
 import axios from 'axios'
-import useUserStore from '@/store/useUserStore'
 
 //회원가입 요청
 export const createAccount = async (userData: CreateUserInfo) => {

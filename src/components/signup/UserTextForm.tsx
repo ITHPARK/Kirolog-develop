@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import AgreeText from '@components/signup/AgreeText'
 import Button from '@shared/Button'
@@ -6,7 +6,6 @@ import Errormessage from '../shared/Errormessage'
 import FixedBottomButton from '@shared/FixedBottomButton'
 import Flex from '@shared/Flex'
 import Input from '@shared/Input'
-import { SigninProps } from '@/models/user'
 import Spacing from '@shared/Spacing'
 import Text from '@shared/Text'
 import { css } from '@emotion/react'

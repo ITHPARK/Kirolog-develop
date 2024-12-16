@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
 
 import AddKeyword from '@components/diary/AddKeyword'
@@ -8,6 +7,7 @@ import DiaryResult from '@components/diary/DiaryResult'
 import DiaryTop from '@components/diary/DiaryTop'
 import SelectImage from '@components/diary/SelectImage'
 import TagCategory from '@components/diary/TagCategory'
+import { useEffect } from 'react'
 import useFormatDate from '@/hooks/useFormatDate'
 
 const AddDiaryAi = () => {

@@ -1,14 +1,15 @@
-import React, { useRef, useState, useEffect } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination } from 'swiper/modules'
 import 'swiper/swiper-bundle.css'
-import Text from '@shared/Text'
-import Flex from '@shared/Flex'
-import Spacing from '@shared/Spacing'
-import FixedBottomButton from '@components/shared/FixedBottomButton'
-import { useNavigate } from 'react-router-dom'
 
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { useRef, useState } from 'react'
+
+import FixedBottomButton from '@components/shared/FixedBottomButton'
+import Flex from '@shared/Flex'
+import { Pagination } from 'swiper/modules'
+import Spacing from '@shared/Spacing'
+import Text from '@shared/Text'
 import { css } from '@emotion/react'
+import { useNavigate } from 'react-router-dom'
 
 const onBoarding = {
     slide1: {

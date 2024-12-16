@@ -1,13 +1,11 @@
-import { useState } from 'react'
-import UserTextForm from '@components/signup/UserTextForm'
-import Topbar from '@shared/Topbar'
-import { useNavigate } from 'react-router-dom'
-import { CreateUserProps, CreateUserInfo } from '@models/user'
-import { useMutation } from '@tanstack/react-query'
-import { createAccount } from '@remote/user'
-
 import Close from '@shared/ico/Close'
+import { CreateUserInfo } from '@models/user'
+import Topbar from '@shared/Topbar'
+import UserTextForm from '@components/signup/UserTextForm'
 import axios from 'axios'
+import { createAccount } from '@remote/user'
+import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 
 const Signup = () => {
     const navigate = useNavigate()

@@ -1,13 +1,14 @@
 import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
+
 import Flex from '@shared/Flex'
 import Input from '@shared/Input'
+import LabelBox from '@shared/LabelBox'
 import Spacing from '@shared/Spacing'
 import Text from '@shared/Text'
 import { css } from '@emotion/react'
+import { mood } from '@utils/moodContent'
 import styled from '@emotion/styled'
 import { useForm } from 'react-hook-form'
-import LabelBox from '@shared/LabelBox'
-import { mood } from '@utils/moodContent'
 
 const TagCategory = () => {
     const { step, setStep } = useAddDiaryStep()
@@ -15,8 +16,6 @@ const TagCategory = () => {
 
     // 폼 데이터 타입 지정
     const {
-        register,
-        handleSubmit,
         formState: { errors },
     } = useForm<{ emotion: string }>({
         mode: 'onChange',

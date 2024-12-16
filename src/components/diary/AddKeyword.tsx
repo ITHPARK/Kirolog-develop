@@ -1,3 +1,4 @@
+import { addDiaryProps, responseAddDiaryProps } from '@models/addDiary'
 import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
 import { useEffect, useState } from 'react'
 
@@ -7,13 +8,12 @@ import Flex from '@shared/Flex'
 import MyMoodContainer from '@components/diary/MyMoodContainer'
 import Spacing from '@shared/Spacing'
 import Text from '@shared/Text'
+import axios from 'axios'
+import { crateAiDiary } from '@remote/diary'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import usePreviewImage from '@hooks/usePreviewImage'
 import { useMutation } from '@tanstack/react-query'
-import { addDiaryProps, responseAddDiaryProps } from '@models/addDiary'
-import { crateAiDiary } from '@remote/diary'
-import axios from 'axios'
+import usePreviewImage from '@hooks/usePreviewImage'
 
 const AddKeyword = () => {
     const [imageSrc, setImageSrc] = useState<string | null>(null)

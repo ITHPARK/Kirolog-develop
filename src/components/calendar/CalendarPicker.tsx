@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
-import Calendar from 'react-calendar'
-import calendarStyles from '@styles/calendarStyles'
 import Flex from '@shared/Flex'
-import Text from '@shared/Text'
-import styled from '@emotion/styled'
-import { css } from '@emotion/react'
 import Spacing from '@shared/Spacing'
+import Text from '@shared/Text'
+import calendarStyles from '@styles/calendarStyles'
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
+import { useState } from 'react'
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]

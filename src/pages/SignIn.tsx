@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import Flex from '@shared/Flex'
-import Text from '@shared/Text'
-import Form from '@/components/signin/Form'
-import Button from '@shared/Button'
-import Spacing from '@shared/Spacing'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
 import { SigninProps, TokenProps } from '@models/user'
-import { useMutation } from '@tanstack/react-query'
-import { login } from '@remote/user'
-import { useNavigate } from 'react-router-dom'
+
+import Flex from '@shared/Flex'
+import Form from '@/components/signin/Form'
+import Spacing from '@shared/Spacing'
+import Text from '@shared/Text'
 import axios from 'axios'
+import { css } from '@emotion/react'
+import { login } from '@remote/user'
+import styled from '@emotion/styled'
+import { useMutation } from '@tanstack/react-query'
 
 const SignIn = () => {
-    const [loginError, setLoginError] = useState(false)
-    const navigate = useNavigate()
-
     //로그인 mutate
     const mutate = useMutation({
         mutationFn: async (data: SigninProps) => {
