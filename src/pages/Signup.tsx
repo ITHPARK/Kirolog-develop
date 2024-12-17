@@ -6,23 +6,31 @@ import axios from 'axios'
 import { createAccount } from '@remote/user'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const Signup = () => {
     const navigate = useNavigate()
+
+    //로그인이 된 상태라면 메인페이지로 리다이렉트
+    useEffect(() => {
+        if (localStorage.getItem('accessToken') != null) {
+            navigate('/')
+        }
+    }, [])
 
     //리액트 쿼리 useMutation 설정
     const mutate = useMutation({
         mutationFn: async (data: CreateUserInfo) => {
             await createAccount(data)
         },
-        onSuccess: (data, variables, context) => {
+        onSuccess: () => {
             alert('회원가입이 완료되었습니다.')
             navigate('/signin')
             // data: mutationFn이 반환한 데이터
             // variables: mutation에 전달된 변수
             // context: mutation 호출 전 onMutate에서 반환된 값
         },
-        onError: (error, variables, context) => {
+        onError: (error) => {
             // AxiosError 타입dlfkaus
             if (axios.isAxiosError(error)) {
                 const response = error.response

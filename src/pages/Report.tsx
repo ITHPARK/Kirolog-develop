@@ -7,7 +7,7 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useDrawerContext } from '@/context/DrawContext'
 import useFormatPickerDate from '@hooks/useFormatPickerDate'
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import useUserStore from '@store/useUserStore'
 
 const Report = () => {
@@ -15,24 +15,58 @@ const Report = () => {
     const { open } = useDrawerContext()
 
     const [pickerDate, setPickerDate] = useState<Date>(new Date())
+    const [weekObj, setWeekObj] = useState<Date[] | null>(null)
 
-    const handleClickPopup = () => {
+    const handleClickPopup = useCallback(() => {
         open({
             Component: CalendarPicker,
             componentProps: { setPickerDate: setPickerDate },
             onClose: () => {},
         })
-    }
+    }, [])
 
-    const handleClickWeek = () => {
+    const handleClickWeek = useCallback(() => {
         open({
             Component: ReportAnalyze,
             // componentProps: { setPickerDate: setPickerDate },
             onClose: () => {},
             closeGray: true,
         })
-    }
+    }, [pickerDate])
 
+    useEffect(() => {
+        console.log(pickerDate.getMonth() + 1)
+        console.log(pickerDate.getDay())
+
+        //연도와 월 구하기
+        const year = pickerDate.getFullYear()
+        const month = pickerDate.getMonth()
+
+        //월의 시작 날짜와 마지막 날짜 구하기
+        const start = new Date(year, month, 1)
+        const arr = []
+
+        //월의 첫 날짜부터 오늘날짜까지 순회한다.
+        for (
+            // start를 다시 날짜 객체로 만들어줘야한다. 아니면 start를 참조하여 currentDate가 변경되면 start도 변경된다.
+            let currentDate = new Date(start);
+            currentDate <= pickerDate; //오늘날짜까지만 순회
+            currentDate.setDate(currentDate.getDate() + 1) //현재 날짜에서 +1 을 한다.
+        ) {
+            // 월의 시작 날짜는 일요일 것에 상관없이 넣어준다.
+            if (currentDate.getDate() === 1) {
+                console.log(currentDate)
+                arr.push(new Date(currentDate)) // currentDate 복제해서 추가
+            }
+
+            // 일요일이면 날짜 추가(1일이 일요일이면 이미 위에서 추가 되었으니 제외한다.)
+            if (currentDate.getDay() === 0 && !(currentDate.getDate() === 1)) {
+                arr.push(new Date(currentDate)) // currentDate 복제해서 추가
+            }
+        }
+
+        console.log(arr)
+    }, [pickerDate])
     return (
         <Flex direction="column">
             <Spacing size={30} />

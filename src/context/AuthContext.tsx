@@ -33,8 +33,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const refreshTokenValue = localStorage.getItem('refreshToken')
 
-    // 사용자 데이터 가져오기 (토큰이 있는 경우)
-    // const { data, isLoading, refetch, isError } = useQuery({
+    // // 사용자 데이터 가져오기 (토큰이 있는 경우)
+    // const {
+    //     data: userData,
+    //     isLoading,
+    //     refetch,
+    //     isError,
+    // } = useQuery({
     //     queryKey: ['user', localStorage.getItem('username')],
     //     queryFn: () =>
     //         getUser(
@@ -66,17 +71,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     // }, [isError, refreshTokenValue]) // 필요한 의존성만 추가
 
     // useEffect(() => {
-    //     if (data) {
-    //         console.log(data)
+    //     if (userData) {
     //         setUser({
     //             username: localStorage.getItem('username') || '',
-    //             nickname: data.nickname,
-    //             profilePicture: data.profilePicture || '',
-    //             interests: data.interests || [],
-    //             personalities: data.personalities || '',
+    //             nickname: userData.nickname,
+    //             profilePicture: userData.profilePicture || '',
+    //             interests: userData.interests || [],
+    //             personalities: userData.personalities || '',
     //         })
     //     }
-    // }, [data]) // data가 바뀔 때마다 실행
+    // }, [userData]) // data가 바뀔 때마다 실행
 
     // useEffect(() => {
     //     if (user?.interests?.length === 0 && user?.personalities?.length == 0) {

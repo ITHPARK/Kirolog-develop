@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import AgreeText from '@components/signup/AgreeText'
 import Button from '@shared/Button'
@@ -46,6 +46,12 @@ const UserTextForm = ({
         setIsIdChecked(true)
     }
 
+    useEffect(() => {
+        const subscirbe = watch((data, { name }) => console.log(data, name))
+        //모든 input 데이터를 담은 객체 data, change 이벤트가 발생하고 있는 input의 name을 인자로 받는 콜백함수
+        return () => subscirbe.unsubscribe()
+    }, [watch])
+
     //유저 아이디 검사
     const handleChangeUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue('username', e.target.value)
@@ -66,7 +72,10 @@ const UserTextForm = ({
     const handleChangePasswordConfirm = (
         e: React.ChangeEvent<HTMLInputElement>,
     ) => {
+        //현재 입력한 패스워드 확인
         const conPass = e.target.value
+
+        //입력한 패스워드 추적
         const pass = watch('password')
 
         //일치하지 않는다면
@@ -372,7 +381,7 @@ const AgreeArrow = styled.span`
     display: block;
     width: 16px;
     height: 16px;
-    background: url('/images/calendar/arrow_right_16.svg') no-repeat center;
+    background: url('/images/arrow/arrow_right_16.svg') no-repeat center;
     background-size: 100% 100%;
 `
 

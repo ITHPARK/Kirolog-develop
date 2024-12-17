@@ -63,9 +63,9 @@ function App() {
                     <Route
                         path="/"
                         element={
-                            // <PrivateRoute>
-                            <CalendarContent />
-                            // </PrivateRoute>
+                            <PrivateRoute>
+                                <CalendarContent />
+                            </PrivateRoute>
                         }
                     />
                     <Route
@@ -79,9 +79,9 @@ function App() {
                     <Route
                         path="/report"
                         element={
-                            <PrivateRoute>
-                                <Report />
-                            </PrivateRoute>
+                            // <PrivateRoute>
+                            <Report />
+                            // </PrivateRoute>
                         }
                     />
                 </Route>
