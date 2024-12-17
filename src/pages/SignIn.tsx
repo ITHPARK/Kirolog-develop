@@ -9,8 +9,11 @@ import { css } from '@emotion/react'
 import { login } from '@remote/user'
 import styled from '@emotion/styled'
 import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 
 const SignIn = () => {
+    const navigate = useNavigate()
+
     //로그인 mutate
     const mutate = useMutation({
         mutationFn: async (data: SigninProps) => {

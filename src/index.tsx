@@ -1,17 +1,6 @@
-<<<<<<< HEAD
-import React, { useState, useEffect, Suspense } from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import { Global } from '@emotion/react'
-import globalStyles from '@/styles/globalStyles'
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
-import { BrowserRouter } from 'react-router-dom'
-import Splash from '@components/Splash'
-=======
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
 
->>>>>>> 33eb47a71c1de2ad8c88f7d70bca469c83661c85
 import { AlerContextProvider } from '@context/AlertContext'
 import App from './App'
 import { AuthProvider } from '@context/AuthContext'
@@ -21,8 +10,6 @@ import { Global } from '@emotion/react'
 import ReactDOM from 'react-dom/client'
 import Splash from '@components/Splash'
 import globalStyles from '@/styles/globalStyles'
-import reportWebVitals from './reportWebVitals'
-
 import reportWebVitals from './reportWebVitals'
 
 const client = new QueryClient()

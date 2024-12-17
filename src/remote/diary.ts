@@ -12,6 +12,8 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
             images: [diaryDate.image?.name || ''],
         }
 
+        console.log(reqData)
+
         const response = await axios.post(
             'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/diaries/ai/',
             reqData,
@@ -25,23 +27,18 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
 
         return response.data
     } catch (e) {
-        // 에러를 상위로 전달
         if (axios.isAxiosError(e)) {
-            console.error('Axios 에러:', e.response?.data || e.message)
+            alert('데이터를 요청하는중 에러가 발생하였습니다.')
         } else {
-            console.error('미확인 error:', e)
+            // 기타 에러 처리
+            alert('예상치 못한 오류가 발생했습니다.')
+            console.error(e)
         }
-        throw e
     }
 }
 
 export const crateMyDiary = async (diaryDate: addDiaryProps) => {
     try {
-<<<<<<< HEAD
-        const hashtags = diaryDate.keyword?.map((item) => `#${item}`).join(',')
-
-=======
->>>>>>> 33eb47a71c1de2ad8c88f7d70bca469c83661c85
         const reqData = {
             ymd: diaryDate.date,
             moods: diaryDate.moods,
@@ -62,13 +59,13 @@ export const crateMyDiary = async (diaryDate: addDiaryProps) => {
 
         return response.data
     } catch (e) {
-        // 에러를 상위로 전달
         if (axios.isAxiosError(e)) {
-            console.error('Axios 에러:', e.response?.data || e.message)
+            alert('데이터를 요청하는중 에러가 발생하였습니다.')
         } else {
-            console.error('미확인 error:', e)
+            // 기타 에러 처리
+            alert('예상치 못한 오류가 발생했습니다.')
+            console.error(e)
         }
-        throw e
     }
 }
 
