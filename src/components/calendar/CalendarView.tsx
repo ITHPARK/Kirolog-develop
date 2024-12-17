@@ -187,7 +187,7 @@ const CalendarView = React.memo(
 const dateTitle = css`
     padding-right: 22px;
     margin-bottom: 20px;
-    background: url('/images/calendar/arrow_bottom.svg') no-repeat right center;
+    background: url('/images/arrow/arrow_bottom.svg') no-repeat right center;
     background-size: 14px 7px;
 `
 
@@ -195,7 +195,7 @@ const AddDiary = styled.button`
     margin-top: 52px;
     width: 54px;
     height: 54px;
-    background: url('/images/addDiary.svg') no-repeat center;
+    background: url('/images/calendar/addDiary.svg') no-repeat center;
     background-size: 22px;
     background-color: #000;
     border-radius: 50%;

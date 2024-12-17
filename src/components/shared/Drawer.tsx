@@ -26,9 +26,12 @@ const Drawer = ({
                 <DrawerContent>
                     <CloseButton onClick={onClose}>
                         {closeGray ? (
-                            <img src="/images/close_gray.svg" alt="닫기" />
+                            <img
+                                src="/images/close/close_gray.svg"
+                                alt="닫기"
+                            />
                         ) : (
-                            <img src="/images/close.svg" alt="닫기" />
+                            <img src="/images/close/close.svg" alt="닫기" />
                         )}
                     </CloseButton>
                     {Component != null && (

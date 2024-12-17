@@ -24,7 +24,7 @@ const CalendarDiary = React.memo(
         //SetStateAction는 제네릭 타입
         //Date 타입의 값 또는 이전 상태를 기반으로 새로운 Date를 반환하는 함수 중 하나를 받을 수 있다.
     }) => {
-        const [feedList, setFeedList] = useState<DiaryProps[]>([])
+        const [diaryList, setDiaryList] = useState<DiaryProps[]>([])
         const { open } = useDrawerContext()
         const { diarys } = useDiaryStore()
         const formatDate = useFormatDate()
@@ -37,32 +37,16 @@ const CalendarDiary = React.memo(
             })
         }
 
-        // const handleChange = (data: Record<string, any>) => {
-        //     if (data.action === 'drillDown') {
-        //         // activeStartDate를 포맷하여 'YYYY-MM-DD' 형식으로 변환
-        //         const date = formatDate(data.activeStartDate)
-        //             .split('-') // '-' 기준으로 나누기
-        //             .slice(0, 2) // 연도와 월만 추출
-        //             .join('-') // 연-월 형식으로 합치기
-
-        //         const feed = diarys.filter((diary) => {
-        //             // todo.date에서 연도와 월만 추출하여 비교
-        //             const a = diary.ymd.split('-').slice(0, 2).join('-')
-        //             return a === date
-        //         })
-
-        //         setFeedDate(feed)
-        //     }
-        // }
-
         useEffect(() => {
-            const month = formatDate(date).split('-').slice(0, 2).join('-') // 현재 선택된 월
+            // 현재 선택된 월
+            const month = formatDate(date).split('-').slice(0, 2).join('-')
 
+            // 모든 일기 리스트에서 선택된 월의 일기만 가져온다.
             const filteredDiary = diarys.filter(
-                (diary) => diary.ymd.split('-').slice(0, 2).join('-') === month, //  월을 기준으로 필터링
+                (diary) => diary.ymd.split('-').slice(0, 2).join('-') === month,
             )
 
-            setFeedList(filteredDiary) // 필터링된 todo 항목들 출력
+            setDiaryList(filteredDiary) // 필터링된 todo 항목들 출력
         }, [date, diarys])
 
         const handleClickFeed = () => {}
@@ -71,14 +55,14 @@ const CalendarDiary = React.memo(
             <div css={calendarStyles}>
                 <DateTitle pickerDate={date} setPickerDate={setDate} />
                 <FeedContainer as="ul">
-                    {feedList.length > 0 ? (
-                        feedList.map((item, index) => {
-                            console.log(item)
+                    {diaryList.length > 0 ? (
+                        diaryList.map((diary, index) => {
+                            console.log(diary)
                             return (
-                                <li key={index}>
-                                    <Link to={`/diary/${item.id}`}>
+                                <li key={`month-diary-${index}`}>
+                                    <Link to={`/diary/${diary.id}`}>
                                         <Flex direction="column">
-                                            {item.images && <ImageArea />}
+                                            {diary.images && <ImageArea />}
                                             <Flex
                                                 direction="column"
                                                 css={css`
@@ -89,7 +73,7 @@ const CalendarDiary = React.memo(
                                                     typography="t1"
                                                     color="gray400"
                                                 >
-                                                    {`${item.ymd.split('-')[1]}.${item.ymd.split('-')[2]}`}
+                                                    {`${diary.ymd.split('-')[1]}.${diary.ymd.split('-')[2]}`}
                                                 </Text>
                                                 <Spacing size={8} />
                                                 <Flex align="center">
@@ -98,14 +82,14 @@ const CalendarDiary = React.memo(
                                                         weight="bold"
                                                         color="gray800"
                                                     >
-                                                        {item.moods}
+                                                        {diary.moods}
                                                     </Text>
                                                     <Spacing
                                                         size={4}
                                                         direction="horizontal"
                                                     />
                                                     <MoodIcon
-                                                        moodStr={item.moods}
+                                                        moodStr={diary.moods}
                                                     />
                                                 </Flex>
                                                 <Text
@@ -120,7 +104,7 @@ const CalendarDiary = React.memo(
                                                         -webkit-box-orient: vertical;
                                                     `}
                                                 >
-                                                    {item.content}
+                                                    {diary.content}
                                                 </Text>
                                             </Flex>
                                         </Flex>
@@ -140,7 +124,7 @@ const CalendarDiary = React.memo(
                                 onClick={() => handleClickAddDiary()}
                             >
                                 <img
-                                    src="/images/diaryPlus.svg"
+                                    src="/images/calendar/diaryPlus.svg"
                                     alt="플러스 아이콘"
                                     css={addDiaryImg}
                                 />

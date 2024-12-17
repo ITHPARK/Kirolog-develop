@@ -143,7 +143,10 @@ const UserTextForm = ({
                                 onClick={handleDeleteId}
                                 css={circleStyles}
                             >
-                                <img src="/images/x-circle.svg" alt="이미지" />
+                                <img
+                                    src="/images/circle/x-circle.svg"
+                                    alt="이미지"
+                                />
                             </button>
                         </div>
                         <Spacing size={10} direction="horizontal" />
@@ -369,7 +372,7 @@ const AgreeArrow = styled.span`
     display: block;
     width: 16px;
     height: 16px;
-    background: url('/images/arrow_right_16.svg') no-repeat center;
+    background: url('/images/calendar/arrow_right_16.svg') no-repeat center;
     background-size: 100% 100%;
 `
 

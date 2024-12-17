@@ -1,26 +1,34 @@
-import Flex from '@shared/Flex'
 import styled from '@emotion/styled'
 
-const TabContainer = styled(Flex)`
-    padding: 5px;
-    margin-bottom: 24px;
-    width: 100%;
-    gap: 5px;
-    background-color: var(--gray100);
-    border-radius: 6px;
+const TabContainer = styled.div`
+    padding: 20px 0 24px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: var(--white);
 
-    li {
-        flex: 1;
+    ul {
+        padding: 5px;
+        width: 100%;
+        display: flex;
+        gap: 5px;
 
-        button {
-            padding: 10px 0;
-            width: 100%;
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--slate700);
-            text-align: center;
-            border-radius: 3px;
+        background-color: var(--gray100);
+        border-radius: 6px;
+
+        li {
+            flex: 1;
+
+            button {
+                padding: 10px 0;
+                width: 100%;
+                display: block;
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--slate700);
+                text-align: center;
+                border-radius: 3px;
+            }
         }
     }
 `

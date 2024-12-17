@@ -3,7 +3,6 @@ import CalendarView from '@/components/calendar/CalendarView'
 import CalendarFeed from '@/components/calendar/CalendarDiary'
 import { css } from '@emotion/react'
 import TabContainer from '@shared/TabContainer'
-import Spacing from '@shared/Spacing'
 
 const CalendarContent = () => {
     const [viewTab, setViewTab] = useState<number>(1)
@@ -12,24 +11,25 @@ const CalendarContent = () => {
 
     return (
         <div>
-            <Spacing size={20} />
-            <TabContainer as="ul">
-                <li>
-                    <button
-                        onClick={() => setViewTab(1)}
-                        css={viewTab === 1 ? activeButtonStyles : null}
-                    >
-                        캘린더
-                    </button>
-                </li>
-                <li>
-                    <button
-                        onClick={() => setViewTab(2)}
-                        css={viewTab === 2 ? activeButtonStyles : null}
-                    >
-                        다이어리
-                    </button>
-                </li>
+            <TabContainer>
+                <ul>
+                    <li>
+                        <button
+                            onClick={() => setViewTab(1)}
+                            css={viewTab === 1 ? activeButtonStyles : null}
+                        >
+                            캘린더
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            onClick={() => setViewTab(2)}
+                            css={viewTab === 2 ? activeButtonStyles : null}
+                        >
+                            다이어리
+                        </button>
+                    </li>
+                </ul>
             </TabContainer>
             {viewTab === 1 && (
                 <CalendarView date={calendarDate} setDate={setCalendarDate} />
