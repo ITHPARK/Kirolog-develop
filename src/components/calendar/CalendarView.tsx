@@ -166,6 +166,7 @@ const CalendarView = React.memo(
                     {formattedPickerDate}
                 </Text>
                 <Calendar
+                    calendarType="gregory"
                     activeStartDate={date}
                     tileContent={getTileContent}
                     tileClassName={getTitleClass}
