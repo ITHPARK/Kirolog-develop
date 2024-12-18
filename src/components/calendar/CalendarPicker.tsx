@@ -5,6 +5,8 @@ import calendarStyles from '@styles/calendarStyles'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useState } from 'react'
+import ArrowLeft from '@shared/ico/ArrowLeft'
+import ArrowRight from '@shared/ico/ArrowRight'
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
@@ -80,20 +82,6 @@ const CalendarPicker = ({ onClose, setPickerDate }: PickerProps) => {
         </div>
     )
 }
-
-const ArrowLeft = styled.div`
-    width: 8px;
-    height: 14px;
-    background: url('/images/calendar/arrow_left.svg') no-repeat center;
-    background-size: 100%;
-`
-
-const ArrowRight = styled.div`
-    width: 8px;
-    height: 14px;
-    background: url('/images/calendar/arrow_right.svg') no-repeat center;
-    background-size: 100%;
-`
 
 const MonthPicker = styled(Flex)`
     margin-top: 20px;

@@ -75,7 +75,7 @@ const AddKeyword = () => {
         <>
             <Flex direction="column">
                 <Spacing size={8} />
-                <MyMoodContainer mood="기쁨" />
+                <MyMoodContainer mood={diaryData.moods} />
                 <Spacing size={20} />
                 <DiaryImageBox imageSrc={imageSrc} />
                 <Spacing size={20} />
