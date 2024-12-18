@@ -1,6 +1,7 @@
 import { CreateUserInfo, SigninProps } from '@/models/user'
 
 import axios from 'axios'
+import { getCookie } from '@utils/cookieController'
 
 //회원가입 요청
 export const createAccount = async (userData: CreateUserInfo) => {
@@ -109,7 +110,7 @@ export const replaceNickName = async (user: string, after: string) => {
             { nickname: after },
             {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    Authorization: `Bearer ${getCookie('accessToken')}`,
                 },
             },
         )
@@ -131,7 +132,7 @@ export const deleteUser = async (user: string) => {
             `http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/accounts/${user}/`,
             {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    Authorization: `Bearer ${getCookie('accessToken')}`,
                 },
             },
         )
@@ -154,7 +155,7 @@ export const addOnboarding = async (data: { [key: string]: string[] }) => {
             data,
             {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    Authorization: `Bearer ${getCookie('accessToken')}`,
                 },
             },
         )

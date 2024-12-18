@@ -7,13 +7,14 @@ import { createAccount } from '@remote/user'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import { getCookie } from '@utils/cookieController'
 
 const Signup = () => {
     const navigate = useNavigate()
 
     //로그인이 된 상태라면 메인페이지로 리다이렉트
     useEffect(() => {
-        if (localStorage.getItem('accessToken') != null) {
+        if (getCookie('accessToken') != null) {
             navigate('/')
         }
     }, [])

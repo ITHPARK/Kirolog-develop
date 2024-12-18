@@ -6,7 +6,7 @@ import LabelBox from '@shared/LabelBox'
 import Spacing from '@shared/Spacing'
 import Text from '@shared/Text'
 import { css } from '@emotion/react'
-import { mood } from '@utils/moodContent'
+import { mood } from '@/constants/moodContent'
 import styled from '@emotion/styled'
 import { useForm } from 'react-hook-form'
 

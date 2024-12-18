@@ -10,6 +10,7 @@ import { getUser, refreshToken } from '@remote/user'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import useUserStore from '@/store/useUserStore'
+import { getCookie, deleteCookie } from '@utils/cookieController'
 
 interface AuthContextType {
     logout: () => void
@@ -24,73 +25,73 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const navigate = useNavigate()
 
     const logout = useCallback(() => {
-        localStorage.removeItem('accessToken') // 토큰 삭제
-        localStorage.removeItem('refreshToken')
-        localStorage.removeItem('username')
+        deleteCookie('accessToken') // 토큰 삭제
+        deleteCookie('refreshToken')
+        deleteCookie('username')
         setUser(null)
         navigate('/signin') // 로그아웃 후 로그인 페이지로 이동
     }, [])
 
-    const refreshTokenValue = localStorage.getItem('refreshToken')
+    const refreshTokenValue = getCookie('refreshToken')
 
-    // // 사용자 데이터 가져오기 (토큰이 있는 경우)
-    // const {
-    //     data: userData,
-    //     isLoading,
-    //     refetch,
-    //     isError,
-    // } = useQuery({
-    //     queryKey: ['user', localStorage.getItem('username')],
-    //     queryFn: () =>
-    //         getUser(
-    //             localStorage.getItem('username') as string,
-    //             localStorage.getItem('accessToken') as string, // 최신 토큰을 사용
-    //         ),
-    //     enabled: !!localStorage.getItem('accessToken'), // token이 있을 때만 쿼리 실행
-    //     retry: false, // 토큰 만료 시 재시도하지 않도록 설정
-    // })
+    // 사용자 데이터 가져오기 (토큰이 있는 경우)
+    const {
+        data: userData,
+        isLoading,
+        refetch,
+        isError,
+    } = useQuery({
+        queryKey: ['user', getCookie('username')],
+        queryFn: () =>
+            getUser(
+                getCookie('username') as string,
+                getCookie('accessToken') as string, // 최신 토큰을 사용
+            ),
+        enabled: !!getCookie('accessToken'), // token이 있을 때만 쿼리 실행
+        retry: false, // 토큰 만료 시 재시도하지 않도록 설정
+    })
 
-    // useEffect(() => {
-    //     if (isError && refreshTokenValue && !tokenRefreshing.current) {
-    //         tokenRefreshing.current = true // 중복 실행 방지 플래그 설정
+    useEffect(() => {
+        if (isError && refreshTokenValue && !tokenRefreshing.current) {
+            tokenRefreshing.current = true // 중복 실행 방지 플래그 설정
 
-    //         refreshToken(refreshTokenValue)
-    //             .then((refreshedToken) => {
-    //                 localStorage.setItem('accessToken', refreshedToken.access) // 새 액세스 토큰 저장
+            refreshToken(refreshTokenValue)
+                .then((refreshedToken) => {
+                    document.cookie = `accessToken=${refreshedToken.access}`
 
-    //                 refetch() // 데이터 재요청
-    //             })
-    //             .catch((e) => {
-    //                 console.error('리프레시 토큰 갱신 실패:', e)
-    //                 // logout() // 리프레시 토큰 만료 시 로그아웃
-    //             })
-    //             .finally(() => {
-    //                 tokenRefreshing.current = false // 플래그 초기화
-    //             })
-    //     }
-    // }, [isError, refreshTokenValue]) // 필요한 의존성만 추가
+                    refetch() // 데이터 재요청
+                })
+                .catch((e) => {
+                    console.error('리프레시 토큰 갱신 실패:', e)
+                    // logout() // 리프레시 토큰 만료 시 로그아웃
+                })
+                .finally(() => {
+                    tokenRefreshing.current = false // 플래그 초기화
+                })
+        }
+    }, [isError, refreshTokenValue]) // 필요한 의존성만 추가
 
-    // useEffect(() => {
-    //     if (userData) {
-    //         setUser({
-    //             username: localStorage.getItem('username') || '',
-    //             nickname: userData.nickname,
-    //             profilePicture: userData.profilePicture || '',
-    //             interests: userData.interests || [],
-    //             personalities: userData.personalities || '',
-    //         })
-    //     }
-    // }, [userData]) // data가 바뀔 때마다 실행
+    useEffect(() => {
+        if (userData) {
+            setUser({
+                username: getCookie('username') || '',
+                nickname: userData.nickname,
+                profilePicture: userData.profilePicture || '',
+                interests: userData.interests || [],
+                personalities: userData.personalities || '',
+            })
+        }
+    }, [userData]) // data가 바뀔 때마다 실행
 
-    // useEffect(() => {
-    //     if (user?.interests?.length === 0 && user?.personalities?.length == 0) {
-    //         navigate('/onboarding')
-    //     }
-    // }, [user])
+    useEffect(() => {
+        if (user?.interests?.length === 0 && user?.personalities?.length == 0) {
+            navigate('/onboarding')
+        }
+    }, [user])
 
-    // if (isLoading) {
-    //     return <div>유저 데이터를 가져오는 중입니다.</div>
-    // }
+    if (isLoading) {
+        return <div>유저 데이터를 가져오는 중입니다.</div>
+    }
 
     return (
         <AuthContext.Provider value={{ logout }}>

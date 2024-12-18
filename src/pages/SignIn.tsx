@@ -1,5 +1,5 @@
 import { SigninProps, TokenProps } from '@models/user'
-
+import { useEffect } from 'react'
 import Flex from '@shared/Flex'
 import Form from '@/components/signin/Form'
 import Spacing from '@shared/Spacing'
@@ -10,9 +10,17 @@ import { login } from '@remote/user'
 import styled from '@emotion/styled'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import useUserStore from '@/store/useUserStore'
 
 const SignIn = () => {
     const navigate = useNavigate()
+    const { user } = useUserStore()
+
+    useEffect(() => {
+        if (user != null) {
+            navigate('/')
+        }
+    }, [])
 
     //로그인 mutate
     const mutate = useMutation({
@@ -20,9 +28,9 @@ const SignIn = () => {
             return await login(data) //로그인 api 요청
         },
         onSuccess: (data: TokenProps, variables: SigninProps) => {
-            localStorage.setItem('username', variables.username)
-            localStorage.setItem('accessToken', data.access)
-            localStorage.setItem('refreshToken', data.refresh)
+            document.cookie = `username=${variables.username}`
+            document.cookie = `accessToken=${data.access}`
+            document.cookie = `refreshToken=${data.refresh}`
             navigate('/')
         },
         onError: (error) => {

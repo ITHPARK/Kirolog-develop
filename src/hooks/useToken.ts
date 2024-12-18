@@ -22,7 +22,7 @@ const useToken = () => {
             },
         )
 
-        localStorage.setItem('accessToken', response.data.access_token)
+        document.cookie = `accessToken=${response.data.access_token}`
         navigate('/')
     }
 

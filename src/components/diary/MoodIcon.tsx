@@ -1,4 +1,4 @@
-import { mood } from '@utils/moodContent'
+import { mood } from '@/constants/moodContent'
 import styled from '@emotion/styled'
 
 const MoodIcon = ({ moodStr }: { moodStr: string }) => {

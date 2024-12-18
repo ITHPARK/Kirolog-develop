@@ -1,5 +1,6 @@
 import { addDiaryProps } from '@models/addDiary'
 import axios from 'axios'
+import { getCookie } from '@utils/cookieController'
 
 export const crateAiDiary = async (diaryDate: addDiaryProps) => {
     try {
@@ -19,7 +20,7 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
             reqData,
             {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    Authorization: `Bearer ${getCookie('accessToken')}`,
                     'Content-Type': 'application/json',
                 },
             },
@@ -51,7 +52,7 @@ export const crateMyDiary = async (diaryDate: addDiaryProps) => {
             reqData,
             {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    Authorization: `Bearer ${getCookie('accessToken')}`,
                     'Content-Type': 'application/json',
                 },
             },
@@ -74,7 +75,7 @@ export const getDiary = async () => {
         'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/diaries/',
         {
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                Authorization: `Bearer ${getCookie('accessToken')}`,
             },
         },
     )

@@ -15,7 +15,7 @@ const Report = () => {
     const { open } = useDrawerContext()
 
     const [pickerDate, setPickerDate] = useState<Date>(new Date())
-    const [weekObj, setWeekObj] = useState<Date[] | null>(null)
+    const [week, setWeek] = useState<Date[] | null>(null)
 
     const handleClickPopup = useCallback(() => {
         open({
@@ -35,9 +35,6 @@ const Report = () => {
     }, [pickerDate])
 
     useEffect(() => {
-        console.log(pickerDate.getMonth() + 1)
-        console.log(pickerDate.getDay())
-
         //연도와 월 구하기
         const year = pickerDate.getFullYear()
         const month = pickerDate.getMonth()
@@ -65,7 +62,7 @@ const Report = () => {
             }
         }
 
-        console.log(arr)
+        setWeek(arr)
     }, [pickerDate])
     return (
         <Flex direction="column">
