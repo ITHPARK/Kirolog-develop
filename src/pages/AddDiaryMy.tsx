@@ -1,6 +1,6 @@
 import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
 
-import AiDiaryComplateLoading from '@components/diary/AiDiaryComplateLoading'
+import AiDiaryComplateLoading from '@/components/diary/DiaryComplateLoading'
 import DiaryResult from '@components/diary/DiaryResult'
 import DiaryTop from '@components/diary/DiaryTop'
 import SelectImage from '@components/diary/SelectImage'

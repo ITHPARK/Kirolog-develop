@@ -1,7 +1,7 @@
 import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
 
 import AddKeyword from '@components/diary/AddKeyword'
-import AiDiaryComplateLoading from '@components/diary/AiDiaryComplateLoading'
+import AiDiaryComplateLoading from '@/components/diary/DiaryComplateLoading'
 import AiDiaryCreateLoading from '@components/diary/AiDiaryCreateLoading'
 import DiaryResult from '@components/diary/DiaryResult'
 import DiaryTop from '@components/diary/DiaryTop'

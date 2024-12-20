@@ -1,12 +1,12 @@
-import Text from '@shared/Text'
-import useFormatPickerDate from '@hooks/useFormatPickerDate'
-import { useDrawerContext } from '@/context/DrawContext'
 import CalendarPicker from '@components/calendar/CalendarPicker'
+import Text from '@shared/Text'
 import styled from '@emotion/styled'
+import { useDrawerContext } from '@/context/DrawContext'
+import useFormatPickerDate from '@hooks/useFormatPickerDate'
 
 interface DateTitleProps {
     pickerDate: Date
-    setPickerDate: React.Dispatch<React.SetStateAction<Date>> // directly set the correct type here
+    setPickerDate: (date: Date) => void // directly set the correct type here
 }
 
 const DateTitle = ({ pickerDate, setPickerDate }: DateTitleProps) => {

@@ -3,21 +3,20 @@ import React, { useEffect, useState } from 'react'
 import AddPopup from '@components/diary/AddPopup'
 import Calendar from 'react-calendar'
 import CalendarPicker from '@components/calendar/CalendarPicker'
+import DayCircle from '@components/calendar/DayCircle'
+import { DiaryProps } from '@models/diary'
 import Flex from '@shared/Flex'
 import Text from '@shared/Text'
 import calendarStyles from '@styles/calendarStyles'
 import { css } from '@emotion/react'
 import moment from 'moment'
 import styled from '@emotion/styled'
+import useDiaryData from '@hooks/useDiaryData'
+import { useDiaryStore } from '@store/useDiary'
 import { useDrawerContext } from '@/context/DrawContext'
 import useFormatDate from '@hooks/useFormatDate'
 import useFormatPickerDate from '@hooks/useFormatPickerDate'
 import { useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { getDiary } from '@remote/diary'
-import { useDiaryStore } from '@store/useDiary'
-import { DiaryProps } from '@models/diary'
-import DayCircle from '@components/calendar/DayCircle'
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
@@ -29,7 +28,7 @@ const CalendarView = React.memo(
         setDate,
     }: {
         date: Date
-        setDate: React.Dispatch<React.SetStateAction<Date>>
+        setDate: (date: Date) => void
         //SetStateAction는 제네릭 타입
         //Date 타입의 값 또는 이전 상태를 기반으로 새로운 Date를 반환하는 함수 중 하나를 받을 수 있다.
     }) => {
@@ -45,23 +44,19 @@ const CalendarView = React.memo(
             new Date().getMonth() + 1,
         )
 
-        // const { data, isLoading } = useQuery({
-        //     queryKey: ['diary'],
-        //     queryFn: () => getDiary(),
-        //     retry: false,
-        // })
+        const { data: diaryData, isLoading } = useDiaryData()
 
-        // useEffect(() => {
-        //     //리액트 쿼리로 데이터를 받으면 전역에 저장
-        //     if (data != null && data.length > 0) {
-        //         //받은 모든 일기 리스트에서 ymd를 (2024=12-14)형식으로 바꾼다.
-        //         const format = data.map((item: DiaryProps) => {
-        //             const formatDate = item.ymd.split('T')[0]
-        //             return { ...item, ymd: formatDate }
-        //         })
-        //         setDiarys(format)
-        //     }
-        // }, [data])
+        useEffect(() => {
+            //리액트 쿼리로 데이터를 받으면 전역에 저장
+            if (diaryData != null && diaryData.length > 0) {
+                //받은 모든 일기 리스트에서 ymd를 (2024=12-14)형식으로 바꾼다.
+                const format = diaryData.map((item: DiaryProps) => {
+                    const formatDate = item.ymd.split('T')[0]
+                    return { ...item, ymd: formatDate }
+                })
+                setDiarys(format)
+            }
+        }, [diaryData])
 
         useEffect(() => {
             setCurrentMonth(date.getMonth() + 1)
@@ -150,9 +145,9 @@ const CalendarView = React.memo(
             })
         }
 
-        // if (isLoading) {
-        //     return <div>로딩중입니다.</div>
-        // }
+        if (isLoading) {
+            return <div>로딩중입니다.</div>
+        }
 
         return (
             <div css={calendarStyles}>

@@ -35,6 +35,8 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
             alert('예상치 못한 오류가 발생했습니다.')
             console.error(e)
         }
+
+        throw e
     }
 }
 
@@ -67,6 +69,8 @@ export const crateMyDiary = async (diaryDate: addDiaryProps) => {
             alert('예상치 못한 오류가 발생했습니다.')
             console.error(e)
         }
+
+        throw e
     }
 }
 

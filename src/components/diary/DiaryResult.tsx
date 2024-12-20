@@ -1,4 +1,3 @@
-import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
 import { useEffect, useState } from 'react'
 
 import DiaryImageBox from '@components/diary/DiaryImageBox'
@@ -7,13 +6,15 @@ import Flex from '@shared/Flex'
 import MyMoodContainer from '@components/diary/MyMoodContainer'
 import Spacing from '@shared/Spacing'
 import Text from '@shared/Text'
+import { addDiaryProps } from '@models/addDiary'
+import { crateMyDiary } from '@remote/diary'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import usePreviewImage from '@hooks/usePreviewImage'
-import { useMutation } from '@tanstack/react-query'
-import { addDiaryProps, responseAddDiaryProps } from '@models/addDiary'
-import { crateMyDiary } from '@remote/diary'
+import { useAddDiaryData } from '@store/useAddDiary'
+import { useAddDiaryStep } from '@store/useAddDiary'
 import { useLocation } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import usePreviewImage from '@hooks/usePreviewImage'
 
 const DiaryResult = () => {
     const [text, setText] = useState<string>('') // 초기값 설정
@@ -36,21 +37,18 @@ const DiaryResult = () => {
         onSuccess: (data) => {
             console.log('요청성공')
             console.log(data)
+            setStep(1)
         },
     })
 
     useEffect(() => {
-        console.log(diaryData)
-
         if (
             lastSegment === 'my' &&
             diaryData.content &&
             diaryData.content.length > 0
         ) {
-            console.log(123)
             mutate.mutate(diaryData)
         } else if (lastSegment === 'ai') {
-            console.log(321)
         }
     }, [diaryData])
 
@@ -87,6 +85,10 @@ const DiaryResult = () => {
     const handleClick = () => {
         // setStep(1)
         setDiaryData({ ...diaryData, content: text })
+    }
+
+    if (mutate.isPending) {
+        return <div>일기를 생성중입니다.</div>
     }
 
     return (

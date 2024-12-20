@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+
+import AddPopup from '@components/diary/AddPopup'
+import DateTitle from '@components/calendar/DateTitle'
+import { DiaryProps } from '@models/diary'
+import Flex from '@shared/Flex'
+import { Link } from 'react-router-dom'
+import MoodIcon from '@components/diary/MoodIcon'
+import Spacing from '@shared/Spacing'
+import Text from '@shared/Text'
 import calendarStyles from '@styles/calendarStyles'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import useFormatDate from '@hooks/useFormatDate'
-import Text from '@shared/Text'
-import Flex from '@shared/Flex'
-import Spacing from '@shared/Spacing'
-import DateTitle from '@components/calendar/DateTitle'
-import { Link } from 'react-router-dom'
 import { useDiaryStore } from '@store/useDiary'
-import { DiaryProps } from '@models/diary'
-import MoodIcon from '@components/diary/MoodIcon'
 import { useDrawerContext } from '@/context/DrawContext'
-import AddPopup from '@components/diary/AddPopup'
+import useFormatDate from '@hooks/useFormatDate'
 
 const CalendarDiary = React.memo(
     ({
@@ -20,11 +21,12 @@ const CalendarDiary = React.memo(
         setDate,
     }: {
         date: Date
-        setDate: React.Dispatch<React.SetStateAction<Date>>
+        setDate: (date: Date) => void
         //SetStateAction는 제네릭 타입
         //Date 타입의 값 또는 이전 상태를 기반으로 새로운 Date를 반환하는 함수 중 하나를 받을 수 있다.
     }) => {
         const [diaryList, setDiaryList] = useState<DiaryProps[]>([])
+        const [today, setToday] = useState(new Date())
         const { open } = useDrawerContext()
         const { diarys } = useDiaryStore()
         const formatDate = useFormatDate()
@@ -54,7 +56,7 @@ const CalendarDiary = React.memo(
         return (
             <div css={calendarStyles}>
                 <DateTitle pickerDate={date} setPickerDate={setDate} />
-                <FeedContainer as="ul">
+                <DiaryContainer as="ul">
                     {diaryList.length > 0 ? (
                         diaryList.map((diary, index) => {
                             console.log(diary)
@@ -112,14 +114,14 @@ const CalendarDiary = React.memo(
                                 </li>
                             )
                         })
-                    ) : (
+                    ) : date.getMonth() >= today.getMonth() ? (
                         <li onClick={handleClickFeed}>
                             <Flex
                                 direction="column"
                                 justify="center"
                                 align="center"
                                 css={css`
-                                    height: 100%;
+                                    height: 200px;
                                 `}
                                 onClick={() => handleClickAddDiary()}
                             >
@@ -140,29 +142,34 @@ const CalendarDiary = React.memo(
                                 </Text>
                             </Flex>
                         </li>
-                    )}
-                </FeedContainer>
+                    ) : null}
+                </DiaryContainer>
             </div>
         )
     },
 )
 
-const FeedContainer = styled(Flex)`
+const DiaryContainer = styled(Flex)`
     width: 100%;
     gap: 10px;
     flex-wrap: wrap;
 
     li {
-        padding: 18px;
         width: calc(50% - 5px);
-        height: 200px;
+
         background-color: var(--gray100);
         border: 1px solid var(--gray200);
         border-radius: 6px;
 
-        P {
-            overflow: hidden; // 너비를 넘어가면 안보이게
-            text-overflow: ellipsis; // 글자가 넘어가면 말줄임(...) 표시
+        a {
+            padding: 18px;
+            height: 200px;
+            display: block;
+
+            P {
+                overflow: hidden; // 너비를 넘어가면 안보이게
+                text-overflow: ellipsis; // 글자가 넘어가면 말줄임(...) 표시
+            }
         }
     }
 `

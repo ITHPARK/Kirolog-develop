@@ -6,11 +6,11 @@ import Text from '@shared/Text'
 import { createPortal } from 'react-dom'
 import styled from '@emotion/styled'
 
-interface AiDiaryComplateLoadingProps {
+interface DiaryComplateLoadingProps {
     onClick: () => void // onClick을 props로 전달받기 위한 타입 정의
 }
 
-const AiDiaryComplateLoading: React.FC<AiDiaryComplateLoadingProps> = ({
+const DiaryComplateLoading: React.FC<DiaryComplateLoadingProps> = ({
     onClick,
 }) => {
     const $portal = document.getElementById('splash')
@@ -63,4 +63,4 @@ const SplashContent = styled(Flex)`
     background-size: 176px 184px;
 `
 
-export default AiDiaryComplateLoading
+export default DiaryComplateLoading

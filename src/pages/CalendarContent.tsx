@@ -1,13 +1,15 @@
-import { useState } from 'react'
+import CalendarDiary from '@/components/calendar/CalendarDiary'
 import CalendarView from '@/components/calendar/CalendarView'
-import CalendarFeed from '@/components/calendar/CalendarDiary'
-import { css } from '@emotion/react'
 import TabContainer from '@shared/TabContainer'
+import { css } from '@emotion/react'
+import { useCalendar } from '@store/useCalendar'
+import { useState } from 'react'
 
 const CalendarContent = () => {
-    const [viewTab, setViewTab] = useState<number>(1)
-    const [calendarDate, setCalendarDate] = useState<Date>(new Date())
-    const [diaryDate, setDiaryDate] = useState<Date>(new Date())
+    // const [calendarDate, setCalendarDate] = useState<Date>(new Date())
+    // const [diaryDate, setDiaryDate] = useState<Date>(new Date())
+    const { tab, viewDate, diaryDate, setTab, setViewDate, setDiaryDate } =
+        useCalendar()
 
     return (
         <div>
@@ -15,28 +17,28 @@ const CalendarContent = () => {
                 <ul>
                     <li>
                         <button
-                            onClick={() => setViewTab(1)}
-                            css={viewTab === 1 ? activeButtonStyles : null}
+                            onClick={() => setTab(1)}
+                            css={tab === 1 ? activeButtonStyles : null}
                         >
                             캘린더
                         </button>
                     </li>
                     <li>
                         <button
-                            onClick={() => setViewTab(2)}
-                            css={viewTab === 2 ? activeButtonStyles : null}
+                            onClick={() => setTab(2)}
+                            css={tab === 2 ? activeButtonStyles : null}
                         >
                             다이어리
                         </button>
                     </li>
                 </ul>
             </TabContainer>
-            {viewTab === 1 && (
-                <CalendarView date={calendarDate} setDate={setCalendarDate} />
+            {tab === 1 && (
+                <CalendarView date={viewDate} setDate={setViewDate} />
             )}
 
-            {viewTab === 2 && (
-                <CalendarFeed date={diaryDate} setDate={setDiaryDate} />
+            {tab === 2 && (
+                <CalendarDiary date={diaryDate} setDate={setDiaryDate} />
             )}
         </div>
     )
