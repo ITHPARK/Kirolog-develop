@@ -16,7 +16,7 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
         console.log(reqData)
 
         const response = await axios.post(
-            'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/diaries/ai/',
+            'https://www.kirolog.com/api/diaries/ai/',
             reqData,
             {
                 headers: {
