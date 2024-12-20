@@ -5,12 +5,13 @@ import React, {
     useEffect,
     useRef,
 } from 'react'
+import { deleteCookie, getCookie } from '@utils/cookieController'
 import { getUser, refreshToken } from '@remote/user'
 
+import { useCalendar } from '@store/useCalendar'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import useUserStore from '@/store/useUserStore'
-import { getCookie, deleteCookie } from '@utils/cookieController'
 
 interface AuthContextType {
     logout: () => void
@@ -22,6 +23,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const tokenRefreshing = useRef(false) // useRef로 선언
 
     const { user, setUser } = useUserStore()
+    const { setTab, setViewDate, setDiaryDate } = useCalendar()
     const navigate = useNavigate()
 
     const logout = useCallback(() => {
@@ -29,6 +31,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         deleteCookie('refreshToken')
         deleteCookie('username')
         setUser(null)
+        setTab(1)
+        setViewDate(new Date())
+        setDiaryDate(new Date())
         navigate('/signin') // 로그아웃 후 로그인 페이지로 이동
     }, [])
 

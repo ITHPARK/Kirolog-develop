@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import AddPopup from '@components/diary/AddPopup'
 import DateTitle from '@components/calendar/DateTitle'
 import { DiaryProps } from '@models/diary'
+import { DiaryResponseProps } from '@models/diary'
 import Flex from '@shared/Flex'
 import { Link } from 'react-router-dom'
 import MoodIcon from '@components/diary/MoodIcon'
@@ -11,7 +12,7 @@ import Text from '@shared/Text'
 import calendarStyles from '@styles/calendarStyles'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { useDiaryStore } from '@store/useDiary'
+import useDiaryData from '@hooks/useDiaryData'
 import { useDrawerContext } from '@/context/DrawContext'
 import useFormatDate from '@hooks/useFormatDate'
 
@@ -28,9 +29,7 @@ const CalendarDiary = React.memo(
         const [diaryList, setDiaryList] = useState<DiaryProps[]>([])
         const [today, setToday] = useState(new Date())
         const { open } = useDrawerContext()
-        const { diarys } = useDiaryStore()
         const formatDate = useFormatDate()
-
         const handleClickAddDiary = () => {
             open({
                 Component: AddPopup,
@@ -39,13 +38,16 @@ const CalendarDiary = React.memo(
             })
         }
 
+        const { data: diarys } = useDiaryData()
+
         useEffect(() => {
             // 현재 선택된 월
             const month = formatDate(date).split('-').slice(0, 2).join('-')
 
             // 모든 일기 리스트에서 선택된 월의 일기만 가져온다.
             const filteredDiary = diarys.filter(
-                (diary) => diary.ymd.split('-').slice(0, 2).join('-') === month,
+                (diary: DiaryResponseProps) =>
+                    diary.ymd.split('-').slice(0, 2).join('-') === month,
             )
 
             setDiaryList(filteredDiary) // 필터링된 todo 항목들 출력

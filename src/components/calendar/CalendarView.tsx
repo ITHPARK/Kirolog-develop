@@ -5,6 +5,7 @@ import Calendar from 'react-calendar'
 import CalendarPicker from '@components/calendar/CalendarPicker'
 import DayCircle from '@components/calendar/DayCircle'
 import { DiaryProps } from '@models/diary'
+import { DiaryResponseProps } from '@models/diary'
 import Flex from '@shared/Flex'
 import Text from '@shared/Text'
 import calendarStyles from '@styles/calendarStyles'
@@ -12,7 +13,6 @@ import { css } from '@emotion/react'
 import moment from 'moment'
 import styled from '@emotion/styled'
 import useDiaryData from '@hooks/useDiaryData'
-import { useDiaryStore } from '@store/useDiary'
 import { useDrawerContext } from '@/context/DrawContext'
 import useFormatDate from '@hooks/useFormatDate'
 import useFormatPickerDate from '@hooks/useFormatPickerDate'
@@ -34,7 +34,6 @@ const CalendarView = React.memo(
     }) => {
         const { open } = useDrawerContext()
         const navigate = useNavigate()
-        const { diarys, setDiarys } = useDiaryStore()
         const formatDate = useFormatDate()
         // 날짜 데이터를 (12.09) 형식으로 바꿔주는 훅
         const formattedPickerDate = useFormatPickerDate(date)
@@ -49,12 +48,11 @@ const CalendarView = React.memo(
         useEffect(() => {
             //리액트 쿼리로 데이터를 받으면 전역에 저장
             if (diaryData != null && diaryData.length > 0) {
-                //받은 모든 일기 리스트에서 ymd를 (2024=12-14)형식으로 바꾼다.
+                //받은 모든 일기 리스트에서 ymd를 (2024-12-14)형식으로 바꾼다.
                 const format = diaryData.map((item: DiaryProps) => {
                     const formatDate = item.ymd.split('T')[0]
                     return { ...item, ymd: formatDate }
                 })
-                setDiarys(format)
             }
         }, [diaryData])
 
@@ -68,7 +66,9 @@ const CalendarView = React.memo(
             const today = formatDate(new Date())
 
             if (dateStr <= today) {
-                const diary = diarys.find((item) => item.ymd === dateStr)
+                const diary = diaryData.find(
+                    (item: DiaryResponseProps) => item.ymd === dateStr,
+                )
 
                 //일기를 쓴 날에 추가
                 if (diary) {

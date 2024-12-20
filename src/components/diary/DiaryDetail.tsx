@@ -10,7 +10,6 @@ import Text from '@shared/Text'
 import Topbar from '@shared/Topbar'
 import styled from '@emotion/styled'
 import useDiaryData from '@hooks/useDiaryData'
-import { useDiaryStore } from '@store/useDiary'
 
 const DiaryDetail = () => {
     const [dayDiary, setDayDiary] = useState<DiaryResponseProps>()
