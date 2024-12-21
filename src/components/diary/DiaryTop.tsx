@@ -25,7 +25,7 @@ const DiaryTop = () => {
                 setStep(1, true)
                 setDiaryData({
                     headDate: null,
-                    date: null,
+                    ymd: null,
                     moods: '',
                     image: null,
                     content: '',

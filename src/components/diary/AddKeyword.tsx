@@ -1,6 +1,7 @@
 import { addDiaryProps, responseAddDiaryProps } from '@models/addDiary'
 import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
 import { useEffect, useState } from 'react'
+import AiDiaryCreateLoading from '@components/diary/AiDiaryCreateLoading'
 
 import DiaryImageBox from '@components/diary/DiaryImageBox'
 import FixedBottomButton from '@shared/FixedBottomButton'
@@ -8,7 +9,7 @@ import Flex from '@shared/Flex'
 import MyMoodContainer from '@components/diary/MyMoodContainer'
 import Spacing from '@shared/Spacing'
 import Text from '@shared/Text'
-import axios from 'axios'
+
 import { crateAiDiary } from '@remote/diary'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
@@ -48,9 +49,12 @@ const AddKeyword = () => {
             return await crateAiDiary(data) //로그인 api 요청
         },
         onSuccess: (
-            data: responseAddDiaryProps,
+            data: any,
+            // data: responseAddDiaryProps,
             variables: addDiaryProps,
-        ) => {},
+        ) => {
+            // setStep(1)
+        },
     })
 
     // 키워드 입력 핸들러
@@ -70,6 +74,11 @@ const AddKeyword = () => {
 
     // 버튼 활성화 여부
     const isButtonDisabled = keywords.some((keyword) => keyword.trim() === '')
+
+    //AI일기 생성중일 때 뜨는 로딩화면
+    if (mutate.isPending) {
+        return <AiDiaryCreateLoading />
+    }
 
     return (
         <>

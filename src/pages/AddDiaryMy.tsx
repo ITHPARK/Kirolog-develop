@@ -26,7 +26,7 @@ const AddDiaryMy = () => {
 
         setDiaryData({
             ...diaryData,
-            date: formatDate(today),
+            ymd: formatDate(today),
             headDate: formatType,
         })
     }, [])
@@ -38,7 +38,7 @@ const AddDiaryMy = () => {
     const handleClickComplate = () => {
         setDiaryData({
             headDate: null,
-            date: null,
+            ymd: null,
             moods: '',
             image: null,
             content: '',

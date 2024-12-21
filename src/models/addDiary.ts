@@ -1,16 +1,29 @@
 export interface addDiaryProps {
     headDate?: string | null
-    date: string | null
+    ymd: string | null
     moods: string
     image?: any
     content?: string
-    keyword?: string[]
+    keyword: string[]
 }
 
 export interface responseAddDiaryProps {
-    date: string | null
+    ymd: string | null
     moods: string
     image?: File | null
     content?: string
     keyword: string
+}
+
+//s3 경로 요청 바디객체 타입
+export interface ImageUploadProps {
+    username: string
+    date: string
+    filename: string
+}
+
+export interface ImageUploadProps {
+    username: string
+    date: string
+    filename: string
 }

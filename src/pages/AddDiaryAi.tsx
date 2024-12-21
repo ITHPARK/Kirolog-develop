@@ -27,7 +27,7 @@ const AddDiaryAi = () => {
 
         setDiaryData({
             ...diaryData,
-            date: formatDate(today),
+            ymd: formatDate(today),
             headDate: formatType,
         })
     }, [])
