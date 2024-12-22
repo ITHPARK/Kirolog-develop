@@ -10,10 +10,11 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
             filename: diaryDate.image.name,
         }
 
-        //s3이미지 url을 리턴하는 함수
+        // //s3이미지 url을 리턴하는 함수
         const s3imageUrl = await getS3ImageUrl(imgRequest)
+        console.log(s3imageUrl)
 
-        console.log(imgRequest)
+        // console.log(imgRequest)
 
         await putImageToS3(s3imageUrl, diaryDate)
 
@@ -25,27 +26,28 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
             ymd: diaryDate.ymd,
             moods: diaryDate.moods,
             hashtags: hashtags,
-            images: [diaryDate.image?.name || ''],
+            images: [s3imageUrl],
         }
 
         console.log(diaryRequest)
 
-        // const diaryResponse = await axios.post(
-        //     'https://www.kirolog.com/api/diaries/ai/',
-        //     diaryRequest,
-        //     {
-        //         headers: {
-        //             Authorization: `Bearer ${getCookie('accessToken')}`,
-        //             'Content-Type': 'application/json',
-        //         },
-        //     },
-        // )
-        // console.log(diaryResponse)
+        const diaryResponse = await axios.post(
+            'https://www.kirolog.com/api/diaries/ai/',
+            diaryRequest,
+            {
+                headers: {
+                    Authorization: `Bearer ${getCookie('accessToken')}`,
+                    'Content-Type': 'application/json',
+                },
+            },
+        )
+        console.log(diaryResponse)
 
         // return
         // return response.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
+            console.log(e)
             alert('데이터를 요청하는중 에러가 발생하였습니다.')
         } else {
             // 기타 에러 처리
