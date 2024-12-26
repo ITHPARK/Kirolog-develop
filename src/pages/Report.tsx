@@ -9,13 +9,20 @@ import { useDrawerContext } from '@/context/DrawContext'
 import useFormatPickerDate from '@hooks/useFormatPickerDate'
 import { useState, useEffect, useCallback } from 'react'
 import useUserStore from '@store/useUserStore'
+import useFormatDate from '@hooks/useFormatDate'
 
 const Report = () => {
     const { user } = useUserStore()
     const { open } = useDrawerContext()
 
     const [pickerDate, setPickerDate] = useState<Date>(new Date())
-    const [week, setWeek] = useState<Date[] | null>(null)
+    const [week, setWeek] = useState<string | null>(null)
+
+    const formatDate = useFormatDate()
+
+    useEffect(() => {
+        console.log(week)
+    }, [week])
 
     const handleClickPopup = useCallback(() => {
         open({
@@ -41,7 +48,7 @@ const Report = () => {
 
         //월의 시작 날짜와 마지막 날짜 구하기
         const start = new Date(year, month, 1)
-        const arr = []
+        let arr = ''
 
         //월의 첫 날짜부터 오늘날짜까지 순회한다.
         for (
@@ -52,13 +59,18 @@ const Report = () => {
         ) {
             // 월의 시작 날짜는 일요일 것에 상관없이 넣어준다.
             if (currentDate.getDate() === 1) {
-                console.log(currentDate)
-                arr.push(new Date(currentDate)) // currentDate 복제해서 추가
+                const format = formatDate(new Date(currentDate))
+                if (arr.length === 0) {
+                    arr += `${format}` // currentDate 복제해서 추가
+                } else {
+                    arr += `,${format}` // currentDate 복제해서 추가
+                }
             }
 
             // 일요일이면 날짜 추가(1일이 일요일이면 이미 위에서 추가 되었으니 제외한다.)
             if (currentDate.getDay() === 0 && !(currentDate.getDate() === 1)) {
-                arr.push(new Date(currentDate)) // currentDate 복제해서 추가
+                const format = formatDate(new Date(currentDate))
+                arr += `,${format}` // currentDate 복제해서 추가
             }
         }
 
