@@ -1,4 +1,5 @@
-import { addDiaryProps, ImageUploadProps } from '@models/addDiary'
+import { ImageUploadProps, addDiaryProps } from '@models/addDiary'
+
 import axios from 'axios'
 import { getCookie } from '@utils/cookieController'
 
@@ -19,17 +20,20 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
         await putImageToS3(s3imageUrl, diaryDate)
 
         const hashtags: string = diaryDate.keyword
-            ?.map((item) => `#${item}`)
+            ?.map((item) => `${item}`)
             .join(',')
 
         const diaryRequest = {
             ymd: diaryDate.ymd,
             moods: diaryDate.moods,
             hashtags: hashtags,
-            images: [s3imageUrl],
         }
 
-        console.log(diaryRequest)
+        console.log('요청 헤더입니다.', {
+            Authorization: `Bearer ${getCookie('accessToken')}`,
+            'Content-Type': 'application/json',
+        })
+        console.log('요청 바디입니다.', diaryRequest)
 
         const diaryResponse = await axios.post(
             'https://www.kirolog.com/api/diaries/ai/',
