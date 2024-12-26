@@ -5,24 +5,24 @@
         {
             "src": "favicon.ico",
             "sizes": "64x64 32x32 24x24 16x16",
-            "type": "image/x-icon",
+            "type": "images/x-icon",
             "purpose": "any maskable"
         },
         {
             "src": "/imagese.pwaicon/Icon_Bird_192x192",
-            "type": "image/png",
+            "type": "images/png",
             "sizes": "192x192",
             "purpose": "any maskable"
         },
         {
             "src": "/imagese.pwaicon/Icon_Bird_512x512",
-            "type": "image/png",
+            "type": "images/png",
             "sizes": "512x512",
             "purpose": "any maskable"
         },
         {
             "src": "/imagese.pwaicon/Icon_Bird_1024x1024",
-            "type": "image/png",
+            "type": "images/png",
             "sizes": "1024x1024",
             "purpose": "any maskable"
         }

@@ -11,6 +11,7 @@ import ReactDOM from 'react-dom/client'
 import Splash from '@components/Splash'
 import globalStyles from '@/styles/globalStyles'
 import reportWebVitals from './reportWebVitals'
+import { register } from './serviceWorkerRegistration'
 
 const client = new QueryClient()
 
@@ -35,6 +36,22 @@ const Root = () => {
         }, 2000) // 2초 후 스플래시 화면 숨기기
     }, [firstLoading])
 
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker
+                .register('/service-worker.js')
+                .then((registration) => {
+                    console.log(
+                        'Service Worker registered with scope:',
+                        registration.scope,
+                    )
+                })
+                .catch((error) => {
+                    console.log('Service Worker registration failed:', error)
+                })
+        })
+    }
+
     return (
         <React.StrictMode>
             <Global styles={globalStyles} />
@@ -56,3 +73,5 @@ const Root = () => {
 root.render(<Root />)
 
 reportWebVitals()
+
+register()
