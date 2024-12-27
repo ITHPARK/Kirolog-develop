@@ -20,7 +20,7 @@ const AddKeyword = () => {
     const [imageSrc, setImageSrc] = useState<string | null>(null)
     const [keywords, setKeywords] = useState(['', '', '']) // 키워드 상태
 
-    const { step, setStep } = useAddDiaryStep()
+    const { setStep } = useAddDiaryStep()
     const { diaryData, setDiaryData } = useAddDiaryData()
 
     //이미지 파일을 볼 수 있게 포맷하는 훅
@@ -48,13 +48,8 @@ const AddKeyword = () => {
         mutationFn: async (data: addDiaryProps) => {
             return await crateAiDiary(data) //로그인 api 요청
         },
-        onSuccess: (
-            data: any,
-            // data: responseAddDiaryProps,
-            variables: addDiaryProps,
-        ) => {
-            // setStep(1)
-            console.log('성공', data)
+        onSuccess: () => {
+            setStep(1)
         },
     })
 

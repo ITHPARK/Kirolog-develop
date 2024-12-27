@@ -30,16 +30,23 @@ const DiaryResult = () => {
     //이미지 파일을 볼 수 있게 포맷하는 훅
     const preview = usePreviewImage()
 
-    const mutate = useMutation({
+    const myMutate = useMutation({
         mutationFn: async (data: addDiaryProps) => {
             return await crateMyDiary(data)
         },
-        onSuccess: (data) => {
-            console.log('요청성공')
-            console.log(data)
+        onSuccess: () => {
             setStep(1)
         },
     })
+
+    // const aiMutate = useMutation({
+    //     mutationFn: async (data: addDiaryProps) => {
+    //         return await crateAiDiary(data)
+    //     },
+    //     onSuccess: () => {
+    //         setStep(1)
+    //     },
+    // })
 
     useEffect(() => {
         if (
@@ -47,7 +54,7 @@ const DiaryResult = () => {
             diaryData.content &&
             diaryData.content.length > 0
         ) {
-            mutate.mutate(diaryData)
+            myMutate.mutate(diaryData)
         } else if (lastSegment === 'ai') {
         }
     }, [diaryData])
@@ -83,11 +90,10 @@ const DiaryResult = () => {
     }
 
     const handleClick = () => {
-        // setStep(1)
         setDiaryData({ ...diaryData, content: text })
     }
 
-    if (mutate.isPending) {
+    if (myMutate.isPending) {
         return <div>일기를 생성중입니다.</div>
     }
 

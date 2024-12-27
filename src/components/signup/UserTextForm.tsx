@@ -46,11 +46,11 @@ const UserTextForm = ({
         setIsIdChecked(true)
     }
 
-    useEffect(() => {
-        const subscirbe = watch((data, { name }) => console.log(data, name))
-        //모든 input 데이터를 담은 객체 data, change 이벤트가 발생하고 있는 input의 name을 인자로 받는 콜백함수
-        return () => subscirbe.unsubscribe()
-    }, [watch])
+    // useEffect(() => {
+    //     const subscirbe = watch((data, { name }) => console.log(data, name))
+    //     //모든 input 데이터를 담은 객체 data, change 이벤트가 발생하고 있는 input의 name을 인자로 받는 콜백함수
+    //     return () => subscirbe.unsubscribe()
+    // }, [watch])
 
     //유저 아이디 검사
     const handleChangeUserId = (e: React.ChangeEvent<HTMLInputElement>) => {

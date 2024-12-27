@@ -14,36 +14,19 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
 
         //s3이미지 url을 리턴하는 함수
         const s3imageUrl = await getS3ImageUrl(imgRequest)
-        console.log('보낸 요청', imgRequest)
-        console.log('리턴받은 url', s3imageUrl)
-
-        // console.log(imgRequest)
 
         const putData = await putImageToS3(s3imageUrl, diaryDate)
-        console.log(putData)
 
         const hashtags: string = diaryDate.keyword
             ?.map((item) => `${item}`)
             .join(',')
 
+        //ai생성 요청을 보낼 데이터
         const diaryRequest = {
             ymd: diaryDate.ymd,
             moods: diaryDate.moods,
             hashtags: hashtags,
         }
-
-        console.log(`
-        {
-            ymd: ${typeof diaryDate.ymd},
-            moods: ${typeof diaryDate.moods},
-            hashtags: ${typeof hashtags}
-        }`)
-
-        console.log('요청 헤더입니다.', {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-            'Content-Type': 'application/json',
-        })
-        console.log('요청 바디입니다.', diaryRequest)
 
         const diaryResponse = await axios.post(
             'https://www.kirolog.com/api/diaries/ai/',
@@ -55,10 +38,6 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
                 },
             },
         )
-        console.log(diaryResponse)
-
-        // return
-        // return response.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
             console.log(e)

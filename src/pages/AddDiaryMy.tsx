@@ -31,10 +31,6 @@ const AddDiaryMy = () => {
         })
     }, [])
 
-    useEffect(() => {
-        console.log(diaryData)
-    }, [diaryData])
-
     const handleClickComplate = () => {
         setDiaryData({
             headDate: null,
