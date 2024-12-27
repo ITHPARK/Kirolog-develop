@@ -54,6 +54,7 @@ const AddKeyword = () => {
             variables: addDiaryProps,
         ) => {
             // setStep(1)
+            console.log('성공', data)
         },
     })
 

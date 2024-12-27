@@ -1,6 +1,7 @@
 import { ImageUploadProps, addDiaryProps } from '@models/addDiary'
 
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
+
 import { getCookie } from '@utils/cookieController'
 
 export const crateAiDiary = async (diaryDate: addDiaryProps) => {
@@ -11,13 +12,15 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
             filename: diaryDate.image.name,
         }
 
-        // //s3이미지 url을 리턴하는 함수
+        //s3이미지 url을 리턴하는 함수
         const s3imageUrl = await getS3ImageUrl(imgRequest)
-        console.log(s3imageUrl)
+        console.log('보낸 요청', imgRequest)
+        console.log('리턴받은 url', s3imageUrl)
 
         // console.log(imgRequest)
 
-        await putImageToS3(s3imageUrl, diaryDate)
+        const putData = await putImageToS3(s3imageUrl, diaryDate)
+        console.log(putData)
 
         const hashtags: string = diaryDate.keyword
             ?.map((item) => `${item}`)
@@ -28,6 +31,13 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
             moods: diaryDate.moods,
             hashtags: hashtags,
         }
+
+        console.log(`
+        {
+            ymd: ${typeof diaryDate.ymd},
+            moods: ${typeof diaryDate.moods},
+            hashtags: ${typeof hashtags}
+        }`)
 
         console.log('요청 헤더입니다.', {
             Authorization: `Bearer ${getCookie('accessToken')}`,
@@ -129,10 +139,12 @@ const getS3ImageUrl = async (reqBody: ImageUploadProps): Promise<string> => {
 const putImageToS3 = async (
     imgUrl: string,
     diaryDate: addDiaryProps,
-): Promise<void> => {
+): Promise<AxiosResponse> => {
     const uploadImage = await axios.put(imgUrl, diaryDate.image, {
         headers: {
             'Content-Type': diaryDate.image.type as string,
         },
     })
+
+    return uploadImage
 }

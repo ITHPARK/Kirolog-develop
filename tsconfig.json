@@ -19,5 +19,5 @@
         "jsxImportSource": "@emotion/react",
         "incremental": false
     },
-    "include": ["src", "tsconfig.paths.json", "public/service-worker.js"]
+    "include": ["src", "tsconfig.paths.json"]
 }
