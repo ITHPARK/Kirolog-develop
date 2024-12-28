@@ -1,17 +1,30 @@
-import React from 'react'
 import Text from '@shared/Text'
 import Flex from '@shared/Flex'
 import Spacing from '@shared/Spacing'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import Button from '@shared/Button'
+import { WeeklyReportProps } from '@models/report'
+import { getWeekLabel } from '@utils/getWeekend'
 
-const ReportAnalyze = ({ onClose }: { onClose: () => void }) => {
+const ReportAnalyze = ({
+    onClose,
+    weeklyReport,
+    week,
+    totalWeek,
+    date,
+}: {
+    onClose: () => void
+    weeklyReport: WeeklyReportProps
+    week: number
+    totalWeek: number
+    date: Date
+}) => {
     return (
         <>
             <Flex direction="column">
                 <Text typography="t2" weight="semiBold" color="gray500">
-                    2024년 12월 셋째 주
+                    {`${date.getFullYear()}년 ${date.getMonth() + 1}월 ${getWeekLabel(week, totalWeek)}`}
                 </Text>
                 <Spacing size={30} />
                 <Flex direction="column">
@@ -21,16 +34,13 @@ const ReportAnalyze = ({ onClose }: { onClose: () => void }) => {
                     <Spacing size={16} />
                     <WeekText justify="center">
                         <Text typography="t3" weight="bold" color="primary500">
-                            긍정의 한주를 보낸 당신, 대단해요!
+                            {weeklyReport.emotionsSummary}
                         </Text>
                     </WeekText>
                     <Spacing size={12} />
                     <Flex direction="column">
                         <Text typography="t1" color="gray500">
-                            크고 작은 기쁨들이 있으셨군요!
-                        </Text>
-                        <Text typography="t1" color="gray500">
-                            앞으로도 좋은 일들이 가득하길 바랍니다.
+                            {weeklyReport.consolation}
                         </Text>
                     </Flex>
                     <Spacing size={12} />
@@ -39,43 +49,38 @@ const ReportAnalyze = ({ onClose }: { onClose: () => void }) => {
                         css={css`
                             gap: 4px;
                         `}
+                        justify="center"
                     >
-                        <WeekList
-                            direction="column"
-                            align="center"
-                            justify="center"
-                        >
-                            <Text typography="t0" color="gray500">
-                                월
-                            </Text>
-                            <Text typography="t2" color="gray800">
-                                기쁨
-                            </Text>
-                        </WeekList>
-                        <WeekList
-                            direction="column"
-                            align="center"
-                            justify="center"
-                        >
-                            <Text typography="t0" color="gray500">
-                                월
-                            </Text>
-                            <Text typography="t2" color="gray800">
-                                기쁨
-                            </Text>
-                        </WeekList>
-                        <WeekList
-                            direction="column"
-                            align="center"
-                            justify="center"
-                        >
-                            <Text typography="t0" color="gray500">
-                                월
-                            </Text>
-                            <Text typography="t2" color="gray800">
-                                기쁨
-                            </Text>
-                        </WeekList>
+                        {['월', '화', '수', '목', '금', '토', '일'].map(
+                            (item, index) => {
+                                return (
+                                    <WeekList
+                                        direction="column"
+                                        align="center"
+                                        css={css(`padding-top:6px;`)}
+                                    >
+                                        <Text typography="t0" color="gray500">
+                                            {item}
+                                        </Text>
+                                        <Text typography="t1" color="gray800">
+                                            {JSON.parse(
+                                                weeklyReport.weeklyMood.replace(
+                                                    /'/g,
+                                                    '"',
+                                                ),
+                                            )[index] !== 'null'
+                                                ? JSON.parse(
+                                                      weeklyReport.weeklyMood.replace(
+                                                          /'/g,
+                                                          '"',
+                                                      ),
+                                                  )[index]
+                                                : ''}
+                                        </Text>
+                                    </WeekList>
+                                )
+                            },
+                        )}
                     </Flex>
                     <Spacing size={40} />
                     <AnalyzeTitle typography="t3" weight="bold" color="gray600">
@@ -84,15 +89,12 @@ const ReportAnalyze = ({ onClose }: { onClose: () => void }) => {
                     <Spacing size={16} />
                     <WeekText justify="center">
                         <Text typography="t3" weight="bold" color="primary500">
-                            긍정의 한주를 보낸 당신, 대단해요!
+                            {weeklyReport.recommendActivities}
                         </Text>
                     </WeekText>
                     <Spacing size={8} />
                     <Text typography="t1" color="gray500">
-                        신중한 성격을 고려해 천천히 운동을 하며 몸을 풀어주면
-                        좋습니다. 그리고 회복 후 건강한 식사를 위한 요리
-                        클래스에 참여해 보거나, 건강식을 만드는 레시피를
-                        찾아보는 것도 좋은 방법이에요. by 로기
+                        {weeklyReport.recommendReason}
                     </Text>
                     <Spacing size={32} />
                 </Flex>

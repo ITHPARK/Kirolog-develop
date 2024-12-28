@@ -36,7 +36,7 @@ const CalendarView = React.memo(
         const navigate = useNavigate()
         const formatDate = useFormatDate()
         // 날짜 데이터를 (12.09) 형식으로 바꿔주는 훅
-        const formattedPickerDate = useFormatPickerDate(date)
+        const formatPickerDate = useFormatPickerDate()
 
         // 내가 선택한 날짜의 월
         const [currentMonth, setCurrentMonth] = useState<number | null>(
@@ -158,7 +158,7 @@ const CalendarView = React.memo(
                     css={dateTitle}
                     onClick={handleClickPopup}
                 >
-                    {formattedPickerDate}
+                    {formatPickerDate(date)}
                 </Text>
                 <Calendar
                     calendarType="gregory"

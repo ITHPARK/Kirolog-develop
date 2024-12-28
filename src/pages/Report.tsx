@@ -10,19 +10,28 @@ import useFormatPickerDate from '@hooks/useFormatPickerDate'
 import { useState, useEffect, useCallback } from 'react'
 import useUserStore from '@store/useUserStore'
 import useFormatDate from '@hooks/useFormatDate'
+import { useQuery } from '@tanstack/react-query'
+import { getReport } from '@remote/report'
+import { getWeekLabel } from '@utils/getWeekend'
 
 const Report = () => {
     const { user } = useUserStore()
     const { open } = useDrawerContext()
+    const formatPickerDate = useFormatPickerDate()
+    const formatDate = useFormatDate()
 
     const [pickerDate, setPickerDate] = useState<Date>(new Date())
     const [week, setWeek] = useState<string | null>(null)
+    // const [weeklyList, setWeeklyList] = useState<WeeklyReportProps[]>([])
 
-    const formatDate = useFormatDate()
-
-    useEffect(() => {
-        console.log(week)
-    }, [week])
+    const { data: weeklyReport, isLoading: weeklyReportLoading } = useQuery({
+        queryKey: ['week', pickerDate],
+        queryFn: () => {
+            if (!week) return []
+            return getReport({ week: week, date: pickerDate })
+        },
+        enabled: week != null, //week가 null이 아닐때만 가져온다.
+    })
 
     const handleClickPopup = useCallback(() => {
         open({
@@ -32,14 +41,24 @@ const Report = () => {
         })
     }, [])
 
-    const handleClickWeek = useCallback(() => {
-        open({
-            Component: ReportAnalyze,
-            // componentProps: { setPickerDate: setPickerDate },
-            onClose: () => {},
-            closeGray: true,
-        })
-    }, [pickerDate])
+    const handleClickWeek = useCallback(
+        (week: number, totalWeek: number) => {
+            if (weeklyReport != null) {
+                open({
+                    Component: ReportAnalyze,
+                    componentProps: {
+                        weeklyReport: [...weeklyReport].reverse()[week],
+                        week: week,
+                        totalWeek: totalWeek,
+                        date: pickerDate,
+                    },
+                    onClose: () => {},
+                    closeGray: true,
+                })
+            }
+        },
+        [pickerDate, weeklyReport],
+    )
 
     useEffect(() => {
         //연도와 월 구하기
@@ -76,6 +95,11 @@ const Report = () => {
 
         setWeek(arr)
     }, [pickerDate])
+
+    if (weeklyReportLoading) {
+        return <div>주차별 데이터를 로딩중입니다,,,</div>
+    }
+
     return (
         <Flex direction="column">
             <Spacing size={30} />
@@ -111,7 +135,7 @@ const Report = () => {
                     css={dateTitle}
                     onClick={handleClickPopup}
                 >
-                    {useFormatPickerDate(pickerDate)}
+                    {formatPickerDate(pickerDate)}
                 </Text>
             </Flex>
             <Flex
@@ -121,25 +145,57 @@ const Report = () => {
                     padding: 0 20px;
                 `}
             >
-                <ListContainer
-                    as="li"
-                    justify="space-between"
-                    onClick={handleClickWeek}
-                >
-                    <Flex align="center">
-                        <Text typography="t2" weight="semiBold" color="gray800">
-                            셋째주
-                        </Text>
-                        <Spacing size={4} direction="horizontal" />
-                        <New>new</New>
-                    </Flex>
-                    <Flex justify="flex-end" align="center">
-                        <Text typography="t1" color="gray400">
-                            2024.12.15 ~12.21
-                        </Text>
-                    </Flex>
-                </ListContainer>
-                <ListContainer></ListContainer>
+                {weeklyReport &&
+                    [...weeklyReport]
+                        .filter(
+                            (item) => item.recommendActivities !== '분석 불가',
+                        )
+                        .reverse()
+                        .map((report, index) => {
+                            return (
+                                <ListContainer
+                                    as="li"
+                                    justify="space-between"
+                                    onClick={() =>
+                                        handleClickWeek(
+                                            index,
+                                            [...weeklyReport].length,
+                                        )
+                                    }
+                                    key={index}
+                                >
+                                    <Flex align="center">
+                                        <Text
+                                            typography="t2"
+                                            weight="semiBold"
+                                            color="gray800"
+                                        >
+                                            {getWeekLabel(
+                                                index,
+                                                [...weeklyReport].length,
+                                            )}
+                                        </Text>
+                                        <Spacing
+                                            size={4}
+                                            direction="horizontal"
+                                        />
+                                        {index === 0 && <New>new</New>}
+                                    </Flex>
+                                    <Flex justify="flex-end" align="center">
+                                        <Text typography="t1" color="gray400">
+                                            {report.weekStart
+                                                .split('-')
+                                                .join('.')}{' '}
+                                            ~
+                                            {report.weekStart
+                                                .split('-')
+                                                .slice(1)
+                                                .join('.')}
+                                        </Text>
+                                    </Flex>
+                                </ListContainer>
+                            )
+                        })}
             </Flex>
         </Flex>
     )

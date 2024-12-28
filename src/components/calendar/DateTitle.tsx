@@ -11,6 +11,7 @@ interface DateTitleProps {
 
 const DateTitle = ({ pickerDate, setPickerDate }: DateTitleProps) => {
     const { open } = useDrawerContext()
+    const formatPickerDate = useFormatPickerDate()
 
     const handleClickPopup = () => {
         open({
@@ -27,7 +28,7 @@ const DateTitle = ({ pickerDate, setPickerDate }: DateTitleProps) => {
             weight="semiBold"
             onClick={handleClickPopup}
         >
-            {useFormatPickerDate(pickerDate)}
+            {formatPickerDate(pickerDate)}
         </DateTitleText>
     )
 }
