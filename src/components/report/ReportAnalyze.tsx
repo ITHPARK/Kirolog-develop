@@ -58,6 +58,7 @@ const ReportAnalyze = ({
                                         direction="column"
                                         align="center"
                                         css={css(`padding-top:6px;`)}
+                                        key={index}
                                     >
                                         <Text typography="t0" color="gray500">
                                             {item}

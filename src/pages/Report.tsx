@@ -33,6 +33,8 @@ const Report = () => {
         enabled: week != null, //week가 null이 아닐때만 가져온다.
     })
 
+    console.log(weeklyReport)
+
     const handleClickPopup = useCallback(() => {
         open({
             Component: CalendarPicker,
@@ -103,12 +105,7 @@ const Report = () => {
     return (
         <Flex direction="column">
             <Spacing size={30} />
-            <Flex
-                direction="column"
-                css={css`
-                    padding: 0 20px;
-                `}
-            >
+            <ReportTopContainer direction="column">
                 <Text typography="t4" weight="bold" color="primary500">
                     {user?.nickname}님!
                 </Text>
@@ -120,7 +117,7 @@ const Report = () => {
                     지금 바로 나의 상대를 파악해보세요!
                 </Text>
                 <Spacing size={40} />
-            </Flex>
+            </ReportTopContainer>
             <Spacing size={8} color="gray100" />
             <Spacing size={28} />
             <Flex
@@ -223,4 +220,10 @@ const dateTitle = css`
     margin-bottom: 20px;
     background: url('/images/arrow/arrow_bottom.svg') no-repeat right center;
     background-size: 14px 7px;
+`
+
+const ReportTopContainer = styled(Flex)`
+    padding: 0 20px;
+    background: url('/images/character/report_character.svg') no-repeat right
+        5px bottom;
 `
