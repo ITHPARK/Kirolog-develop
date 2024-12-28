@@ -16,6 +16,7 @@ export const getReport = async ({
         {
             headers: {
                 Authorization: `Bearer ${getCookie('accessToken')}`,
+                'Content-Type': 'application/json',
             },
         },
     )

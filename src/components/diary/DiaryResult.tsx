@@ -17,7 +17,6 @@ import { useMutation } from '@tanstack/react-query'
 import usePreviewImage from '@hooks/usePreviewImage'
 
 const DiaryResult = () => {
-    const [text, setText] = useState<string>('') // 초기값 설정
     const [imageSrc, setImageSrc] = useState<string | null>(null)
     const [isContent, setIsContent] = useState<boolean>(true)
     const [isPlaceholder, setIsPlaceholder] = useState<boolean>(true)
@@ -49,17 +48,6 @@ const DiaryResult = () => {
     // })
 
     useEffect(() => {
-        if (
-            lastSegment === 'my' &&
-            diaryData.content &&
-            diaryData.content.length > 0
-        ) {
-            myMutate.mutate(diaryData)
-        } else if (lastSegment === 'ai') {
-        }
-    }, [diaryData])
-
-    useEffect(() => {
         //이미지 뷰어 생성
         const image = diaryData.image
 
@@ -71,15 +59,17 @@ const DiaryResult = () => {
     }, [diaryData, preview])
 
     useEffect(() => {
-        if (text.length > 0) {
-            setIsPlaceholder(false)
-        } else {
-            setIsPlaceholder(true)
+        if (diaryData.content != null) {
+            if (diaryData.content.length > 0) {
+                setIsPlaceholder(false)
+            } else {
+                setIsPlaceholder(true)
+            }
         }
-    }, [text])
+    }, [diaryData.content])
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setText(e.target.value) // 값 업데이트
+        setDiaryData({ ...diaryData, content: e.target.value })
 
         //값이 없으면 버튼 비활성화
         if (e.target.value.length > 0) {
@@ -90,7 +80,14 @@ const DiaryResult = () => {
     }
 
     const handleClick = () => {
-        setDiaryData({ ...diaryData, content: text })
+        if (
+            lastSegment === 'my' &&
+            diaryData.content &&
+            diaryData.content.length > 0
+        ) {
+            myMutate.mutate(diaryData)
+        } else if (lastSegment === 'ai') {
+        }
     }
 
     if (myMutate.isPending) {
@@ -114,7 +111,10 @@ const DiaryResult = () => {
                         position: relative;
                     `}
                 >
-                    <DiaryContent onChange={handleChange} value={text} />
+                    <DiaryContent
+                        onChange={handleChange}
+                        value={diaryData.content}
+                    />
                     {isPlaceholder && (
                         <PlaceholderWrap direction="column">
                             <Text typography="t3" color="gray300">

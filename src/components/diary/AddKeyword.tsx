@@ -48,7 +48,8 @@ const AddKeyword = () => {
         mutationFn: async (data: addDiaryProps) => {
             return await crateAiDiary(data) //로그인 api 요청
         },
-        onSuccess: () => {
+        onSuccess: (data) => {
+            setDiaryData({ ...diaryData, content: data.content })
             setStep(1)
         },
     })

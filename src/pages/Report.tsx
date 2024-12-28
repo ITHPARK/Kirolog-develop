@@ -25,15 +25,13 @@ const Report = () => {
     // const [weeklyList, setWeeklyList] = useState<WeeklyReportProps[]>([])
 
     const { data: weeklyReport, isLoading: weeklyReportLoading } = useQuery({
-        queryKey: ['week', pickerDate],
+        queryKey: ['week', week],
         queryFn: () => {
             if (!week) return []
             return getReport({ week: week, date: pickerDate })
         },
         enabled: week != null, //week가 null이 아닐때만 가져온다.
     })
-
-    console.log(weeklyReport)
 
     const handleClickPopup = useCallback(() => {
         open({
@@ -94,7 +92,6 @@ const Report = () => {
                 arr += `,${format}` // currentDate 복제해서 추가
             }
         }
-
         setWeek(arr)
     }, [pickerDate])
 

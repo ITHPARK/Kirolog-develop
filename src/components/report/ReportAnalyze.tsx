@@ -40,7 +40,9 @@ const ReportAnalyze = ({
                     <Spacing size={12} />
                     <Flex direction="column">
                         <Text typography="t1" color="gray500">
-                            {weeklyReport.consolation}
+                            {weeklyReport.consolation.split('@')[0]}
+                            <br />
+                            {weeklyReport.consolation.split('@')[1]}
                         </Text>
                     </Flex>
                     <Spacing size={12} />

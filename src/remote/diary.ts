@@ -38,6 +38,8 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
                 },
             },
         )
+
+        return diaryResponse.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
             console.log(e)
