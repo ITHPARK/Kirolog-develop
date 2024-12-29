@@ -10,6 +10,7 @@ import Text from '@shared/Text'
 import Topbar from '@shared/Topbar'
 import styled from '@emotion/styled'
 import useDiaryData from '@hooks/useDiaryData'
+import Loading from '@shared/Loading'
 
 const DiaryDetail = () => {
     const [dayDiary, setDayDiary] = useState<DiaryResponseProps>()
@@ -44,7 +45,7 @@ const DiaryDetail = () => {
     }, [])
 
     if (dayDiary == null) {
-        return <div>로딩중</div>
+        return <Loading />
     }
 
     return (

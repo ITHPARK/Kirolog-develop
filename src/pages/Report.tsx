@@ -13,6 +13,7 @@ import useFormatDate from '@hooks/useFormatDate'
 import { useQuery } from '@tanstack/react-query'
 import { getReport } from '@remote/report'
 import { getWeekLabel } from '@utils/getWeekend'
+import Loading from '@shared/Loading'
 
 const Report = () => {
     const { user } = useUserStore()
@@ -96,7 +97,7 @@ const Report = () => {
     }, [pickerDate])
 
     if (weeklyReportLoading) {
-        return <div>주차별 데이터를 로딩중입니다,,,</div>
+        return <Loading />
     }
 
     return (

@@ -12,6 +12,7 @@ import { useCalendar } from '@store/useCalendar'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import useUserStore from '@/store/useUserStore'
+import Loading from '@shared/Loading'
 
 interface AuthContextType {
     logout: () => void
@@ -95,7 +96,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, [user])
 
     if (isLoading) {
-        return <div>유저 데이터를 가져오는 중입니다.</div>
+        return <Loading />
     }
 
     return (

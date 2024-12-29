@@ -11,6 +11,7 @@ import styled from '@emotion/styled'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import useUserStore from '@/store/useUserStore'
+import Loading from '@shared/Loading'
 
 const SignIn = () => {
     const navigate = useNavigate()
@@ -62,7 +63,7 @@ const SignIn = () => {
     }
 
     if (mutate.isPending) {
-        return <div>로그인 중입니다,,</div>
+        return <Loading />
     }
 
     return (
