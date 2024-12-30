@@ -15,6 +15,7 @@ import { useAddDiaryStep } from '@store/useAddDiary'
 import { useLocation } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import usePreviewImage from '@hooks/usePreviewImage'
+import MyDiaryCreateLoading from '@components/diary/MyDiaryCreateLoading'
 
 const DiaryResult = () => {
     const [imageSrc, setImageSrc] = useState<string | null>(null)
@@ -59,6 +60,7 @@ const DiaryResult = () => {
     }, [diaryData, preview])
 
     useEffect(() => {
+        console.log(diaryData)
         if (diaryData.content != null) {
             if (diaryData.content.length > 0) {
                 setIsPlaceholder(false)
@@ -66,7 +68,7 @@ const DiaryResult = () => {
                 setIsPlaceholder(true)
             }
         }
-    }, [diaryData.content])
+    }, [diaryData])
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setDiaryData({ ...diaryData, content: e.target.value })
@@ -91,7 +93,7 @@ const DiaryResult = () => {
     }
 
     if (myMutate.isPending) {
-        return <div>일기를 생성중입니다.</div>
+        return <MyDiaryCreateLoading />
     }
 
     return (
