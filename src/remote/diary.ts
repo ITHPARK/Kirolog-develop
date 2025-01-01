@@ -162,3 +162,27 @@ const putImageToS3 = async (
         throw e
     }
 }
+
+export const deleteDiary = async (id: number) => {
+    try {
+        const response = await axios.delete(
+            `https://www.kirolog.com/api/diaries/${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${getCookie('accessToken')}`,
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            alert('일기 삭제중 에러가 발생하였습니다.')
+        } else {
+            // 기타 에러 처리
+            alert('예상치 못한 오류가 발생했습니다.')
+            console.error(e)
+        }
+        throw e
+    }
+}

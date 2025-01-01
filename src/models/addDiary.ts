@@ -1,4 +1,5 @@
 export interface addDiaryProps {
+    id?: number
     headDate?: string | null
     ymd: string | null
     moods: string
