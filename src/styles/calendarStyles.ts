@@ -30,9 +30,14 @@ export default css`
         color: var(--gray400);
         border: none;
     }
-
+    
     .react-calendar__month-view__weekdays__weekday:last-child {
         border-right: none;
+    }
+
+    .react-calendar__month-view__weekdays__weekday abbr {
+        text-decoration: none;
+        color: var(--gray400)
     }
 
     .react-calendar__month-view__weekdays {
