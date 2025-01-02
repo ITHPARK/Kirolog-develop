@@ -90,7 +90,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, [userData]) // data가 바뀔 때마다 실행
 
     useEffect(() => {
-        if (user?.interests?.length === 0 && user?.personalities?.length == 0) {
+        if (
+            user?.interests?.length === 0 &&
+            user?.personalities?.length === 0
+        ) {
             navigate('/onboarding')
         }
     }, [user])

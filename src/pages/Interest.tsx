@@ -61,8 +61,9 @@ const Interest = () => {
         mutationFn: async (data: { [key: string]: string[] }) => {
             return await addOnboarding(data)
         },
-        onSuccess(data, variables, context) {
+        onSuccess(data) {
             setUser({
+                ...user,
                 interests: data.interests,
                 personalities: data.personalities,
             })

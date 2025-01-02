@@ -61,7 +61,6 @@ const CalendarDiary = React.memo(
                 <DiaryContainer as="ul">
                     {diaryList.length > 0 ? (
                         diaryList.map((diary, index) => {
-                            console.log(diary)
                             return (
                                 <li key={`month-diary-${index}`}>
                                     <Link to={`/diary/${diary.id}`}>

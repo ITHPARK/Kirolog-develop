@@ -40,6 +40,7 @@ const Nickname = () => {
         onSuccess: (data, variables) => {
             // nickname을 변경한 후 변수에서 'before' 값을 사용
             setUser({
+                ...user,
                 nickname: variables.after, // 'after'는 변경된 닉네임
             })
             navigate('/my') // 마이 페이지로 이동
