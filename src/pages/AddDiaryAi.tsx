@@ -35,6 +35,7 @@ const AddDiaryAi = () => {
 
     const handleClickComplate = () => {
         setDiaryData({
+            id: null,
             headDate: null,
             ymd: null,
             moods: '',

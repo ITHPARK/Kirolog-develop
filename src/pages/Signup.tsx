@@ -50,6 +50,8 @@ const Signup = () => {
 
     //폼 결과를 가져온다.
     const handleSubmit = (signupValues: CreateUserInfo) => {
+        console.log(signupValues)
+
         // 회원 가입 실행
         mutate.mutate({
             username: signupValues.username,

@@ -17,6 +17,7 @@ export const useAddDiaryData = create<{
     setDiaryData: (diaryData: addDiaryProps) => void
 }>((set) => ({
     diaryData: {
+        id: null,
         headDate: null,
         ymd: null,
         moods: '',

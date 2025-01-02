@@ -38,6 +38,7 @@ const DiaryTop = () => {
             onButtonClick1: () => {
                 setStep(1, true)
                 setDiaryData({
+                    id: null,
                     headDate: null,
                     ymd: null,
                     moods: '',

@@ -7,7 +7,7 @@ import MyMoodContainer from '@components/diary/MyMoodContainer'
 import Spacing from '@shared/Spacing'
 import Text from '@shared/Text'
 import { addDiaryProps } from '@models/addDiary'
-import { crateMyDiary } from '@remote/diary'
+import { crateMyDiary, updateDiary } from '@remote/diary'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useAddDiaryData } from '@store/useAddDiary'
@@ -39,14 +39,14 @@ const DiaryResult = () => {
         },
     })
 
-    // const aiMutate = useMutation({
-    //     mutationFn: async (data: addDiaryProps) => {
-    //         return await crateAiDiary(data)
-    //     },
-    //     onSuccess: () => {
-    //         setStep(1)
-    //     },
-    // })
+    const aiMutate = useMutation({
+        mutationFn: async (data: addDiaryProps) => {
+            return await updateDiary(data)
+        },
+        onSuccess: () => {
+            setStep(1)
+        },
+    })
 
     useEffect(() => {
         //이미지 뷰어 생성
@@ -82,13 +82,10 @@ const DiaryResult = () => {
     }
 
     const handleClick = () => {
-        if (
-            lastSegment === 'my' &&
-            diaryData.content &&
-            diaryData.content.length > 0
-        ) {
+        if (lastSegment === 'my') {
             myMutate.mutate(diaryData)
         } else if (lastSegment === 'ai') {
+            aiMutate.mutate(diaryData)
         }
     }
 

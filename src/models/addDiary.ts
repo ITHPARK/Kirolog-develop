@@ -1,5 +1,5 @@
 export interface addDiaryProps {
-    id?: number
+    id?: number | null
     headDate?: string | null
     ymd: string | null
     moods: string
@@ -9,6 +9,7 @@ export interface addDiaryProps {
 }
 
 export interface responseAddDiaryProps {
+    id?: number
     ymd: string | null
     moods: string
     image?: File | null

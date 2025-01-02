@@ -7,7 +7,7 @@ import { getCookie } from '@utils/cookieController'
 export const createAccount = async (userData: CreateUserInfo) => {
     try {
         const response = await axios.post(
-            'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/accounts/signup/',
+            'https://www.kirolog.com/api/accounts/signup/',
             userData, //{유저아이디, 패스워드}
             {
                 headers: {
@@ -31,7 +31,7 @@ export const createAccount = async (userData: CreateUserInfo) => {
 export const login = async (userData: SigninProps) => {
     try {
         const response = await axios.post(
-            'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/accounts/login/',
+            'https://www.kirolog.com/api/accounts/login/',
             userData, //{유저아이디, 패스워드}
             {
                 headers: {
@@ -55,7 +55,7 @@ export const login = async (userData: SigninProps) => {
 export const getUser = async (username: string, accessToken: string) => {
     try {
         const response = await axios.get(
-            `http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/accounts/${username}`,
+            `https://www.kirolog.com/api/accounts/${username}`,
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -81,7 +81,7 @@ export const getUser = async (username: string, accessToken: string) => {
 export const refreshToken = async (refresh: string) => {
     try {
         const response = await axios.post(
-            'http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/accounts/token/refresh/',
+            'https://www.kirolog.com/api/accounts/token/refresh/',
             { refresh: refresh },
             {
                 headers: {
@@ -106,7 +106,7 @@ export const refreshToken = async (refresh: string) => {
 export const replaceNickName = async (user: string, after: string) => {
     try {
         const response = await axios.put(
-            `http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/accounts/update-nickname/${user}/`,
+            `https://www.kirolog.com/api/accounts/update-nickname/${user}/`,
             { nickname: after },
             {
                 headers: {
@@ -129,7 +129,7 @@ export const replaceNickName = async (user: string, after: string) => {
 export const deleteUser = async (user: string) => {
     try {
         const response = await axios.delete(
-            `http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/accounts/${user}/`,
+            `https://www.kirolog.com/api/accounts/${user}/`,
             {
                 headers: {
                     Authorization: `Bearer ${getCookie('accessToken')}`,
@@ -151,7 +151,7 @@ export const deleteUser = async (user: string) => {
 export const addOnboarding = async (data: { [key: string]: string[] }) => {
     try {
         const response = await axios.put(
-            `http://ptday412-alb-1374488828.ap-northeast-2.elb.amazonaws.com/api/accounts/onboarding/`,
+            `https://www.kirolog.com/api/accounts/onboarding/`,
             data,
             {
                 headers: {

@@ -39,6 +39,8 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
             },
         )
 
+        console.log(diaryResponse.data)
+
         return diaryResponse.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
@@ -178,6 +180,37 @@ export const deleteDiary = async (id: number) => {
     } catch (e) {
         if (axios.isAxiosError(e)) {
             alert('일기 삭제중 에러가 발생하였습니다.')
+        } else {
+            // 기타 에러 처리
+            alert('예상치 못한 오류가 발생했습니다.')
+            console.error(e)
+        }
+        throw e
+    }
+}
+
+export const updateDiary = async (data: addDiaryProps) => {
+    try {
+        const request = {
+            ymd: data.ymd,
+            content: data.content,
+            moods: data.moods,
+        }
+
+        const response = await axios.put(
+            `https://www.kirolog.com/api/diaries/${data.id}`,
+            request,
+            {
+                headers: {
+                    Authorization: `Bearer ${getCookie('accessToken')}`,
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            alert('데이터 요청중 에러가 발생하였습니다.')
         } else {
             // 기타 에러 처리
             alert('예상치 못한 오류가 발생했습니다.')

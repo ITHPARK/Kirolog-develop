@@ -50,7 +50,7 @@ const AddKeyword = () => {
         },
         onSuccess: (data) => {
             console.log(data)
-            setDiaryData({ ...diaryData, content: data.content })
+            setDiaryData({ ...diaryData, id: data.id, content: data.content })
             setStep(1)
         },
     })
