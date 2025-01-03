@@ -134,8 +134,9 @@ export const deleteUser = async (user: string) => {
                 },
             },
         )
+        console.log(response.data)
 
-        return response
+        return response.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
             console.error('Axios 에러:', e.response?.data || e.message)
