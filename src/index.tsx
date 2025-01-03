@@ -37,21 +37,8 @@ const Root = () => {
         }, 2000) // 2초 후 스플래시 화면 숨기기
     }, [firstLoading])
 
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker
-                .register('/service-worker.js')
-                .then((registration) => {
-                    console.log(
-                        'Service Worker registered with scope:',
-                        registration.scope,
-                    )
-                })
-                .catch((error) => {
-                    console.log('Service Worker registration failed:', error)
-                })
-        })
-    }
+    // 'hasVisited'가 true라면 메인 앱을 보여주고, 아니면 Splash 화면을 보여줌
+    const hasVisited = localStorage.getItem('hasVisited')
 
     return (
         <React.StrictMode>
@@ -61,7 +48,7 @@ const Root = () => {
                     <AuthProvider>
                         <AlerContextProvider>
                             <DrawerContextProvider>
-                                {firstLoading ? <Splash /> : <App />}
+                                {hasVisited ? <App /> : <Splash />}
                             </DrawerContextProvider>
                         </AlerContextProvider>
                     </AuthProvider>
