@@ -27,6 +27,7 @@ const CalendarDiary = React.memo(
         //Date 타입의 값 또는 이전 상태를 기반으로 새로운 Date를 반환하는 함수 중 하나를 받을 수 있다.
     }) => {
         const [diaryList, setDiaryList] = useState<DiaryProps[]>([])
+
         const [today, setToday] = useState(new Date())
         const { open } = useDrawerContext()
         const formatDate = useFormatDate()
@@ -50,10 +51,10 @@ const CalendarDiary = React.memo(
                     diary.ymd.split('-').slice(0, 2).join('-') === month,
             )
 
+            console.log(filteredDiary)
+
             setDiaryList(filteredDiary) // 필터링된 todo 항목들 출력
         }, [date, diarys])
-
-        const handleClickFeed = () => {}
 
         return (
             <div css={calendarStyles}>
@@ -65,11 +66,19 @@ const CalendarDiary = React.memo(
                                 <li key={`month-diary-${index}`}>
                                     <Link to={`/diary/${diary.id}`}>
                                         <Flex direction="column">
-                                            {diary.images && <ImageArea />}
+                                            {diary.presignedUrl && (
+                                                <ImageArea
+                                                    src={diary.presignedUrl}
+                                                    css={css`
+                                                        border-radius: 0;
+                                                    `}
+                                                />
+                                            )}
                                             <Flex
                                                 direction="column"
                                                 css={css`
                                                     flex: 1;
+                                                    padding: 18px;
                                                 `}
                                             >
                                                 <Text
@@ -103,7 +112,9 @@ const CalendarDiary = React.memo(
                                                         overflow: hidden;
                                                         text-overflow: ellipsis;
                                                         display: -webkit-box;
-                                                        -webkit-line-clamp: 5;
+                                                        -webkit-line-clamp: ${diary.presignedUrl
+                                                            ? '1'
+                                                            : '5'};
                                                         -webkit-box-orient: vertical;
                                                     `}
                                                 >
@@ -116,7 +127,7 @@ const CalendarDiary = React.memo(
                             )
                         })
                     ) : date.getMonth() >= today.getMonth() ? (
-                        <li onClick={handleClickFeed}>
+                        <li>
                             <Flex
                                 direction="column"
                                 justify="center"
@@ -161,9 +172,8 @@ const DiaryContainer = styled(Flex)`
         background-color: var(--gray100);
         border: 1px solid var(--gray200);
         border-radius: 6px;
-
+        overflow: hidden;
         a {
-            padding: 18px;
             height: 200px;
             display: block;
 

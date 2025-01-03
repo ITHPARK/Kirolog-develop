@@ -4,7 +4,7 @@ export interface DiaryProps {
     content: string
     moods: string
     hashtags: []
-    images: any
+    presignedUrl: string
 }
 
 export interface DiaryResponseProps {
@@ -13,5 +13,5 @@ export interface DiaryResponseProps {
     content: string
     moods: string
     hashtags: []
-    presignedUrl: any
+    presignedUrl: string
 }
