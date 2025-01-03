@@ -39,8 +39,6 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
             },
         )
 
-        console.log(diaryResponse.data)
-
         return diaryResponse.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
@@ -198,7 +196,7 @@ export const updateDiary = async (data: addDiaryProps) => {
         }
 
         const response = await axios.put(
-            `https://www.kirolog.com/api/diaries/${data.id}`,
+            `https://www.kirolog.com/api/diaries/${data.id}/`,
             request,
             {
                 headers: {
@@ -210,6 +208,7 @@ export const updateDiary = async (data: addDiaryProps) => {
         return response.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
+            console.log(e.response)
             alert('데이터 요청중 에러가 발생하였습니다.')
         } else {
             // 기타 에러 처리
