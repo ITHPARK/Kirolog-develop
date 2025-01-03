@@ -12,6 +12,8 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useAlertContext } from '@context/AlertContext'
 import { useForm } from 'react-hook-form'
+import { duplicationCheck } from '@remote/user'
+import { useMutation } from '@tanstack/react-query'
 
 const UserTextForm = ({
     onSubmit,
@@ -40,7 +42,17 @@ const UserTextForm = ({
     })
     const formValues = watch()
 
+    const duplicateMutate = useMutation({
+        mutationFn: async (data: string) => {
+            return duplicationCheck(data)
+        },
+        onSuccess: (data) => {
+            console.log(data)
+        },
+    })
+
     const handleChechkId = () => {
+        duplicateMutate.mutate(formValues.username)
         //백엔드에 아이디 중복검사 요청
         alert('사용가능한 아이디입니다.')
         setIsIdChecked(true)
@@ -66,6 +78,24 @@ const UserTextForm = ({
         reset({
             username: '',
         })
+    }
+
+    const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        //현재 입력한 패스워드 확인
+        const pass = e.target.value
+
+        //입력한 패스워드 추적
+        const conPass = watch('confirmPassword')
+
+        //일치하지 않는다면
+        if (conPass !== pass) {
+            setError('confirmPassword', {
+                type: 'manual',
+                message: '비밀번호가 일치하지 않습니다.',
+            })
+        } else {
+            clearErrors('confirmPassword')
+        }
     }
 
     //비밀번호 유효성검사
@@ -227,6 +257,7 @@ const UserTextForm = ({
                                 },
                             },
                         })}
+                        onChange={handleChangePassword}
                     />
                     <Spacing size={8} />
                     <Input

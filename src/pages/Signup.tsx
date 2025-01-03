@@ -3,7 +3,7 @@ import { CreateUserInfo } from '@models/user'
 import Topbar from '@shared/Topbar'
 import UserTextForm from '@components/signup/UserTextForm'
 import axios from 'axios'
-import { createAccount } from '@remote/user'
+import { createAccount, duplicationCheck } from '@remote/user'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -50,8 +50,6 @@ const Signup = () => {
 
     //폼 결과를 가져온다.
     const handleSubmit = (signupValues: CreateUserInfo) => {
-        console.log(signupValues)
-
         // 회원 가입 실행
         mutate.mutate({
             username: signupValues.username,

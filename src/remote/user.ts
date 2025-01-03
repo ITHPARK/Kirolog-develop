@@ -89,8 +89,6 @@ export const refreshToken = async (refresh: string) => {
                 },
             },
         )
-        console.log(response.data)
-
         return response.data
     } catch (e) {
         // 에러를 상위로 전달
@@ -161,6 +159,26 @@ export const addOnboarding = async (data: { [key: string]: string[] }) => {
         )
 
         return response.data
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            console.error('Axios 에러:', e.response?.data || e.message)
+        } else {
+            console.error('미확인 error:', e)
+        }
+        throw e
+    }
+}
+
+export const duplicationCheck = async (userName: string) => {
+    try {
+        const duplicate = await axios.post(
+            'https://www.kirolog.com/api/accounts/check/username/',
+            {
+                username: userName,
+            },
+        )
+
+        return duplicate.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
             console.error('Axios 에러:', e.response?.data || e.message)
