@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useRef, useEffect, useState } from 'react'
 
 import DiaryImageBox from '@components/diary/DiaryImageBox'
 import FixedBottomButton from '@shared/FixedBottomButton'
@@ -19,8 +19,8 @@ import MyDiaryCreateLoading from '@components/diary/MyDiaryCreateLoading'
 
 const DiaryResult = () => {
     const [imageSrc, setImageSrc] = useState<string | null>(null)
-    const [isContent, setIsContent] = useState<boolean>(true)
     const [isPlaceholder, setIsPlaceholder] = useState<boolean>(true)
+    const textRef = useRef<HTMLTextAreaElement | null>(null)
 
     const { setStep } = useAddDiaryStep()
     const { diaryData, setDiaryData } = useAddDiaryData()
@@ -60,25 +60,11 @@ const DiaryResult = () => {
     }, [diaryData, preview])
 
     useEffect(() => {
-        console.log(diaryData)
-        if (diaryData.content != null) {
-            if (diaryData.content.length > 0) {
-                setIsPlaceholder(false)
-            } else {
-                setIsPlaceholder(true)
-            }
-        }
+        setIsPlaceholder(diaryData.content?.length === 0)
     }, [diaryData])
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setDiaryData({ ...diaryData, content: e.target.value })
-
-        //값이 없으면 버튼 비활성화
-        if (e.target.value.length > 0) {
-            setIsContent(false)
-        } else {
-            setIsContent(true)
-        }
     }
 
     const handleClick = () => {
@@ -113,6 +99,7 @@ const DiaryResult = () => {
                     <DiaryContent
                         onChange={handleChange}
                         value={diaryData.content}
+                        ref={textRef}
                     />
                     {isPlaceholder && (
                         <PlaceholderWrap direction="column">
@@ -134,7 +121,7 @@ const DiaryResult = () => {
                 type="button"
                 label="완료"
                 onClick={handleClick}
-                disabled={isContent}
+                disabled={textRef.current?.value?.length === 0}
             />
         </>
     )
