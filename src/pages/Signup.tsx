@@ -3,11 +3,12 @@ import { CreateUserInfo } from '@models/user'
 import Topbar from '@shared/Topbar'
 import UserTextForm from '@components/signup/UserTextForm'
 import axios from 'axios'
-import { createAccount, duplicationCheck } from '@remote/user'
+import { createAccount } from '@remote/user'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { getCookie } from '@utils/cookieController'
+import Loading from '@shared/Loading'
 
 const Signup = () => {
     const navigate = useNavigate()
@@ -62,7 +63,7 @@ const Signup = () => {
     }
 
     if (mutate.isPending) {
-        return <div> ...로딩중</div>
+        return <Loading />
     }
     return (
         <div>
