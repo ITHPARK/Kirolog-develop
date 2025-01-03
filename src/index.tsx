@@ -12,8 +12,6 @@ import Splash from '@components/Splash'
 import globalStyles from '@/styles/globalStyles'
 import reportWebVitals from './reportWebVitals'
 
-import * as serviceWorkerRegistration from './serviceWorkerRegistration' // Import
-
 const client = new QueryClient()
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
@@ -61,5 +59,3 @@ const Root = () => {
 root.render(<Root />)
 
 reportWebVitals()
-
-serviceWorkerRegistration.register()
