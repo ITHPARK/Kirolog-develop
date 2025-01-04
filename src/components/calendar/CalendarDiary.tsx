@@ -126,7 +126,8 @@ const CalendarDiary = React.memo(
                                 </li>
                             )
                         })
-                    ) : date.getMonth() >= today.getMonth() ? (
+                    ) : date.getMonth() >= today.getMonth() &&
+                      date.getMonth() < today.getMonth() ? (
                         <li>
                             <Flex
                                 direction="column"
