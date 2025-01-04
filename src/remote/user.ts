@@ -134,7 +134,7 @@ export const deleteUser = async (user: string) => {
                 },
             },
         )
-        console.log(response.data)
+        console.log(response)
 
         return response.data
     } catch (e) {
@@ -172,16 +172,15 @@ export const addOnboarding = async (data: { [key: string]: string[] }) => {
 
 export const duplicationCheck = async (userName: string) => {
     try {
-        const duplicate = await axios.post(
-            'https://www.kirolog.com/api/accounts/check/username/',
-            {
-                username: userName,
-            },
+        console.log(userName)
+        const duplicate = await axios.get(
+            `https://www.kirolog.com/api/accounts/check/username?username=${userName}`,
         )
 
         return duplicate.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
+            alert('데이터를 요청하는 중 에러가 발생하였습니다.')
             console.error('Axios 에러:', e.response?.data || e.message)
         } else {
             console.error('미확인 error:', e)

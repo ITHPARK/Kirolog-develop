@@ -13,7 +13,7 @@ import styled from '@emotion/styled'
 import { useAlertContext } from '@context/AlertContext'
 import { useForm } from 'react-hook-form'
 import { duplicationCheck } from '@remote/user'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
 const UserTextForm = ({
     onSubmit,
@@ -22,6 +22,7 @@ const UserTextForm = ({
 }) => {
     const [isIdChecked, setIsIdChecked] = useState<boolean>(false)
     const [isFocus, setIsFocus] = useState<boolean>(false)
+    const [check, setCheck] = useState(false)
 
     const { open } = useAlertContext()
 
@@ -42,30 +43,24 @@ const UserTextForm = ({
     })
     const formValues = watch()
 
-    const duplicateMutate = useMutation({
-        mutationFn: async (data: string) => {
-            return duplicationCheck(data)
-        },
-        onSuccess: (data) => {
-            console.log(data)
-        },
-    })
+    const handleChechkId = async () => {
+        if (formValues.username.length === 0) {
+            alert('아이디를 입력해 주세요.')
+        } else {
+            const data = await duplicationCheck(formValues.username)
 
-    const handleChechkId = () => {
-        duplicateMutate.mutate(formValues.username)
-        //백엔드에 아이디 중복검사 요청
-        alert('사용가능한 아이디입니다.')
-        setIsIdChecked(true)
+            if (data.available) {
+                alert('사용 가능한 아이디 입니다.')
+                setIsIdChecked(true)
+            } else {
+                alert(data.message)
+            }
+        }
     }
-
-    // useEffect(() => {
-    //     const subscirbe = watch((data, { name }) => console.log(data, name))
-    //     //모든 input 데이터를 담은 객체 data, change 이벤트가 발생하고 있는 input의 name을 인자로 받는 콜백함수
-    //     return () => subscirbe.unsubscribe()
-    // }, [watch])
 
     //유저 아이디 검사
     const handleChangeUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsIdChecked(false)
         setValue('username', e.target.value)
         //최초 포커스 했을 이후에는 중복검사 메세지 출력
         setIsFocus(true)
