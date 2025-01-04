@@ -62,22 +62,25 @@ const CalendarDiary = React.memo(
                 <DiaryContainer as="ul">
                     {diaryList.length > 0 ? (
                         diaryList.map((diary, index) => {
+                            console.log(diary.presignedUrl)
                             return (
                                 <li key={`month-diary-${index}`}>
                                     <Link to={`/diary/${diary.id}`}>
-                                        <Flex direction="column">
+                                        <Flex
+                                            direction="column"
+                                            css={css`
+                                                height: 100%;
+                                            `}
+                                        >
                                             {diary.presignedUrl && (
                                                 <ImageArea
                                                     src={diary.presignedUrl}
-                                                    css={css`
-                                                        border-radius: 0;
-                                                    `}
                                                 />
                                             )}
                                             <Flex
                                                 direction="column"
                                                 css={css`
-                                                    flex: 1;
+                                                    height: 50%;
                                                     padding: 18px;
                                                 `}
                                             >
@@ -186,12 +189,14 @@ const DiaryContainer = styled(Flex)`
     }
 `
 
-const ImageArea = styled.img`
+const ImageArea = styled.div<{ src: string }>`
     flex: 1;
     width: 100%;
-    background: #ddd;
-    border-radius: 8px;
-    object-fit: cover;
+    background: url('${(props) => props.src}') no-repeat;
+
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px 8px 0 0;
 `
 
 const addDiaryImg = css`
