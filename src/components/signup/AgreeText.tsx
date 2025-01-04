@@ -1,15 +1,15 @@
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import styled from '@emotion/styled'
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import styled from "@emotion/styled"
 
 const AgreeText = ({ type }: { type: number }) => {
     console.log(type)
     return (
         <AgreeContainer>
             <Text typography="t3" color="gray600" weight="bold">
-                {type === 1 && '서비스 이용약관 동의'}
-                {type === 2 && '개인정보 수집ㆍ이용에 동의합니다.'}
-                {type === 3 && '개인정보 제 3자 제공 동의합니다.'}
+                {type === 1 && "서비스 이용약관 동의"}
+                {type === 2 && "개인정보 수집ㆍ이용에 동의합니다."}
+                {type === 3 && "개인정보 제 3자 제공 동의합니다."}
             </Text>
             <Spacing size={12} />
             <TextArea name="" id="" readOnly={true}>

@@ -1,5 +1,5 @@
-import { create } from 'zustand'
-import { UserProps } from '@models/user'
+import { create } from "zustand"
+import { UserProps } from "@models/user"
 
 const useUserStore = create<{
     user: UserProps | null

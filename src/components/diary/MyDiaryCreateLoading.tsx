@@ -1,11 +1,11 @@
-import Flex from '@shared/Flex'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import { createPortal } from 'react-dom'
-import styled from '@emotion/styled'
+import Flex from "@shared/Flex"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import { createPortal } from "react-dom"
+import styled from "@emotion/styled"
 
 const MyDiaryCreateLoading = () => {
-    const $portal = document.getElementById('splash')
+    const $portal = document.getElementById("splash")
 
     if ($portal == null) {
         return null

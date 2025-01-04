@@ -1,10 +1,10 @@
-import Topbar from '@shared/Topbar'
-import Flex from '@shared/Flex'
-import Text from '@shared/Text'
-import Spacing from '@shared/Spacing'
-import { css } from '@emotion/react'
-import ArrowLeft from '@shared/ico/ArrowLeft'
-import { useNavigate } from 'react-router-dom'
+import Topbar from "@shared/Topbar"
+import Flex from "@shared/Flex"
+import Text from "@shared/Text"
+import Spacing from "@shared/Spacing"
+import { css } from "@emotion/react"
+import ArrowLeft from "@shared/ico/ArrowLeft"
+import { useNavigate } from "react-router-dom"
 
 const TermsList = () => {
     const navigate = useNavigate()
@@ -123,7 +123,7 @@ const termlist = css`
     position: relative;
 
     &::after {
-        content: '';
+        content: "";
         width: 4px;
         height: 4px;
         display: block;

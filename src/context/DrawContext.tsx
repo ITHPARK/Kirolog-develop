@@ -5,13 +5,13 @@ import {
     useCallback,
     useMemo,
     useContext,
-} from 'react'
-import { createPortal } from 'react-dom'
+} from "react"
+import { createPortal } from "react-dom"
 
-import Drawer from '@shared/Drawer'
+import Drawer from "@shared/Drawer"
 
 type DrawerProps = ComponentProps<typeof Drawer> //Drawer의 타입을 가져온다.
-type DrawerOptions = Omit<DrawerProps, 'open'> //DrawerProps open타입을 제거한것
+type DrawerOptions = Omit<DrawerProps, "open"> //DrawerProps open타입을 제거한것
 
 interface DrawerContextValue {
     open: (options: DrawerOptions) => void //확인 버튼을 누르면 사라지기 때문에 open만 넣어준다.
@@ -34,7 +34,7 @@ export const DrawerContextProvider = ({
 }) => {
     const [drawerState, setDrawerState] = useState(defaultValues)
 
-    const $portal_root = document.getElementById('modal-portal')
+    const $portal_root = document.getElementById("modal-portal")
 
     const close = useCallback(() => {
         setDrawerState({ ...defaultValues, open: false })
@@ -70,7 +70,7 @@ export const useDrawerContext = () => {
     const values = useContext(Context)
 
     if (values == null) {
-        throw new Error('DrawerContext 내부에서 사용해주세요')
+        throw new Error("DrawerContext 내부에서 사용해주세요")
     }
 
     return values

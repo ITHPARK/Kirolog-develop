@@ -13,7 +13,7 @@ const usePreviewImage = () => {
             const result = reader.result
 
             //string 타입 이여야 이미지임
-            if (typeof result === 'string') {
+            if (typeof result === "string") {
                 callback(result) //결과값을 콜백의 파라미터로 보낸다.
             } else {
                 callback(null) // null 또는 ArrayBuffer인 경우 안전 처리

@@ -1,16 +1,16 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useCallback, useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 
-import ArrowLeft from '@shared/ico/ArrowLeft'
-import { DiaryResponseProps } from '@models/diary'
-import Flex from '@shared/Flex'
-import MoodIcon from '@components/diary/MoodIcon'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import Topbar from '@shared/Topbar'
-import styled from '@emotion/styled'
-import useDiaryData from '@hooks/useDiaryData'
-import Loading from '@shared/Loading'
+import ArrowLeft from "@shared/ico/ArrowLeft"
+import { DiaryResponseProps } from "@models/diary"
+import Flex from "@shared/Flex"
+import MoodIcon from "@components/diary/MoodIcon"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import Topbar from "@shared/Topbar"
+import styled from "@emotion/styled"
+import useDiaryData from "@hooks/useDiaryData"
+import Loading from "@shared/Loading"
 
 const DiaryDetail = () => {
     const [dayDiary, setDayDiary] = useState<DiaryResponseProps>()
@@ -29,8 +29,8 @@ const DiaryDetail = () => {
 
             setDayDiary(diary)
             // -를 기준으로 나누기
-            const dateSet = diary?.ymd.split('-') as string[]
-            let dateStr = ''
+            const dateSet = diary?.ymd.split("-") as string[]
+            let dateStr = ""
             if (dateSet) {
                 dateStr = `${dateSet[0]}.${dateSet[1]}.${dateSet[2]} `
                 setDate(dateStr)

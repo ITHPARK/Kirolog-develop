@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import styled from "@emotion/styled"
 
 const ArrowLeft = styled.div`
     width: 24px;

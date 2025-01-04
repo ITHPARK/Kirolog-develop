@@ -1,21 +1,21 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState } from "react"
 
-import DiaryImageBox from '@components/diary/DiaryImageBox'
-import FixedBottomButton from '@shared/FixedBottomButton'
-import Flex from '@shared/Flex'
-import MyMoodContainer from '@components/diary/MyMoodContainer'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import { addDiaryProps } from '@models/addDiary'
-import { crateMyDiary, updateDiary } from '@remote/diary'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-import { useAddDiaryData } from '@store/useAddDiary'
-import { useAddDiaryStep } from '@store/useAddDiary'
-import { useLocation } from 'react-router-dom'
-import { useMutation } from '@tanstack/react-query'
-import usePreviewImage from '@hooks/usePreviewImage'
-import MyDiaryCreateLoading from '@components/diary/MyDiaryCreateLoading'
+import DiaryImageBox from "@components/diary/DiaryImageBox"
+import FixedBottomButton from "@shared/FixedBottomButton"
+import Flex from "@shared/Flex"
+import MyMoodContainer from "@components/diary/MyMoodContainer"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import { addDiaryProps } from "@models/addDiary"
+import { crateMyDiary, updateDiary } from "@remote/diary"
+import { css } from "@emotion/react"
+import styled from "@emotion/styled"
+import { useAddDiaryData } from "@store/useAddDiary"
+import { useAddDiaryStep } from "@store/useAddDiary"
+import { useLocation } from "react-router-dom"
+import { useMutation } from "@tanstack/react-query"
+import usePreviewImage from "@hooks/usePreviewImage"
+import MyDiaryCreateLoading from "@components/diary/MyDiaryCreateLoading"
 
 const DiaryResult = () => {
     const [imageSrc, setImageSrc] = useState<string | null>(null)
@@ -25,7 +25,7 @@ const DiaryResult = () => {
     const { setStep } = useAddDiaryStep()
     const { diaryData, setDiaryData } = useAddDiaryData()
     const location = useLocation()
-    const lastSegment = location.pathname.split('/').pop()
+    const lastSegment = location.pathname.split("/").pop()
 
     //이미지 파일을 볼 수 있게 포맷하는 훅
     const preview = usePreviewImage()
@@ -68,9 +68,9 @@ const DiaryResult = () => {
     }
 
     const handleClick = () => {
-        if (lastSegment === 'my') {
+        if (lastSegment === "my") {
             myMutate.mutate(diaryData)
-        } else if (lastSegment === 'ai') {
+        } else if (lastSegment === "ai") {
             aiMutate.mutate(diaryData)
         }
     }

@@ -1,10 +1,10 @@
-import ArrowLeft from '@shared/ico/ArrowLeft'
-import Flex from '@shared/Flex'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import Topbar from '@shared/Topbar'
-import { css } from '@emotion/react'
-import { useNavigate } from 'react-router-dom'
+import ArrowLeft from "@shared/ico/ArrowLeft"
+import Flex from "@shared/Flex"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import Topbar from "@shared/Topbar"
+import { css } from "@emotion/react"
+import { useNavigate } from "react-router-dom"
 
 const Privacy = () => {
     const navigate = useNavigate()

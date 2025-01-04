@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import Dimmed from '@shared/Dimmed'
-import { keyframes } from '@emotion/react'
+import React from "react"
+import styled from "@emotion/styled"
+import Dimmed from "@shared/Dimmed"
+import { keyframes } from "@emotion/react"
 
 interface DrawerProps {
     open?: boolean
@@ -22,7 +22,7 @@ const Drawer = ({
     return (
         <>
             <Dimmed onClick={onClose}> </Dimmed>
-            <DrawerContainer open={open ? open : '1'}>
+            <DrawerContainer open={open ? open : "1"}>
                 <DrawerContent>
                     <CloseButton onClick={onClose}>
                         {closeGray ? (

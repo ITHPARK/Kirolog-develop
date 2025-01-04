@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react"
 
-import AddPopup from '@components/diary/AddPopup'
-import DateTitle from '@components/calendar/DateTitle'
-import { DiaryProps } from '@models/diary'
-import { DiaryResponseProps } from '@models/diary'
-import Flex from '@shared/Flex'
-import { Link } from 'react-router-dom'
-import MoodIcon from '@components/diary/MoodIcon'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import calendarStyles from '@styles/calendarStyles'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-import useDiaryData from '@hooks/useDiaryData'
-import { useDrawerContext } from '@/context/DrawContext'
-import useFormatDate from '@hooks/useFormatDate'
+import AddPopup from "@components/diary/AddPopup"
+import DateTitle from "@components/calendar/DateTitle"
+import { DiaryProps } from "@models/diary"
+import { DiaryResponseProps } from "@models/diary"
+import Flex from "@shared/Flex"
+import { Link } from "react-router-dom"
+import MoodIcon from "@components/diary/MoodIcon"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import calendarStyles from "@styles/calendarStyles"
+import { css } from "@emotion/react"
+import styled from "@emotion/styled"
+import useDiaryData from "@hooks/useDiaryData"
+import { useDrawerContext } from "@/context/DrawContext"
+import useFormatDate from "@hooks/useFormatDate"
 
 const CalendarDiary = React.memo(
     ({
@@ -43,12 +43,12 @@ const CalendarDiary = React.memo(
 
         useEffect(() => {
             // 현재 선택된 월
-            const month = formatDate(date).split('-').slice(0, 2).join('-')
+            const month = formatDate(date).split("-").slice(0, 2).join("-")
 
             // 모든 일기 리스트에서 선택된 월의 일기만 가져온다.
             const filteredDiary = diarys.filter(
                 (diary: DiaryResponseProps) =>
-                    diary.ymd.split('-').slice(0, 2).join('-') === month,
+                    diary.ymd.split("-").slice(0, 2).join("-") === month,
             )
 
             console.log(filteredDiary)
@@ -88,7 +88,7 @@ const CalendarDiary = React.memo(
                                                     typography="t1"
                                                     color="gray400"
                                                 >
-                                                    {`${diary.ymd.split('-')[1]}.${diary.ymd.split('-')[2]}`}
+                                                    {`${diary.ymd.split("-")[1]}.${diary.ymd.split("-")[2]}`}
                                                 </Text>
                                                 <Spacing size={8} />
                                                 <Flex align="center">
@@ -116,8 +116,8 @@ const CalendarDiary = React.memo(
                                                         text-overflow: ellipsis;
                                                         display: -webkit-box;
                                                         -webkit-line-clamp: ${diary.presignedUrl
-                                                            ? '1'
-                                                            : '5'};
+                                                            ? "1"
+                                                            : "5"};
                                                         -webkit-box-orient: vertical;
                                                     `}
                                                 >
@@ -192,7 +192,7 @@ const DiaryContainer = styled(Flex)`
 const ImageArea = styled.div<{ src: string }>`
     flex: 1;
     width: 100%;
-    background: url('${(props) => props.src}') no-repeat;
+    background: url("${(props) => props.src}") no-repeat;
 
     background-size: cover;
     background-position: center;

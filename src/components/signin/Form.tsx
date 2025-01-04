@@ -1,12 +1,12 @@
-import Button from '@shared/Button'
-import Flex from '@shared/Flex'
-import Input from '@shared/Input'
-import { Link } from 'react-router-dom'
-import { SigninProps } from '@/models/user'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import { css } from '@emotion/react'
-import { useForm } from 'react-hook-form'
+import Button from "@shared/Button"
+import Flex from "@shared/Flex"
+import Input from "@shared/Input"
+import { Link } from "react-router-dom"
+import { SigninProps } from "@/models/user"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import { css } from "@emotion/react"
+import { useForm } from "react-hook-form"
 
 const From = ({
     onSubmit,
@@ -18,18 +18,18 @@ const From = ({
         handleSubmit, // form 전체 제출 함수 (유효성 검사가 완료되면 객체로 데이터를 반환)
         formState: { errors }, //부가적인 폼의 상태를 제공(리액트 쿼리와)
     } = useForm<SigninProps>({
-        mode: 'onBlur',
+        mode: "onBlur",
     })
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
             <Flex direction="column" align="center">
                 <Input
                     type="text"
                     id="id"
                     placeholder="아이디 입력"
-                    {...register('username', {
-                        required: '아이디를 입력해주세요',
+                    {...register("username", {
+                        required: "아이디를 입력해주세요",
                     })}
                 />
 
@@ -38,8 +38,8 @@ const From = ({
                     type="password"
                     id="password"
                     placeholder="비밀번호 입력"
-                    {...register('password', {
-                        required: '비밀번호를 입력해주세요',
+                    {...register("password", {
+                        required: "비밀번호를 입력해주세요",
                     })}
                 />
 

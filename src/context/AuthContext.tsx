@@ -4,15 +4,15 @@ import React, {
     useContext,
     useEffect,
     useRef,
-} from 'react'
-import { deleteCookie, getCookie } from '@utils/cookieController'
-import { getUser, refreshToken } from '@remote/user'
+} from "react"
+import { deleteCookie, getCookie } from "@utils/cookieController"
+import { getUser, refreshToken } from "@remote/user"
 
-import { useCalendar } from '@store/useCalendar'
-import { useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import useUserStore from '@/store/useUserStore'
-import Loading from '@shared/Loading'
+import { useCalendar } from "@store/useCalendar"
+import { useNavigate } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
+import useUserStore from "@/store/useUserStore"
+import Loading from "@shared/Loading"
 
 interface AuthContextType {
     logout: () => void
@@ -28,17 +28,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const navigate = useNavigate()
 
     const logout = useCallback(() => {
-        deleteCookie('accessToken') // 토큰 삭제
-        deleteCookie('refreshToken')
-        deleteCookie('username')
+        deleteCookie("accessToken") // 토큰 삭제
+        deleteCookie("refreshToken")
+        deleteCookie("username")
         setUser(null)
         setTab(1)
         setViewDate(new Date())
         setDiaryDate(new Date())
-        navigate('/signin') // 로그아웃 후 로그인 페이지로 이동
+        navigate("/signin") // 로그아웃 후 로그인 페이지로 이동
     }, [])
 
-    const refreshTokenValue = getCookie('refreshToken')
+    const refreshTokenValue = getCookie("refreshToken")
 
     // 사용자 데이터 가져오기 (토큰이 있는 경우)
     const {
@@ -47,13 +47,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         refetch,
         isError,
     } = useQuery({
-        queryKey: ['user', getCookie('username')],
+        queryKey: ["user", getCookie("username")],
         queryFn: () =>
             getUser(
-                getCookie('username') as string,
-                getCookie('accessToken') as string, // 최신 토큰을 사용
+                getCookie("username") as string,
+                getCookie("accessToken") as string, // 최신 토큰을 사용
             ),
-        enabled: !!getCookie('accessToken'), // token이 있을 때만 쿼리 실행
+        enabled: !!getCookie("accessToken"), // token이 있을 때만 쿼리 실행
         retry: false, // 토큰 만료 시 재시도하지 않도록 설정
     })
 
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                     refetch() // 데이터 재요청
                 })
                 .catch((e) => {
-                    console.error('리프레시 토큰 갱신 실패:', e)
+                    console.error("리프레시 토큰 갱신 실패:", e)
                     // logout() // 리프레시 토큰 만료 시 로그아웃
                 })
                 .finally(() => {
@@ -80,11 +80,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         if (userData) {
             setUser({
-                username: getCookie('username') || '',
+                username: getCookie("username") || "",
                 nickname: userData.nickname,
-                profilePicture: userData.profilePicture || '',
+                profilePicture: userData.profilePicture || "",
                 interests: userData.interests || [],
-                personalities: userData.personalities || '',
+                personalities: userData.personalities || "",
             })
         }
     }, [userData]) // data가 바뀔 때마다 실행
@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             user?.interests?.length === 0 &&
             user?.personalities?.length === 0
         ) {
-            navigate('/onboarding')
+            navigate("/onboarding")
         }
     }, [user])
 
@@ -112,7 +112,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 export const useAuth = () => {
     const context = useContext(AuthContext)
     if (!context) {
-        throw new Error('useAuth는 AuthContext 내부에서만 사용할 수 있습니다.')
+        throw new Error("useAuth는 AuthContext 내부에서만 사용할 수 있습니다.")
     }
     return context
 }

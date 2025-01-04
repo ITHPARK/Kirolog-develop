@@ -1,5 +1,5 @@
-import { colorPalette } from './colorPalette'
-import { css } from '@emotion/react'
+import { colorPalette } from "./colorPalette"
+import { css } from "@emotion/react"
 
 export default css`
     :root {
@@ -100,20 +100,20 @@ export default css`
         vertical-align: baseline;
         box-sizing: border-box;
         font-family:
-            'Pretendard Variable',
+            "Pretendard Variable",
             Pretendard,
             -apple-system,
             BlinkMacSystemFont,
             system-ui,
             Roboto,
-            'Helvetica Neue',
-            'Segoe UI',
-            'Apple SD Gothic Neo',
-            'Noto Sans KR',
-            'Malgun Gothic',
-            'Apple Color Emoji',
-            'Segoe UI Emoji',
-            'Segoe UI Symbol',
+            "Helvetica Neue",
+            "Segoe UI",
+            "Apple SD Gothic Neo",
+            "Noto Sans KR",
+            "Malgun Gothic",
+            "Apple Color Emoji",
+            "Segoe UI Emoji",
+            "Segoe UI Symbol",
             sans-serif;
     }
     /* HTML5 display-role reset for older browsers */
@@ -145,7 +145,7 @@ export default css`
     blockquote:after,
     q:before,
     q:after {
-        content: '';
+        content: "";
         content: none;
     }
     table {
@@ -198,8 +198,8 @@ export default css`
         height: 100%;
     }
 
-    input[type='radio'],
-    input[type='checkbox'] {
+    input[type="radio"],
+    input[type="checkbox"] {
         display: none;
     }
 

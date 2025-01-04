@@ -1,5 +1,5 @@
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
+import { css } from "@emotion/react"
+import styled from "@emotion/styled"
 
 const DiaryImageBox = ({
     imageSrc,
@@ -9,7 +9,7 @@ const DiaryImageBox = ({
     return (
         <ImageBox>
             <img
-                src={typeof imageSrc === 'string' ? imageSrc : undefined}
+                src={typeof imageSrc === "string" ? imageSrc : undefined}
                 alt="다이어리 이미지"
                 css={diaryImage}
             />

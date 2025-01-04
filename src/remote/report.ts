@@ -1,6 +1,6 @@
-import axios from 'axios'
-import { getCookie } from '@utils/cookieController'
-import { WeeklyReportProps } from '@models/report'
+import axios from "axios"
+import { getCookie } from "@utils/cookieController"
+import { WeeklyReportProps } from "@models/report"
 
 interface getReportProps {
     week: string | null
@@ -15,8 +15,8 @@ export const getReport = async ({
         `https://www.kirolog.com/api/diaries/statistics?year=${date.getFullYear()}&month=${date.getMonth() + 1}&basedate=${week}`,
         {
             headers: {
-                Authorization: `Bearer ${getCookie('accessToken')}`,
-                'Content-Type': 'application/json',
+                Authorization: `Bearer ${getCookie("accessToken")}`,
+                "Content-Type": "application/json",
             },
         },
     )

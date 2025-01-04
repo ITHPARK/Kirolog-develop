@@ -1,17 +1,17 @@
-import { CreateUserInfo, SigninProps } from '@/models/user'
+import { CreateUserInfo, SigninProps } from "@/models/user"
 
-import axios from 'axios'
-import { getCookie } from '@utils/cookieController'
+import axios from "axios"
+import { getCookie } from "@utils/cookieController"
 
 //회원가입 요청
 export const createAccount = async (userData: CreateUserInfo) => {
     try {
         const response = await axios.post(
-            'https://www.kirolog.com/api/accounts/signup/',
+            "https://www.kirolog.com/api/accounts/signup/",
             userData, //{유저아이디, 패스워드}
             {
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
             },
         )
@@ -20,9 +20,9 @@ export const createAccount = async (userData: CreateUserInfo) => {
     } catch (e) {
         // 에러를 상위로 전달
         if (axios.isAxiosError(e)) {
-            console.error('Axios 에러:', e.response?.data || e.message)
+            console.error("Axios 에러:", e.response?.data || e.message)
         } else {
-            console.error('미확인 error:', e)
+            console.error("미확인 error:", e)
         }
         throw e
     }
@@ -31,11 +31,11 @@ export const createAccount = async (userData: CreateUserInfo) => {
 export const login = async (userData: SigninProps) => {
     try {
         const response = await axios.post(
-            'https://www.kirolog.com/api/accounts/login/',
+            "https://www.kirolog.com/api/accounts/login/",
             userData, //{유저아이디, 패스워드}
             {
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
             },
         )
@@ -44,9 +44,9 @@ export const login = async (userData: SigninProps) => {
     } catch (e) {
         // 에러를 상위로 전달
         if (axios.isAxiosError(e)) {
-            console.error('Axios 에러:', e.response?.data || e.message)
+            console.error("Axios 에러:", e.response?.data || e.message)
         } else {
-            console.error('미확인 error:', e)
+            console.error("미확인 error:", e)
         }
         throw e
     }
@@ -68,11 +68,11 @@ export const getUser = async (username: string, accessToken: string) => {
         // 에러를 상위로 전달
         if (axios.isAxiosError(e)) {
             if (e.status === 401) {
-                console.log('토큰 만료 에러')
+                console.log("토큰 만료 에러")
             }
-            console.error('Axios 에러:', e.response?.data || e.message)
+            console.error("Axios 에러:", e.response?.data || e.message)
         } else {
-            console.error('미확인 error:', e)
+            console.error("미확인 error:", e)
         }
         throw e
     }
@@ -81,7 +81,7 @@ export const getUser = async (username: string, accessToken: string) => {
 export const refreshToken = async (refresh: string) => {
     try {
         const response = await axios.post(
-            'https://www.kirolog.com/api/accounts/token/refresh/',
+            "https://www.kirolog.com/api/accounts/token/refresh/",
             { refresh: refresh },
             {
                 headers: {
@@ -93,9 +93,9 @@ export const refreshToken = async (refresh: string) => {
     } catch (e) {
         // 에러를 상위로 전달
         if (axios.isAxiosError(e)) {
-            console.error('Axios 에러:', e.response?.data || e.message)
+            console.error("Axios 에러:", e.response?.data || e.message)
         } else {
-            console.error('미확인 error:', e)
+            console.error("미확인 error:", e)
         }
         throw e
     }
@@ -108,7 +108,7 @@ export const replaceNickName = async (user: string, after: string) => {
             { nickname: after },
             {
                 headers: {
-                    Authorization: `Bearer ${getCookie('accessToken')}`,
+                    Authorization: `Bearer ${getCookie("accessToken")}`,
                 },
             },
         )
@@ -116,9 +116,9 @@ export const replaceNickName = async (user: string, after: string) => {
         return response.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
-            console.error('Axios 에러:', e.response?.data || e.message)
+            console.error("Axios 에러:", e.response?.data || e.message)
         } else {
-            console.error('미확인 error:', e)
+            console.error("미확인 error:", e)
         }
         throw e
     }
@@ -130,7 +130,7 @@ export const deleteUser = async (user: string) => {
             `https://www.kirolog.com/api/accounts/${user}/`,
             {
                 headers: {
-                    Authorization: `Bearer ${getCookie('accessToken')}`,
+                    Authorization: `Bearer ${getCookie("accessToken")}`,
                 },
             },
         )
@@ -139,9 +139,9 @@ export const deleteUser = async (user: string) => {
         return response.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
-            console.error('Axios 에러:', e.response?.data || e.message)
+            console.error("Axios 에러:", e.response?.data || e.message)
         } else {
-            console.error('미확인 error:', e)
+            console.error("미확인 error:", e)
         }
         throw e
     }
@@ -150,11 +150,11 @@ export const deleteUser = async (user: string) => {
 export const addOnboarding = async (data: { [key: string]: string[] }) => {
     try {
         const response = await axios.put(
-            `https://www.kirolog.com/api/accounts/onboarding/`,
+            "https://www.kirolog.com/api/accounts/onboarding/",
             data,
             {
                 headers: {
-                    Authorization: `Bearer ${getCookie('accessToken')}`,
+                    Authorization: `Bearer ${getCookie("accessToken")}`,
                 },
             },
         )
@@ -162,9 +162,9 @@ export const addOnboarding = async (data: { [key: string]: string[] }) => {
         return response.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
-            console.error('Axios 에러:', e.response?.data || e.message)
+            console.error("Axios 에러:", e.response?.data || e.message)
         } else {
-            console.error('미확인 error:', e)
+            console.error("미확인 error:", e)
         }
         throw e
     }
@@ -180,10 +180,10 @@ export const duplicationCheck = async (userName: string) => {
         return duplicate.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
-            alert('데이터를 요청하는 중 에러가 발생하였습니다.')
-            console.error('Axios 에러:', e.response?.data || e.message)
+            alert("데이터를 요청하는 중 에러가 발생하였습니다.")
+            console.error("Axios 에러:", e.response?.data || e.message)
         } else {
-            console.error('미확인 error:', e)
+            console.error("미확인 error:", e)
         }
         throw e
     }

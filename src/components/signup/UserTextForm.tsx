@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react"
 
-import AgreeText from '@components/signup/AgreeText'
-import Button from '@shared/Button'
-import Errormessage from '../shared/Errormessage'
-import FixedBottomButton from '@shared/FixedBottomButton'
-import Flex from '@shared/Flex'
-import Input from '@shared/Input'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-import { useAlertContext } from '@context/AlertContext'
-import { useForm } from 'react-hook-form'
-import { duplicationCheck } from '@remote/user'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import AgreeText from "@components/signup/AgreeText"
+import Button from "@shared/Button"
+import Errormessage from "../shared/Errormessage"
+import FixedBottomButton from "@shared/FixedBottomButton"
+import Flex from "@shared/Flex"
+import Input from "@shared/Input"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import { css } from "@emotion/react"
+import styled from "@emotion/styled"
+import { useAlertContext } from "@context/AlertContext"
+import { useForm } from "react-hook-form"
+import { duplicationCheck } from "@remote/user"
 
 const UserTextForm = ({
     onSubmit,
@@ -22,7 +21,6 @@ const UserTextForm = ({
 }) => {
     const [isIdChecked, setIsIdChecked] = useState<boolean>(false)
     const [isFocus, setIsFocus] = useState<boolean>(false)
-    const [check, setCheck] = useState(false)
 
     const { open } = useAlertContext()
 
@@ -38,19 +36,19 @@ const UserTextForm = ({
         watch, //폼 변화 추적
         clearErrors,
     } = useForm({
-        mode: 'onChange', // 유효성 검사 즉시 실행 (onChange로 변경)
-        reValidateMode: 'onChange', // 필드 값이 변경될 때마다 유효성 검사
+        mode: "onChange", // 유효성 검사 즉시 실행 (onChange로 변경)
+        reValidateMode: "onChange", // 필드 값이 변경될 때마다 유효성 검사
     })
     const formValues = watch()
 
     const handleChechkId = async () => {
         if (formValues.username.length === 0) {
-            alert('아이디를 입력해 주세요.')
+            alert("아이디를 입력해 주세요.")
         } else {
             const data = await duplicationCheck(formValues.username)
 
             if (data.available) {
-                alert('사용 가능한 아이디 입니다.')
+                alert("사용 가능한 아이디 입니다.")
                 setIsIdChecked(true)
             } else {
                 alert(data.message)
@@ -61,17 +59,17 @@ const UserTextForm = ({
     //유저 아이디 검사
     const handleChangeUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
         setIsIdChecked(false)
-        setValue('username', e.target.value)
+        setValue("username", e.target.value)
         //최초 포커스 했을 이후에는 중복검사 메세지 출력
         setIsFocus(true)
         // onChange 시 유효성 검사 실행
-        trigger('username')
+        trigger("username")
     }
 
     const handleDeleteId = () => {
         //아이디 입력란 초기화
         reset({
-            username: '',
+            username: "",
         })
     }
 
@@ -80,16 +78,16 @@ const UserTextForm = ({
         const pass = e.target.value
 
         //입력한 패스워드 추적
-        const conPass = watch('confirmPassword')
+        const conPass = watch("confirmPassword")
 
         //일치하지 않는다면
         if (conPass !== pass) {
-            setError('confirmPassword', {
-                type: 'manual',
-                message: '비밀번호가 일치하지 않습니다.',
+            setError("confirmPassword", {
+                type: "manual",
+                message: "비밀번호가 일치하지 않습니다.",
             })
         } else {
-            clearErrors('confirmPassword')
+            clearErrors("confirmPassword")
         }
     }
 
@@ -101,16 +99,16 @@ const UserTextForm = ({
         const conPass = e.target.value
 
         //입력한 패스워드 추적
-        const pass = watch('password')
+        const pass = watch("password")
 
         //일치하지 않는다면
         if (conPass !== pass) {
-            setError('confirmPassword', {
-                type: 'manual',
-                message: '비밀번호가 일치하지 않습니다.',
+            setError("confirmPassword", {
+                type: "manual",
+                message: "비밀번호가 일치하지 않습니다.",
             })
         } else {
-            clearErrors('confirmPassword')
+            clearErrors("confirmPassword")
         }
     }
 
@@ -118,10 +116,10 @@ const UserTextForm = ({
         const { checked } = e.target
 
         // react-hook-form에 체크 상태 반영
-        setValue('agree', checked)
+        setValue("agree", checked)
 
         // 즉시 유효성 검사 실행
-        trigger('agree')
+        trigger("agree")
     }
 
     //약관동의 처리방침 알럿을 여는 함수
@@ -138,7 +136,7 @@ const UserTextForm = ({
             <form
                 id="userInfo"
                 onSubmit={handleSubmit(onSubmit)}
-                style={{ paddingTop: '16px' }}
+                style={{ paddingTop: "16px" }}
             >
                 <Flex
                     direction="column"
@@ -162,12 +160,12 @@ const UserTextForm = ({
                                 type="text"
                                 id="id"
                                 placeholder="아이디"
-                                {...register('username', {
-                                    required: '아이디를 입력해주세요',
+                                {...register("username", {
+                                    required: "아이디를 입력해주세요",
                                     pattern: {
                                         value: /^[a-zA-Z][a-zA-Z0-9]{3,11}$/, // 수정된 정규식
                                         message:
-                                            '영문 소문자와 대문자, 숫자만 사용하며, 영문자로 시작하는 4~12자의 아이디를 입력해주세요.',
+                                            "영문 소문자와 대문자, 숫자만 사용하며, 영문자로 시작하는 4~12자의 아이디를 입력해주세요.",
                                     },
                                 })}
                                 onChange={handleChangeUserId} // onChange로 유효성 검사
@@ -199,7 +197,7 @@ const UserTextForm = ({
                                 message={String(errors.username.message)}
                             />
                         )}
-                        {getValues('username')?.length > 0 &&
+                        {getValues("username")?.length > 0 &&
                             !errors.username?.message &&
                             isFocus &&
                             !isIdChecked && (
@@ -224,30 +222,30 @@ const UserTextForm = ({
                         type="password"
                         id="password"
                         placeholder="비밀번호"
-                        {...register('password', {
-                            required: '비밀번호를 입력해주세요',
+                        {...register("password", {
+                            required: "비밀번호를 입력해주세요",
                             minLength: {
                                 value: 8,
                                 message:
-                                    '비밀번호는 최소 8자 이상이어야 합니다',
+                                    "비밀번호는 최소 8자 이상이어야 합니다",
                             },
                             validate: {
                                 noOnlyNumbers: (value) =>
                                     !/^\d+$/.test(value) ||
-                                    '숫자만 있는 비밀번호는 사용할 수 없습니다',
+                                    "숫자만 있는 비밀번호는 사용할 수 없습니다",
                                 noEmailFormat: (value) =>
                                     !/^[^@]+@[^@]+\.[^@]+$/.test(value) ||
-                                    '이메일 형식의 비밀번호는 사용할 수 없습니다',
+                                    "이메일 형식의 비밀번호는 사용할 수 없습니다",
                                 noCommonPasswords: (value) => {
                                     const commonPasswords = [
-                                        'password',
-                                        '123456',
-                                        'qwerty',
-                                        '12345678',
+                                        "password",
+                                        "123456",
+                                        "qwerty",
+                                        "12345678",
                                     ]
                                     return (
                                         !commonPasswords.includes(value) ||
-                                        '흔한 비밀번호는 사용할 수 없습니다'
+                                        "흔한 비밀번호는 사용할 수 없습니다"
                                     )
                                 },
                             },
@@ -259,8 +257,8 @@ const UserTextForm = ({
                         type="password"
                         id="confirmPassword"
                         placeholder="비밀번호 확인"
-                        {...register('confirmPassword', {
-                            required: '비밀번호 확인을 입력해주세요',
+                        {...register("confirmPassword", {
+                            required: "비밀번호 확인을 입력해주세요",
                         })}
                         onChange={handleChangePasswordConfirm} // onChange로 비밀번호 확인
                     />
@@ -304,8 +302,8 @@ const UserTextForm = ({
                             <Input
                                 type="checkbox"
                                 id="agree"
-                                {...register('agree', {
-                                    required: '약관에 동의해주세요.', // 필수 체크 메시지 설정
+                                {...register("agree", {
+                                    required: "약관에 동의해주세요.", // 필수 체크 메시지 설정
                                 })}
                                 onChange={handleChangeAgree}
                                 css={inputCheck}
@@ -388,7 +386,7 @@ const checkLabel = css`
     display: block;
     width: 20px;
     height: 20px;
-    background: url('/images/login/check.png') no-repeat left center;
+    background: url("/images/login/check.png") no-repeat left center;
     background-size: auto 100%;
 `
 
@@ -407,7 +405,7 @@ const AgreeArrow = styled.span`
     display: block;
     width: 16px;
     height: 16px;
-    background: url('/images/arrow/arrow_right_16.svg') no-repeat center;
+    background: url("/images/arrow/arrow_right_16.svg") no-repeat center;
     background-size: 100% 100%;
 `
 

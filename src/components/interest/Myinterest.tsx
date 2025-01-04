@@ -1,12 +1,12 @@
-import React from 'react'
-import { InterestProps } from '@models/interest'
-import Text from '@shared/Text'
-import Flex from '@shared/Flex'
-import Spacing from '@shared/Spacing'
-import Input from '@shared/Input'
-import LabelBox from '@shared/LabelBox'
-import { css } from '@emotion/react'
-import FixedBottomButton from '@shared/FixedBottomButton'
+import React from "react"
+import { InterestProps } from "@models/interest"
+import Text from "@shared/Text"
+import Flex from "@shared/Flex"
+import Spacing from "@shared/Spacing"
+import Input from "@shared/Input"
+import LabelBox from "@shared/LabelBox"
+import { css } from "@emotion/react"
+import FixedBottomButton from "@shared/FixedBottomButton"
 
 const Myinterest = ({
     interest,
@@ -44,7 +44,7 @@ const Myinterest = ({
                 color="gray800"
                 align="center"
                 dangerouslySetInnerHTML={{
-                    __html: interest.title.replace(/\n/g, '<br />'),
+                    __html: interest.title.replace(/\n/g, "<br />"),
                 }}
             />
             <Spacing size={4} />
@@ -81,10 +81,10 @@ const Myinterest = ({
             <FixedBottomButton
                 description="선택하신 태그는 마이페이지에서 수정 가능해요."
                 type="button"
-                label={interest.type === 'personality' ? '다음' : '완료'}
+                label={interest.type === "personality" ? "다음" : "완료"}
                 onClick={() => {
                     if (data.length == 0) {
-                        alert('한가지 이상 골라주세요')
+                        alert("한가지 이상 골라주세요")
                     } else {
                         setStep((prev: number) => prev + 1)
                     }

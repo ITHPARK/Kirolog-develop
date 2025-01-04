@@ -1,11 +1,11 @@
-import { createPortal } from 'react-dom'
-import Flex from '@shared/Flex'
-import Text from '@shared/Text'
-import styled from '@emotion/styled'
-import { css, keyframes } from '@emotion/react'
+import { createPortal } from "react-dom"
+import Flex from "@shared/Flex"
+import Text from "@shared/Text"
+import styled from "@emotion/styled"
+import { css, keyframes } from "@emotion/react"
 
 const Loading = () => {
-    const $portal = document.getElementById('loading')
+    const $portal = document.getElementById("loading")
 
     if ($portal == null) {
         return null

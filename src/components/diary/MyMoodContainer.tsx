@@ -1,6 +1,6 @@
-import Flex from '@shared/Flex'
-import Text from '@shared/Text'
-import styled from '@emotion/styled'
+import Flex from "@shared/Flex"
+import Text from "@shared/Text"
+import styled from "@emotion/styled"
 
 const MyMoodContainer = ({ mood }: { mood: string }) => {
     return (

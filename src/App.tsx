@@ -1,41 +1,41 @@
-import { Outlet, Route, Routes } from 'react-router-dom'
+import { Outlet, Route, Routes } from "react-router-dom"
 
-import AddDiaryAi from '@pages/AddDiaryAi'
-import AddDiaryMy from '@pages/AddDiaryMy'
-import DiaryDetail from '@components/diary/DiaryDetail'
-import Navbar from '@shared/Navbar'
-import CalendarContent from '@pages/CalendarContent'
+import AddDiaryAi from "@pages/AddDiaryAi"
+import AddDiaryMy from "@pages/AddDiaryMy"
+import DiaryDetail from "@components/diary/DiaryDetail"
+import Navbar from "@shared/Navbar"
+import CalendarContent from "@pages/CalendarContent"
 
-import SignIn from '@pages/SignIn'
-import Signup from '@pages/Signup'
-import styled from '@emotion/styled'
-import My from '@pages/My'
-import { useLocation } from 'react-router-dom'
-import Privacy from '@pages/my/Privacy'
-import TermsList from '@pages/my/TermsList'
-import Nickname from '@pages/my/Nickname'
-import Account from '@pages/my/Account'
-import PrivateRoute from '@components/auth/PrivateRoute'
+import SignIn from "@pages/SignIn"
+import Signup from "@pages/Signup"
+import styled from "@emotion/styled"
+import My from "@pages/My"
+import { useLocation } from "react-router-dom"
+import Privacy from "@pages/my/Privacy"
+import TermsList from "@pages/my/TermsList"
+import Nickname from "@pages/my/Nickname"
+import Account from "@pages/my/Account"
+import PrivateRoute from "@components/auth/PrivateRoute"
 
-import Report from '@pages/Report'
-import Tutorial from '@pages/Tutorial'
-import Interest from '@pages/Interest'
-import Loading from '@shared/Loading'
+import Report from "@pages/Report"
+import Tutorial from "@pages/Tutorial"
+import Interest from "@pages/Interest"
+import Loading from "@shared/Loading"
 
 // Navbar를 포함하는 컴포넌트들과 아닌 컴포넌트 구분
 const LayoutWithNavbar = () => {
     const location = useLocation()
-    const isMyPage = location.pathname === '/my'
-    const isReportPage = location.pathname === '/report'
-    const isOnboardingPage = location.pathname === '/onboarding'
+    const isMyPage = location.pathname === "/my"
+    const isReportPage = location.pathname === "/report"
+    const isOnboardingPage = location.pathname === "/onboarding"
 
     return (
         <>
             <Container
                 className={
                     isMyPage || isReportPage || isOnboardingPage
-                        ? 'no-padding'
-                        : ''
+                        ? "no-padding"
+                        : ""
                 }
             >
                 <Outlet />
@@ -47,9 +47,9 @@ const LayoutWithNavbar = () => {
 
 const LayoutWithoutNavbar = () => {
     const location = useLocation()
-    const isOnboardingPage = location.pathname === '/onboarding'
+    const isOnboardingPage = location.pathname === "/onboarding"
     return (
-        <Container className={isOnboardingPage ? 'no-padding' : ''}>
+        <Container className={isOnboardingPage ? "no-padding" : ""}>
             <Outlet />
         </Container>
     )

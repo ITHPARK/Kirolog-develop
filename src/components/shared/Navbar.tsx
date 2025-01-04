@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { createPortal } from 'react-dom'
-import Flex from '@shared/Flex'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import styled from '@emotion/styled'
+import { useEffect, useState } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
+import { createPortal } from "react-dom"
+import Flex from "@shared/Flex"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import styled from "@emotion/styled"
 
 const Navbar = () => {
     const [menu, setMenu] = useState<boolean[]>([false, true, false])
     const navigate = useNavigate()
     const location = useLocation() // 현재 경로를 추적
 
-    const navPortal = document.getElementById('nav')
+    const navPortal = document.getElementById("nav")
 
     useEffect(() => {
         // 현재 경로에 맞게 메뉴 상태 업데이트
-        if (location.pathname === '/report') {
+        if (location.pathname === "/report") {
             setMenu([true, false, false])
-        } else if (location.pathname === '/my') {
+        } else if (location.pathname === "/my") {
             setMenu([false, false, true])
         } else {
             setMenu([false, true, false])
@@ -35,16 +35,16 @@ const Navbar = () => {
         })
 
         if (num === 0) {
-            navigate('/report')
+            navigate("/report")
         } else if (num === 1) {
-            navigate('/')
+            navigate("/")
         } else if (num === 2) {
-            navigate('/my')
+            navigate("/my")
         }
     }
 
     return createPortal(
-        <NavStyles as={'ul'}>
+        <NavStyles as={"ul"}>
             <li>
                 <div onClick={() => handleClick(0)}>
                     <Flex direction="column" align="center">
@@ -53,7 +53,7 @@ const Navbar = () => {
                         <Text
                             typography="t1"
                             weight="semiBold"
-                            color={menu[0] ? 'gray700' : 'gray300'}
+                            color={menu[0] ? "gray700" : "gray300"}
                         >
                             리포트
                         </Text>
@@ -68,7 +68,7 @@ const Navbar = () => {
                         <Text
                             typography="t1"
                             weight="semiBold"
-                            color={menu[1] ? 'gray700' : 'gray300'}
+                            color={menu[1] ? "gray700" : "gray300"}
                         >
                             홈
                         </Text>
@@ -83,7 +83,7 @@ const Navbar = () => {
                         <Text
                             typography="t1"
                             weight="semiBold"
-                            color={menu[2] ? 'gray700' : 'gray300'}
+                            color={menu[2] ? "gray700" : "gray300"}
                         >
                             마이
                         </Text>
@@ -108,7 +108,7 @@ const NavStyles = styled(Flex)`
     }
 
     &:after {
-        content: '';
+        content: "";
         display: block;
         width: 100%;
         height: 20px;
@@ -125,7 +125,7 @@ const IconContainer = styled.span<{ iconName: string; active: boolean }>`
     height: 24px;
     background: url(/images/nav/${(props) => props.iconName}.svg) no-repeat;
     background-position: ${(props) =>
-        props.active ? 'left center' : 'right center'};
+        props.active ? "left center" : "right center"};
 `
 
 export default Navbar

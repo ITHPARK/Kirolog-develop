@@ -1,12 +1,12 @@
-import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
+import { useAddDiaryData, useAddDiaryStep } from "@store/useAddDiary"
 
-import Flex from '@shared/Flex'
-import ImageSelector from '@shared/ImageSelector'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-import { useLocation } from 'react-router-dom'
+import Flex from "@shared/Flex"
+import ImageSelector from "@shared/ImageSelector"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import { css } from "@emotion/react"
+import styled from "@emotion/styled"
+import { useLocation } from "react-router-dom"
 
 const SelectImage = ({ skipButton = false }: { skipButton?: boolean }) => {
     const { step, setStep } = useAddDiaryStep()
@@ -28,7 +28,7 @@ const SelectImage = ({ skipButton = false }: { skipButton?: boolean }) => {
             <Flex direction="column" justify="center">
                 <Spacing size={100} />
                 <Flex justify="center">
-                    {location.pathname.split('/')[3] === 'ai' ? (
+                    {location.pathname.split("/")[3] === "ai" ? (
                         <RequierContainer
                             display="inline-block"
                             typography="t1"
@@ -52,7 +52,7 @@ const SelectImage = ({ skipButton = false }: { skipButton?: boolean }) => {
                         color="gray800"
                         align="center"
                     >
-                        {location.pathname.split('/')[3] === 'ai' ? (
+                        {location.pathname.split("/")[3] === "ai" ? (
                             <>
                                 현재 감정을 표현할 <br />
                                 <span css={textcustom}>본인이 찍은 </span>
@@ -86,7 +86,7 @@ const RequierContainer = styled(Text)`
 const Image = styled.div`
     width: 123px;
     height: 168px;
-    background: url('/images/character/addImage_character.png') no-repeat center;
+    background: url("/images/character/addImage_character.png") no-repeat center;
     background-size: 100% auto;
 `
 

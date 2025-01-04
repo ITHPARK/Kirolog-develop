@@ -1,12 +1,12 @@
-import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
-import AiDiaryComplateLoading from '@/components/diary/DiaryComplateLoading'
-import DiaryResult from '@components/diary/DiaryResult'
-import DiaryTop from '@components/diary/DiaryTop'
-import SelectImage from '@components/diary/SelectImage'
-import TagCategory from '@components/diary/TagCategory'
-import { useEffect } from 'react'
-import useFormatDate from '@/hooks/useFormatDate'
-import { useNavigate } from 'react-router-dom'
+import { useAddDiaryData, useAddDiaryStep } from "@store/useAddDiary"
+import AiDiaryComplateLoading from "@/components/diary/DiaryComplateLoading"
+import DiaryResult from "@components/diary/DiaryResult"
+import DiaryTop from "@components/diary/DiaryTop"
+import SelectImage from "@components/diary/SelectImage"
+import TagCategory from "@components/diary/TagCategory"
+import { useEffect } from "react"
+import useFormatDate from "@/hooks/useFormatDate"
+import { useNavigate } from "react-router-dom"
 
 const AddDiaryMy = () => {
     //zustand 전역 상태관리
@@ -17,7 +17,7 @@ const AddDiaryMy = () => {
 
     useEffect(() => {
         const today = new Date()
-        const dayNames = ['일', '월', '화', '수', '목', '금', '토']
+        const dayNames = ["일", "월", "화", "수", "목", "금", "토"]
         const dayOfWeek = today.getDay()
         const dayName = dayNames[dayOfWeek]
 
@@ -35,13 +35,13 @@ const AddDiaryMy = () => {
             id: null,
             headDate: null,
             ymd: null,
-            moods: '',
+            moods: "",
             image: null,
-            content: '',
+            content: "",
             keyword: [],
         })
         setStep(1, true)
-        navigate('/')
+        navigate("/")
     }
 
     return (

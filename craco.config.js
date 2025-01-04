@@ -1,24 +1,24 @@
-const CracoAlias = require('craco-alias')
-const PnpWebpackPlugin = require('pnp-webpack-plugin')
+const CracoAlias = require("craco-alias")
+const PnpWebpackPlugin = require("pnp-webpack-plugin")
 
 module.exports = {
     plugins: [
         {
             plugin: CracoAlias,
             options: {
-                source: 'tsconfig',
-                tsConfigPath: 'tsconfig.paths.json',
+                source: "tsconfig",
+                tsConfigPath: "tsconfig.paths.json",
             },
         },
     ],
     babel: {
         presets: [
             [
-                '@babel/preset-react',
-                { runtime: 'automatic', importSource: '@emotion/react' },
+                "@babel/preset-react",
+                { runtime: "automatic", importSource: "@emotion/react" },
             ],
         ],
-        plugins: ['@emotion/babel-plugin'],
+        plugins: ["@emotion/babel-plugin"],
     },
     webpack: {
         //pnp 플러그인을 추가

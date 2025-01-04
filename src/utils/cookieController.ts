@@ -2,12 +2,12 @@ export const getCookie = (cookieName: string) => {
     const cookies = document.cookie
 
     const value = cookies
-        .split(';')
+        .split(";")
         .map((key) => key.trim())
         //startsWith: 배열에서 특정문자열로 시작하는 항목을 찾는다.cookie.trim()
         .find((key) => key.startsWith(cookieName))
 
-    return value ? value.split('=')[1] : null
+    return value ? value.split("=")[1] : null
 }
 
 export const deleteCookie = (cookieName: string) => {

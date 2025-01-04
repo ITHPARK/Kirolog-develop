@@ -1,11 +1,11 @@
-import Button from '@shared/Button'
-import FixedBottomButton from '@shared/FixedBottomButton'
-import Flex from '@shared/Flex'
-import Input from '@shared/Input'
-import Text from '@shared/Text'
-import { css } from '@emotion/react'
-import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import Button from "@shared/Button"
+import FixedBottomButton from "@shared/FixedBottomButton"
+import Flex from "@shared/Flex"
+import Input from "@shared/Input"
+import Text from "@shared/Text"
+import { css } from "@emotion/react"
+import { useForm } from "react-hook-form"
+import { useState } from "react"
 
 const UserinfoForm = ({
     onSubmit,
@@ -23,25 +23,25 @@ const UserinfoForm = ({
         trigger,
         getValues,
     } = useForm({
-        mode: 'onBlur',
+        mode: "onBlur",
     })
 
     const handleChechkId = () => {
         //백엔드에 아이디 중복검사 요청
-        alert('사용가능한 아이디입니다.')
+        alert("사용가능한 아이디입니다.")
         setIsIdChecked(true)
     }
 
     const handleBlur = async () => {
         setIsFocus(true)
         // onBlur 시 유효성 검사 실행
-        await trigger('userId')
+        await trigger("userId")
     }
 
     const handleDeleteId = () => {
         //아이디 입력란 초기화
         reset({
-            userId: '',
+            userId: "",
         })
     }
 
@@ -60,8 +60,8 @@ const UserinfoForm = ({
                                 type="text"
                                 id="id"
                                 placeholder="아이디"
-                                {...register('userId', {
-                                    required: '아이디를 입력해주세요',
+                                {...register("userId", {
+                                    required: "아이디를 입력해주세요",
                                 })}
                                 onBlur={handleBlur}
                             />
@@ -76,7 +76,7 @@ const UserinfoForm = ({
                     {errors.userId?.message && (
                         <Text>{String(errors.userId.message)}</Text>
                     )}
-                    {getValues('userId')?.length > 0 &&
+                    {getValues("userId")?.length > 0 &&
                         isFocus &&
                         !isIdChecked && (
                             <Text>아이디 중복검사를 해주세요.</Text>
@@ -88,8 +88,8 @@ const UserinfoForm = ({
                         type="password"
                         id="password"
                         placeholder="비밀번호"
-                        {...register('password', {
-                            required: '아이디를 입력해주세요',
+                        {...register("password", {
+                            required: "아이디를 입력해주세요",
                         })}
                     />
                     {errors.password?.message && (
@@ -102,8 +102,8 @@ const UserinfoForm = ({
                         type="text"
                         id="name"
                         placeholder="이름"
-                        {...register('name', {
-                            required: '아이디를 입력해주세요',
+                        {...register("name", {
+                            required: "아이디를 입력해주세요",
                         })}
                     />
                     {errors.name?.message && (
@@ -118,8 +118,8 @@ const UserinfoForm = ({
                                 type="radio"
                                 id="male"
                                 value="남성"
-                                {...register('gender', {
-                                    required: '성별을 선택해주세요',
+                                {...register("gender", {
+                                    required: "성별을 선택해주세요",
                                 })}
                             />
                             <label htmlFor="male">남성</label>
@@ -127,8 +127,8 @@ const UserinfoForm = ({
                         <li>
                             <Input
                                 type="radio"
-                                {...register('gender', {
-                                    required: '성별을 선택해주세요',
+                                {...register("gender", {
+                                    required: "성별을 선택해주세요",
                                 })}
                                 id="female"
                                 value="여성"
@@ -146,8 +146,8 @@ const UserinfoForm = ({
                         type="text"
                         id="nickname"
                         placeholder="닉네임"
-                        {...register('nickname', {
-                            required: '닉네임을 입력해주세요',
+                        {...register("nickname", {
+                            required: "닉네임을 입력해주세요",
                         })}
                     />
                     {errors.nickname?.message && (

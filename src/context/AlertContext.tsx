@@ -5,13 +5,13 @@ import {
     useCallback,
     useMemo,
     useContext,
-} from 'react'
-import { createPortal } from 'react-dom'
+} from "react"
+import { createPortal } from "react-dom"
 
-import Alert from '@shared/Alert'
+import Alert from "@shared/Alert"
 
 type AlertProps = ComponentProps<typeof Alert> //Alert의 타입을 가져온다.
-type AlertOptions = Omit<AlertProps, 'open'> //AlertProps에서 open타입을 제거한것
+type AlertOptions = Omit<AlertProps, "open"> //AlertProps에서 open타입을 제거한것
 
 interface AlertContextValue {
     open: (options: AlertOptions) => void //확인 버튼을 누르면 사라지기 때문에 open만 넣어준다.
@@ -34,7 +34,7 @@ export const AlerContextProvider = ({
 }) => {
     const [alertState, setAlertState] = useState(defaultValues)
 
-    const $portal_root = document.getElementById('modal-portal')
+    const $portal_root = document.getElementById("modal-portal")
 
     const close = useCallback(() => {
         setAlertState(defaultValues) //Alert를 기본값으로 되돌리기
@@ -76,7 +76,7 @@ export const useAlertContext = () => {
     const values = useContext(Context)
 
     if (values == null) {
-        throw new Error('AlertContext 내부에서 사용해주세요')
+        throw new Error("AlertContext 내부에서 사용해주세요")
     }
 
     return values

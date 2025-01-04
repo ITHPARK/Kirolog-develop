@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import styled from "@emotion/styled"
 
 const TabContainer = styled.div`
     padding: 20px 0 24px;

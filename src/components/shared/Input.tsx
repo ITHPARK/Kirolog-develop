@@ -1,7 +1,7 @@
-import React, { useState, forwardRef, InputHTMLAttributes } from 'react'
-import { css } from '@emotion/react'
-import { typographyMap, typographyWeight } from '@styles/typography'
-import { Colors, colors } from '@styles/colorPalette'
+import React, { useState, forwardRef, InputHTMLAttributes } from "react"
+import { css } from "@emotion/react"
+import { typographyMap, typographyWeight } from "@styles/typography"
+import { Colors, colors } from "@styles/colorPalette"
 
 const Input = forwardRef<
     //input 엘리먼트를 나타내는 DOM 타입
@@ -10,7 +10,7 @@ const Input = forwardRef<
     InputHTMLAttributes<HTMLInputElement> & { bgColor?: Colors }
 >((props, ref) => {
     const { bgColor, onChange, ...rest } = props // onChange를 분리하고 나머지 props를 rest로 저장
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState("")
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value)
@@ -38,12 +38,12 @@ const inputStyles = (value: string, bgColor?: Colors) => css`
     background-color: ${bgColor
         ? colors[bgColor]
         : colors[
-              'white'
+              "white"
           ]}; // bgColor가 있으면 colors에서 해당 색을 가져오고, 없으면 기본값 white
     border: 1px solid var(--gray200);
     border-radius: 8px;
-    ${typographyMap['t2']}
-    ${typographyWeight['medium']}
+    ${typographyMap["t2"]}
+    ${typographyWeight["medium"]}
   color: var(--gray600);
 
     ::placeholder {
@@ -51,7 +51,7 @@ const inputStyles = (value: string, bgColor?: Colors) => css`
     }
 
     /* 값이 있을 때 테두리 색상 변경 */
-    border-color: ${value ? 'black' : 'var(--gray200)'};
+    border-color: ${value ? "black" : "var(--gray200)"};
     &:focus {
         border-color: var(--gray800);
         outline: none;

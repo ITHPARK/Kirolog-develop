@@ -1,10 +1,10 @@
-import Button from '@shared/Button'
-import Dimmed from '@shared/Dimmed'
-import Flex from '@shared/Flex'
-import Spacing from '@shared/Spacing'
-import { colors } from '@styles/colorPalette'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
+import Button from "@shared/Button"
+import Dimmed from "@shared/Dimmed"
+import Flex from "@shared/Flex"
+import Spacing from "@shared/Spacing"
+import { colors } from "@styles/colorPalette"
+import { css } from "@emotion/react"
+import styled from "@emotion/styled"
 
 interface AlertProps {
     open?: boolean
@@ -20,8 +20,8 @@ const Alert = ({
     open,
     Component,
     componentProps,
-    buttonLabel1 = '확인',
-    buttonLabel2 = '닫기',
+    buttonLabel1 = "확인",
+    buttonLabel2 = "닫기",
     onButtonClick1,
     onButtonClick2,
 }: AlertProps) => {

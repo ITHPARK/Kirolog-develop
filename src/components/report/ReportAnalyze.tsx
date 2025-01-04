@@ -1,11 +1,11 @@
-import Text from '@shared/Text'
-import Flex from '@shared/Flex'
-import Spacing from '@shared/Spacing'
-import styled from '@emotion/styled'
-import { css } from '@emotion/react'
-import Button from '@shared/Button'
-import { WeeklyReportProps } from '@models/report'
-import { getWeekLabel } from '@utils/getWeekend'
+import Text from "@shared/Text"
+import Flex from "@shared/Flex"
+import Spacing from "@shared/Spacing"
+import styled from "@emotion/styled"
+import { css } from "@emotion/react"
+import Button from "@shared/Button"
+import { WeeklyReportProps } from "@models/report"
+import { getWeekLabel } from "@utils/getWeekend"
 
 const ReportAnalyze = ({
     onClose,
@@ -40,9 +40,9 @@ const ReportAnalyze = ({
                     <Spacing size={12} />
                     <Flex direction="column">
                         <Text typography="t1" color="gray500">
-                            {weeklyReport.consolation.split('@')[0]}
+                            {weeklyReport.consolation.split("@")[0]}
                             <br />
-                            {weeklyReport.consolation.split('@')[1]}
+                            {weeklyReport.consolation.split("@")[1]}
                         </Text>
                     </Flex>
                     <Spacing size={12} />
@@ -53,13 +53,13 @@ const ReportAnalyze = ({
                         `}
                         justify="center"
                     >
-                        {['월', '화', '수', '목', '금', '토', '일'].map(
+                        {["월", "화", "수", "목", "금", "토", "일"].map(
                             (item, index) => {
                                 return (
                                     <WeekList
                                         direction="column"
                                         align="center"
-                                        css={css(`padding-top:6px;`)}
+                                        css={css("padding-top:6px;")}
                                         key={index}
                                     >
                                         <Text typography="t0" color="gray500">
@@ -71,14 +71,14 @@ const ReportAnalyze = ({
                                                     /'/g,
                                                     '"',
                                                 ),
-                                            )[index] !== 'null'
+                                            )[index] !== "null"
                                                 ? JSON.parse(
                                                       weeklyReport.weeklyMood.replace(
                                                           /'/g,
                                                           '"',
                                                       ),
                                                   )[index]
-                                                : ''}
+                                                : ""}
                                         </Text>
                                     </WeekList>
                                 )
@@ -118,7 +118,7 @@ const ReportAnalyze = ({
 
 const AnalyzeTitle = styled(Text)`
     padding-left: 24px;
-    background: url('/images/reportTitle.svg') no-repeat left center;
+    background: url("/images/reportTitle.svg") no-repeat left center;
     background-size: 16px;
 `
 

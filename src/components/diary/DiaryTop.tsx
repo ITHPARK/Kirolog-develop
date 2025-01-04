@@ -1,14 +1,14 @@
-import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
+import { useAddDiaryData, useAddDiaryStep } from "@store/useAddDiary"
 
-import Alert from '@shared/Alert/Alert'
-import ArrowLeft from '@shared/ico/ArrowLeft'
-import Close from '@shared/ico/Close'
-import Topbar from '../shared/Topbar'
-import { useAlertContext } from '@context/AlertContext'
-import { useNavigate } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
-import { useMutation } from '@tanstack/react-query'
-import { deleteDiary } from '@remote/diary'
+import Alert from "@shared/Alert/Alert"
+import ArrowLeft from "@shared/ico/ArrowLeft"
+import Close from "@shared/ico/Close"
+import Topbar from "../shared/Topbar"
+import { useAlertContext } from "@context/AlertContext"
+import { useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
+import { useMutation } from "@tanstack/react-query"
+import { deleteDiary } from "@remote/diary"
 
 const DiaryTop = () => {
     const { step, setStep } = useAddDiaryStep()
@@ -16,14 +16,14 @@ const DiaryTop = () => {
     const { open } = useAlertContext()
     const navigate = useNavigate()
     const location = useLocation()
-    const lastSegment = location.pathname.split('/').pop()
+    const lastSegment = location.pathname.split("/").pop()
 
     const deleteDiaryMutate = useMutation({
         mutationFn: async (data: number) => {
             return await deleteDiary(data) //로그인 api 요청
         },
         onSuccess: () => {
-            navigate('/')
+            navigate("/")
         },
     })
 
@@ -32,8 +32,8 @@ const DiaryTop = () => {
         open({
             Component: Alert,
             componentProps: {
-                title: '작성을 취소할건가요?',
-                description: '작성 중인 내용인 저장되지 않아요!',
+                title: "작성을 취소할건가요?",
+                description: "작성 중인 내용인 저장되지 않아요!",
             },
             onButtonClick1: () => {
                 setStep(1, true)
@@ -41,22 +41,22 @@ const DiaryTop = () => {
                     id: null,
                     headDate: null,
                     ymd: null,
-                    moods: '',
+                    moods: "",
                     image: null,
-                    content: '',
+                    content: "",
                     keyword: [],
                 })
                 //ai일기 마지막 수정 단계에서 x누르면 일기 삭제
-                if (lastSegment === 'ai' && step === 4) {
+                if (lastSegment === "ai" && step === 4) {
                     if (diaryData.id != null) {
                         deleteDiaryMutate.mutate(diaryData.id)
                     }
                 }
-                navigate('/')
+                navigate("/")
             },
             onButtonClick2: () => {},
-            buttonLabel1: '네',
-            buttonLabel2: '아니요',
+            buttonLabel1: "네",
+            buttonLabel2: "아니요",
         })
     }
 
@@ -73,7 +73,7 @@ const DiaryTop = () => {
 
     return (
         <Topbar
-            title={diaryData.headDate ? diaryData.headDate : ''}
+            title={diaryData.headDate ? diaryData.headDate : ""}
             left={step > 1 ? <ArrowLeft /> : null}
             right={<Close />}
             leftOnClick={handleClickArrow}

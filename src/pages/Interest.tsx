@@ -1,50 +1,50 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react"
 
-import ArrowLeft from '@components/shared/ico/ArrowLeft'
-import { InterestProps } from '@models/interest'
-import Myinterest from '@components/interest/Myinterest'
-import Topbar from '@components/shared/Topbar'
-import { addOnboarding } from '@remote/user'
-import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
-import useUserStore from '@store/useUserStore'
+import ArrowLeft from "@components/shared/ico/ArrowLeft"
+import { InterestProps } from "@models/interest"
+import Myinterest from "@components/interest/Myinterest"
+import Topbar from "@components/shared/Topbar"
+import { addOnboarding } from "@remote/user"
+import { useMutation } from "@tanstack/react-query"
+import { useNavigate } from "react-router-dom"
+import useUserStore from "@store/useUserStore"
 
 const selet: { [key: string]: InterestProps } = {
     type1: {
-        type: 'personality',
-        title: '나의 성격을 \n 최대 3개 선택해주세요',
-        subTitle: '선택한 성격은 활동 추천에 사용돼요!',
+        type: "personality",
+        title: "나의 성격을 \n 최대 3개 선택해주세요",
+        subTitle: "선택한 성격은 활동 추천에 사용돼요!",
         tag: [
-            '외향적',
-            '내향적',
-            '감성적',
-            '계획적',
-            '즉흥적',
-            '창의적',
-            '논리적',
-            '신중함',
-            '도전정신',
+            "외향적",
+            "내향적",
+            "감성적",
+            "계획적",
+            "즉흥적",
+            "창의적",
+            "논리적",
+            "신중함",
+            "도전정신",
         ],
     },
     type2: {
-        type: 'interest',
-        title: '나의 관심사\n 최대 3개 선택해주세요',
-        subTitle: '선택한 성격은 활동 추천에 사용돼요!',
+        type: "interest",
+        title: "나의 관심사\n 최대 3개 선택해주세요",
+        subTitle: "선택한 성격은 활동 추천에 사용돼요!",
         tag: [
-            '음식',
-            '음악',
-            '영화',
-            '독서',
-            '운동',
-            '건강',
-            '여행',
-            '패션',
-            '예술',
-            '취미',
-            '기술',
-            '뷰티',
-            '재테크',
-            '자기계발',
+            "음식",
+            "음악",
+            "영화",
+            "독서",
+            "운동",
+            "건강",
+            "여행",
+            "패션",
+            "예술",
+            "취미",
+            "기술",
+            "뷰티",
+            "재테크",
+            "자기계발",
         ],
     },
 }
@@ -68,8 +68,8 @@ const Interest = () => {
                 personalities: data.personalities,
             })
 
-            alert('관심사 추가를 완료했습니다.')
-            navigate('/')
+            alert("관심사 추가를 완료했습니다.")
+            navigate("/")
         },
     })
 

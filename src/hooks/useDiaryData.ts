@@ -1,10 +1,10 @@
-import { UseQueryResult, useQuery } from '@tanstack/react-query'
+import { UseQueryResult, useQuery } from "@tanstack/react-query"
 
-import { getDiary } from '@remote/diary'
+import { getDiary } from "@remote/diary"
 
 const useDiaryData = (): UseQueryResult<any, Error> => {
     return useQuery({
-        queryKey: ['diary'],
+        queryKey: ["diary"],
         queryFn: () => getDiary(),
         retry: 1,
     })

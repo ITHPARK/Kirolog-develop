@@ -1,15 +1,15 @@
-import ArrowLeft from '@shared/ico/ArrowLeft'
-import FixedBottomButton from '@/components/shared/FixedBottomButton'
-import Flex from '@shared/Flex'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import Topbar from '@shared/Topbar'
-import { css } from '@emotion/react'
-import { replaceNickName } from '@remote/user'
-import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import useUserStore from '@/store/useUserStore'
+import ArrowLeft from "@shared/ico/ArrowLeft"
+import FixedBottomButton from "@/components/shared/FixedBottomButton"
+import Flex from "@shared/Flex"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import Topbar from "@shared/Topbar"
+import { css } from "@emotion/react"
+import { replaceNickName } from "@remote/user"
+import { useMutation } from "@tanstack/react-query"
+import { useNavigate } from "react-router-dom"
+import { useState } from "react"
+import useUserStore from "@/store/useUserStore"
 
 const Nickname = () => {
     const [first, setfirst] = useState<number>(0)
@@ -43,8 +43,8 @@ const Nickname = () => {
                 ...user,
                 nickname: variables.after, // 'after'는 변경된 닉네임
             })
-            navigate('/my') // 마이 페이지로 이동
-            alert('닉네임 변경이 완료되었습니다.') // 알림
+            navigate("/my") // 마이 페이지로 이동
+            alert("닉네임 변경이 완료되었습니다.") // 알림
         },
     })
 

@@ -1,10 +1,10 @@
-import FixedBottomButton from '@shared/FixedBottomButton'
-import Flex from '@shared/Flex'
-import React from 'react'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import { createPortal } from 'react-dom'
-import styled from '@emotion/styled'
+import FixedBottomButton from "@shared/FixedBottomButton"
+import Flex from "@shared/Flex"
+import React from "react"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import { createPortal } from "react-dom"
+import styled from "@emotion/styled"
 
 interface DiaryComplateLoadingProps {
     onClick: () => void // onClick을 props로 전달받기 위한 타입 정의
@@ -13,7 +13,7 @@ interface DiaryComplateLoadingProps {
 const DiaryComplateLoading: React.FC<DiaryComplateLoadingProps> = ({
     onClick,
 }) => {
-    const $portal = document.getElementById('splash')
+    const $portal = document.getElementById("splash")
 
     if ($portal == null) {
         return null

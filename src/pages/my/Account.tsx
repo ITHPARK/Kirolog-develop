@@ -1,16 +1,16 @@
-import Alert from '@shared/Alert/Alert'
-import ArrowLeft from '@shared/ico/ArrowLeft'
-import Flex from '@shared/Flex'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import Topbar from '@shared/Topbar'
-import { deleteUser } from '@remote/user'
-import styled from '@emotion/styled'
-import { useAlertContext } from '@context/AlertContext'
-import { useAuth } from '@context/AuthContext'
-import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
-import useUserStore from '@store/useUserStore'
+import Alert from "@shared/Alert/Alert"
+import ArrowLeft from "@shared/ico/ArrowLeft"
+import Flex from "@shared/Flex"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import Topbar from "@shared/Topbar"
+import { deleteUser } from "@remote/user"
+import styled from "@emotion/styled"
+import { useAlertContext } from "@context/AlertContext"
+import { useAuth } from "@context/AuthContext"
+import { useMutation } from "@tanstack/react-query"
+import { useNavigate } from "react-router-dom"
+import useUserStore from "@store/useUserStore"
 
 const Account = () => {
     const navigate = useNavigate()
@@ -24,7 +24,7 @@ const Account = () => {
         },
         onSuccess: () => {
             logout()
-            alert('탈퇴가 완료되었습니다.')
+            alert("탈퇴가 완료되었습니다.")
         },
     })
 
@@ -32,22 +32,22 @@ const Account = () => {
         open({
             Component: Alert,
             componentProps: {
-                title: '로그아웃 하시겠어요?',
-                description: '다음에 또 만나요!',
+                title: "로그아웃 하시겠어요?",
+                description: "다음에 또 만나요!",
             },
             onButtonClick1: () => {
                 logout()
             },
             onButtonClick2: () => {},
-            buttonLabel1: '네',
-            buttonLabel2: '아니요',
+            buttonLabel1: "네",
+            buttonLabel2: "아니요",
         })
     }
     const handleClickSecession = () => {
         open({
             Component: Alert,
             componentProps: {
-                title: '서비스를 탈퇴하시겠어요?',
+                title: "서비스를 탈퇴하시겠어요?",
                 description:
                     "서비스탈퇴 시 ‘기로록'에 저장되어있던\n 모든 데이터는 삭제되며, 복구가 불가능합니다.",
             },
@@ -57,8 +57,8 @@ const Account = () => {
                 }
             },
             onButtonClick2: () => {},
-            buttonLabel1: '네',
-            buttonLabel2: '아니요',
+            buttonLabel1: "네",
+            buttonLabel2: "아니요",
         })
     }
 

@@ -1,5 +1,5 @@
-import Text from '@shared/Text'
-import { css } from '@emotion/react'
+import Text from "@shared/Text"
+import { css } from "@emotion/react"
 
 const Errormessage = ({ message }: { message?: string }) => {
     return (

@@ -1,9 +1,9 @@
-import Flex from '@shared/Flex'
-import React from 'react'
-import Text from '@shared/Text'
-import { createPortal } from 'react-dom'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
+import Flex from "@shared/Flex"
+import React from "react"
+import Text from "@shared/Text"
+import { createPortal } from "react-dom"
+import { css } from "@emotion/react"
+import styled from "@emotion/styled"
 
 interface TopProps {
     left?: React.ReactNode
@@ -20,7 +20,7 @@ const Topbar = ({
     right,
     rightOnClick,
 }: TopProps) => {
-    const $portal = document.getElementById('topbar')
+    const $portal = document.getElementById("topbar")
 
     if ($portal == null) {
         return null

@@ -1,12 +1,12 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom"
 
-import ArrowRight from '@shared/ico/ArrowRight'
-import Flex from '@shared/Flex'
-import Spacing from '@/components/shared/Spacing'
-import Text from '@shared/Text'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-import useUserStore from '@/store/useUserStore'
+import ArrowRight from "@shared/ico/ArrowRight"
+import Flex from "@shared/Flex"
+import Spacing from "@/components/shared/Spacing"
+import Text from "@shared/Text"
+import { css } from "@emotion/react"
+import styled from "@emotion/styled"
+import useUserStore from "@/store/useUserStore"
 
 const My = () => {
     const { user } = useUserStore()
@@ -24,7 +24,7 @@ const My = () => {
             >
                 <Flex
                     direction="column"
-                    onClick={() => navigate('/my/nickname')}
+                    onClick={() => navigate("/my/nickname")}
                 >
                     <Text typography="t5" weight="bold" color="primary400">
                         {user?.nickname}님
@@ -43,7 +43,7 @@ const My = () => {
             >
                 <Flex
                     justify="space-between"
-                    onClick={() => navigate('/interest')}
+                    onClick={() => navigate("/interest")}
                 >
                     <Text typography="t2" weight="bold">
                         요즘 나의 성격, 관심사

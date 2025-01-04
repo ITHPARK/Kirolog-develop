@@ -1,17 +1,17 @@
-import { SigninProps, TokenProps } from '@models/user'
-import { useEffect } from 'react'
-import Flex from '@shared/Flex'
-import Form from '@/components/signin/Form'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import axios from 'axios'
-import { css } from '@emotion/react'
-import { login } from '@remote/user'
-import styled from '@emotion/styled'
-import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
-import useUserStore from '@/store/useUserStore'
-import Loading from '@shared/Loading'
+import { SigninProps, TokenProps } from "@models/user"
+import { useEffect } from "react"
+import Flex from "@shared/Flex"
+import Form from "@/components/signin/Form"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import axios from "axios"
+import { css } from "@emotion/react"
+import { login } from "@remote/user"
+import styled from "@emotion/styled"
+import { useMutation } from "@tanstack/react-query"
+import { useNavigate } from "react-router-dom"
+import useUserStore from "@/store/useUserStore"
+import Loading from "@shared/Loading"
 
 const SignIn = () => {
     const navigate = useNavigate()
@@ -19,7 +19,7 @@ const SignIn = () => {
 
     useEffect(() => {
         if (user != null) {
-            navigate('/')
+            navigate("/")
         }
     }, [])
 
@@ -32,7 +32,7 @@ const SignIn = () => {
             document.cookie = `username=${variables.username}`
             document.cookie = `accessToken=${data.access}`
             document.cookie = `refreshToken=${data.refresh}`
-            navigate('/')
+            navigate("/")
         },
         onError: (error) => {
             //axios 에러라면
@@ -41,14 +41,14 @@ const SignIn = () => {
                 if (response) {
                     //아이디 비번이 틀린경우
                     if (response.status === 401) {
-                        alert('아이디 및 비밀번호가 일치하지 않습니다.') // 로그인 오류 메세지 출력
+                        alert("아이디 및 비밀번호가 일치하지 않습니다.") // 로그인 오류 메세지 출력
                     }
                 } else {
-                    alert('서버로부터 응답이 없습니다.') //그 외 에러
+                    alert("서버로부터 응답이 없습니다.") //그 외 에러
                 }
             } else {
                 //axios 에러가 아닌 별도의 에러
-                alert('예상치 못한 오류가 발생했습니다.')
+                alert("예상치 못한 오류가 발생했습니다.")
                 console.error(error)
             }
         },

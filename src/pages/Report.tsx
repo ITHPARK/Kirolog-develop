@@ -1,19 +1,19 @@
-import CalendarPicker from '@components/calendar/CalendarPicker'
-import Flex from '@shared/Flex'
-import ReportAnalyze from '@components/report/ReportAnalyze'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-import { useDrawerContext } from '@/context/DrawContext'
-import useFormatPickerDate from '@hooks/useFormatPickerDate'
-import { useState, useEffect, useCallback } from 'react'
-import useUserStore from '@store/useUserStore'
-import useFormatDate from '@hooks/useFormatDate'
-import { useQuery } from '@tanstack/react-query'
-import { getReport } from '@remote/report'
-import { getWeekLabel } from '@utils/getWeekend'
-import Loading from '@shared/Loading'
+import CalendarPicker from "@components/calendar/CalendarPicker"
+import Flex from "@shared/Flex"
+import ReportAnalyze from "@components/report/ReportAnalyze"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import { css } from "@emotion/react"
+import styled from "@emotion/styled"
+import { useDrawerContext } from "@/context/DrawContext"
+import useFormatPickerDate from "@hooks/useFormatPickerDate"
+import { useState, useEffect, useCallback } from "react"
+import useUserStore from "@store/useUserStore"
+import useFormatDate from "@hooks/useFormatDate"
+import { useQuery } from "@tanstack/react-query"
+import { getReport } from "@remote/report"
+import { getWeekLabel } from "@utils/getWeekend"
+import Loading from "@shared/Loading"
 
 const Report = () => {
     const { user } = useUserStore()
@@ -26,7 +26,7 @@ const Report = () => {
     // const [weeklyList, setWeeklyList] = useState<WeeklyReportProps[]>([])
 
     const { data: weeklyReport, isLoading: weeklyReportLoading } = useQuery({
-        queryKey: ['week', week],
+        queryKey: ["week", week],
         queryFn: () => {
             if (!week) return []
             return getReport({ week: week, date: pickerDate })
@@ -68,7 +68,7 @@ const Report = () => {
 
         //월의 시작 날짜와 마지막 날짜 구하기
         const start = new Date(year, month, 1)
-        let arr = ''
+        let arr = ""
 
         //월의 첫 날짜부터 오늘날짜까지 순회한다.
         for (
@@ -143,7 +143,7 @@ const Report = () => {
                 {weeklyReport &&
                     [...weeklyReport]
                         .filter(
-                            (item) => item.recommendActivities !== '분석 불가',
+                            (item) => item.recommendActivities !== "분석 불가",
                         )
                         .reverse()
                         .map((report, index) => {
@@ -179,13 +179,13 @@ const Report = () => {
                                     <Flex justify="flex-end" align="center">
                                         <Text typography="t1" color="gray400">
                                             {report.weekStart
-                                                .split('-')
-                                                .join('.')}{' '}
+                                                .split("-")
+                                                .join(".")}{" "}
                                             ~
                                             {report.weekStart
-                                                .split('-')
+                                                .split("-")
                                                 .slice(1)
-                                                .join('.')}
+                                                .join(".")}
                                         </Text>
                                     </Flex>
                                 </ListContainer>
@@ -216,12 +216,12 @@ const New = styled.span`
 const dateTitle = css`
     padding-right: 22px;
     margin-bottom: 20px;
-    background: url('/images/arrow/arrow_bottom.svg') no-repeat right center;
+    background: url("/images/arrow/arrow_bottom.svg") no-repeat right center;
     background-size: 14px 7px;
 `
 
 const ReportTopContainer = styled(Flex)`
     padding: 0 20px;
-    background: url('/images/character/report_character.svg') no-repeat right
+    background: url("/images/character/report_character.svg") no-repeat right
         5px bottom;
 `

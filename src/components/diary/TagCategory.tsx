@@ -1,14 +1,14 @@
-import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
+import { useAddDiaryData, useAddDiaryStep } from "@store/useAddDiary"
 
-import Flex from '@shared/Flex'
-import Input from '@shared/Input'
-import LabelBox from '@shared/LabelBox'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
-import { css } from '@emotion/react'
-import { mood } from '@/constants/moodContent'
-import styled from '@emotion/styled'
-import { useForm } from 'react-hook-form'
+import Flex from "@shared/Flex"
+import Input from "@shared/Input"
+import LabelBox from "@shared/LabelBox"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
+import { css } from "@emotion/react"
+import { mood } from "@/constants/moodContent"
+import styled from "@emotion/styled"
+import { useForm } from "react-hook-form"
 
 const TagCategory = () => {
     const { step, setStep } = useAddDiaryStep()
@@ -18,7 +18,7 @@ const TagCategory = () => {
     const {
         formState: { errors },
     } = useForm<{ emotion: string }>({
-        mode: 'onChange',
+        mode: "onChange",
     })
 
     // 폼 제출 함수
@@ -116,17 +116,17 @@ const CategoryTitle = styled(Text)<{ type: string }>`
     background: ${(props) =>
         props.type
             ? `url(/images/moodicon/${
-                  props.type === '희'
-                      ? 'happiness'
-                      : props.type === '노'
-                        ? 'anger'
-                        : props.type === '애'
-                          ? 'sadness'
-                          : props.type === '락'
-                            ? 'enjoyment'
-                            : ''
+                  props.type === "희"
+                      ? "happiness"
+                      : props.type === "노"
+                        ? "anger"
+                        : props.type === "애"
+                          ? "sadness"
+                          : props.type === "락"
+                            ? "enjoyment"
+                            : ""
               }.png) no-repeat left 6px center `
-            : ''};
+            : ""};
 
     background-size: 30px;
 `

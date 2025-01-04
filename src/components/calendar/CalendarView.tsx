@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react"
 
-import AddPopup from '@components/diary/AddPopup'
-import Calendar from 'react-calendar'
-import CalendarPicker from '@components/calendar/CalendarPicker'
-import DayCircle from '@components/calendar/DayCircle'
-import { DiaryProps } from '@models/diary'
-import { DiaryResponseProps } from '@models/diary'
-import Flex from '@shared/Flex'
-import Text from '@shared/Text'
-import calendarStyles from '@styles/calendarStyles'
-import { css } from '@emotion/react'
-import moment from 'moment'
-import styled from '@emotion/styled'
-import useDiaryData from '@hooks/useDiaryData'
-import { useDrawerContext } from '@/context/DrawContext'
-import useFormatDate from '@hooks/useFormatDate'
-import useFormatPickerDate from '@hooks/useFormatPickerDate'
-import { useNavigate } from 'react-router-dom'
+import AddPopup from "@components/diary/AddPopup"
+import Calendar from "react-calendar"
+import CalendarPicker from "@components/calendar/CalendarPicker"
+import DayCircle from "@components/calendar/DayCircle"
+import { DiaryProps } from "@models/diary"
+import { DiaryResponseProps } from "@models/diary"
+import Flex from "@shared/Flex"
+import Text from "@shared/Text"
+import calendarStyles from "@styles/calendarStyles"
+import { css } from "@emotion/react"
+import moment from "moment"
+import styled from "@emotion/styled"
+import useDiaryData from "@hooks/useDiaryData"
+import { useDrawerContext } from "@/context/DrawContext"
+import useFormatDate from "@hooks/useFormatDate"
+import useFormatPickerDate from "@hooks/useFormatPickerDate"
+import { useNavigate } from "react-router-dom"
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
@@ -50,7 +50,7 @@ const CalendarView = React.memo(
             if (diaryData != null && diaryData.length > 0) {
                 //받은 모든 일기 리스트에서 ymd를 (2024-12-14)형식으로 바꾼다.
                 const format = diaryData.map((item: DiaryProps) => {
-                    const formatDate = item.ymd.split('T')[0]
+                    const formatDate = item.ymd.split("T")[0]
                     return { ...item, ymd: formatDate }
                 })
             }
@@ -100,7 +100,7 @@ const CalendarView = React.memo(
             date: Date
             view: string
         }) => {
-            let classes = ''
+            let classes = ""
 
             const today = new Date(date)
 
@@ -108,19 +108,19 @@ const CalendarView = React.memo(
             today.setHours(0, 0, 0, 0)
 
             //현재 보기가 월이라면 ex)12월의 달력을 보는것
-            if (view === 'month') {
+            if (view === "month") {
                 //현재 월을 가져온다.
                 const dayMonth = date.getMonth() + 1
 
                 //순회하는 날짜가 오늘보다 큰 날짜(미래)라면
                 if (date > today) {
-                    classes += 'future-date '
+                    classes += "future-date "
                 }
 
                 //현재 월과 다른 월의 날짜 ex) 12월일 때 몇개씩 보이는 11월과 1월의 날짜
                 //안보이게 하기위한 클래스 추가
                 if (currentMonth !== dayMonth) {
-                    classes += 'different-month '
+                    classes += "different-month "
                 }
             }
 
@@ -165,7 +165,7 @@ const CalendarView = React.memo(
                     activeStartDate={date}
                     tileContent={getTileContent}
                     tileClassName={getTitleClass}
-                    formatDay={(locale, date) => moment(date).format('D')} // 일 삭제
+                    formatDay={(locale, date) => moment(date).format("D")} // 일 삭제
                     view="month"
                     minDate={new Date(date.getFullYear(), date.getMonth(), 1)} //선택할 수 있는 최소일은 이번달 1일부터
                     maxDate={
@@ -183,7 +183,7 @@ const CalendarView = React.memo(
 const dateTitle = css`
     padding-right: 22px;
     margin-bottom: 20px;
-    background: url('/images/arrow/arrow_bottom.svg') no-repeat right center;
+    background: url("/images/arrow/arrow_bottom.svg") no-repeat right center;
     background-size: 14px 7px;
 `
 
@@ -191,7 +191,7 @@ const AddDiary = styled.button`
     margin-top: 52px;
     width: 54px;
     height: 54px;
-    background: url('/images/calendar/addDiary.svg') no-repeat center;
+    background: url("/images/calendar/addDiary.svg") no-repeat center;
     background-size: 22px;
     background-color: #000;
     border-radius: 50%;

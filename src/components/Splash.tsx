@@ -1,7 +1,7 @@
-import Flex from '@shared/Flex'
-import Text from '@shared/Text'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
+import Flex from "@shared/Flex"
+import Text from "@shared/Text"
+import { css } from "@emotion/react"
+import styled from "@emotion/styled"
 
 const Splash = () => {
     return (

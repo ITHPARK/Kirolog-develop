@@ -1,6 +1,6 @@
-import Flex from '@shared/Flex'
-import Text from '@shared/Text'
-import { css } from '@emotion/react'
+import Flex from "@shared/Flex"
+import Text from "@shared/Text"
+import { css } from "@emotion/react"
 
 const Alert = ({
     title,

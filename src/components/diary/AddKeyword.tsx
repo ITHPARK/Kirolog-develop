@@ -1,24 +1,24 @@
-import { addDiaryProps, responseAddDiaryProps } from '@models/addDiary'
-import { useAddDiaryData, useAddDiaryStep } from '@store/useAddDiary'
-import { useEffect, useState } from 'react'
-import AiDiaryCreateLoading from '@components/diary/AiDiaryCreateLoading'
+import { addDiaryProps, responseAddDiaryProps } from "@models/addDiary"
+import { useAddDiaryData, useAddDiaryStep } from "@store/useAddDiary"
+import { useEffect, useState } from "react"
+import AiDiaryCreateLoading from "@components/diary/AiDiaryCreateLoading"
 
-import DiaryImageBox from '@components/diary/DiaryImageBox'
-import FixedBottomButton from '@shared/FixedBottomButton'
-import Flex from '@shared/Flex'
-import MyMoodContainer from '@components/diary/MyMoodContainer'
-import Spacing from '@shared/Spacing'
-import Text from '@shared/Text'
+import DiaryImageBox from "@components/diary/DiaryImageBox"
+import FixedBottomButton from "@shared/FixedBottomButton"
+import Flex from "@shared/Flex"
+import MyMoodContainer from "@components/diary/MyMoodContainer"
+import Spacing from "@shared/Spacing"
+import Text from "@shared/Text"
 
-import { crateAiDiary } from '@remote/diary'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-import { useMutation } from '@tanstack/react-query'
-import usePreviewImage from '@hooks/usePreviewImage'
+import { crateAiDiary } from "@remote/diary"
+import { css } from "@emotion/react"
+import styled from "@emotion/styled"
+import { useMutation } from "@tanstack/react-query"
+import usePreviewImage from "@hooks/usePreviewImage"
 
 const AddKeyword = () => {
     const [imageSrc, setImageSrc] = useState<string | null>(null)
-    const [keywords, setKeywords] = useState(['', '', '']) // 키워드 상태
+    const [keywords, setKeywords] = useState(["", "", ""]) // 키워드 상태
 
     const { setStep } = useAddDiaryStep()
     const { diaryData, setDiaryData } = useAddDiaryData()
@@ -59,7 +59,7 @@ const AddKeyword = () => {
     const handleKeywordChange = (index: number, value: string) => {
         setKeywords((prevKeywords) => {
             const newKeywords = [...prevKeywords]
-            newKeywords[index] = value.replace(/\s+/g, '')
+            newKeywords[index] = value.replace(/\s+/g, "")
             return newKeywords
         })
     }
@@ -71,7 +71,7 @@ const AddKeyword = () => {
     }
 
     // 버튼 활성화 여부
-    const isButtonDisabled = keywords.some((keyword) => keyword.trim() === '')
+    const isButtonDisabled = keywords.some((keyword) => keyword.trim() === "")
 
     //AI일기 생성중일 때 뜨는 로딩화면
     if (mutate.isPending) {
@@ -93,13 +93,13 @@ const AddKeyword = () => {
                         </Text>
                         <Spacing size={2} direction="horizontal" />
                         <Text typography="t3" color="red500">
-                            {'(필수)'}
+                            {"(필수)"}
                         </Text>
                     </Flex>
                     <Spacing size={16} />
                     <Flex>
                         <Flex direction="column">
-                            {['키워드1', '키워드2', '키워드3'].map(
+                            {["키워드1", "키워드2", "키워드3"].map(
                                 (label, index) => (
                                     <div key={index}>
                                         <Flex>

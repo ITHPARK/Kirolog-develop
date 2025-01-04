@@ -1,5 +1,5 @@
-import { addDiaryProps } from '@models/addDiary'
-import { create } from 'zustand'
+import { addDiaryProps } from "@models/addDiary"
+import { create } from "zustand"
 
 export const useAddDiaryStep = create<{
     step: number
@@ -20,9 +20,9 @@ export const useAddDiaryData = create<{
         id: null,
         headDate: null,
         ymd: null,
-        moods: '',
+        moods: "",
         image: null,
-        content: '',
+        content: "",
         keyword: [],
     },
     setDiaryData: (diaryData: addDiaryProps) => set({ diaryData }), // 함수 표현식 수정
