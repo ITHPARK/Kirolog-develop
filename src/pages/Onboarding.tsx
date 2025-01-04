@@ -30,7 +30,7 @@ const onBoarding = {
     },
 }
 
-const Tutorial = () => {
+const Onboarding = () => {
     const swiperRef = useRef<any>(null)
     const paginationRef = useRef<HTMLDivElement | null>(null)
     const [buttonText, setButtonText] = useState<string>("다음")
@@ -143,4 +143,4 @@ const imgaeSize = css`
     width: 325px;
 `
 
-export default Tutorial
+export default Onboarding

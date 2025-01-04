@@ -18,7 +18,7 @@ import Account from "@pages/my/Account"
 import PrivateRoute from "@components/auth/PrivateRoute"
 
 import Report from "@pages/Report"
-import Tutorial from "@pages/Tutorial"
+import Onboarding from "@pages/Onboarding"
 import Interest from "@pages/Interest"
 import Loading from "@shared/Loading"
 
@@ -149,7 +149,7 @@ function App() {
                         path="/onboarding"
                         element={
                             <PrivateRoute>
-                                <Tutorial />
+                                <Onboarding />
                             </PrivateRoute>
                         }
                     />

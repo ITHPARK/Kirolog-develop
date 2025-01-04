@@ -33,6 +33,7 @@ const Myinterest = ({
                 return prev.filter((item) => item !== value)
             }
         })
+        console.log(data)
     }
 
     return (
@@ -82,13 +83,8 @@ const Myinterest = ({
                 description="선택하신 태그는 마이페이지에서 수정 가능해요."
                 type="button"
                 label={interest.type === "personality" ? "다음" : "완료"}
-                onClick={() => {
-                    if (data.length == 0) {
-                        alert("한가지 이상 골라주세요")
-                    } else {
-                        setStep((prev: number) => prev + 1)
-                    }
-                }}
+                disabled={data.length == 0}
+                onClick={() => setStep((prev: number) => prev + 1)}
             />
         </Flex>
     )
