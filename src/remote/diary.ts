@@ -43,6 +43,7 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
     } catch (e) {
         if (axios.isAxiosError(e)) {
             console.log(e)
+            console.log(e.response)
             alert("데이터를 요청하는중 에러가 발생하였습니다.")
         } else {
             // 기타 에러 처리
