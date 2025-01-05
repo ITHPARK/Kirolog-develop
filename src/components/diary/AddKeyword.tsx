@@ -28,7 +28,7 @@ const AddKeyword = () => {
 
     // diaryData가 업데이트된 후에 mutate.mutate를 실행하도록 useEffect 사용
     useEffect(() => {
-        if (diaryData.keyword && diaryData.keyword.length > 0) {
+        if (diaryData.keyword.length === 3 && diaryData.keyword.length > 0) {
             mutate.mutate(diaryData)
         }
     }, [diaryData]) // diaryData가 변경될 때마다 mutate 실행
@@ -66,7 +66,6 @@ const AddKeyword = () => {
     //키워드 추가
     const handleAddKeywrod = () => {
         setDiaryData({ ...diaryData, keyword: keywords })
-        // setStep(1)
     }
 
     // 버튼 활성화 여부

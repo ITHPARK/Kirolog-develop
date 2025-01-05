@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom"
 import { useLocation } from "react-router-dom"
 import { useMutation } from "@tanstack/react-query"
 import { deleteDiary } from "@remote/diary"
+import { addDiaryProps } from "@models/addDiary"
 
 const DiaryTop = () => {
     const { step, setStep } = useAddDiaryStep()
@@ -19,11 +20,22 @@ const DiaryTop = () => {
     const lastSegment = location.pathname.split("/").pop()
 
     const deleteDiaryMutate = useMutation({
-        mutationFn: async (data: number) => {
+        mutationFn: async ({ data, type }: { data: number; type: number }) => {
             return await deleteDiary(data) //로그인 api 요청
         },
-        onSuccess: () => {
-            navigate("/")
+        onMutate: ({ type }: { type: number }) => {
+            // `context`에 `type` 저장
+            return { type }
+        },
+        onSuccess: (_data, _variables, context) => {
+            if (context?.type === 1) {
+                //x를 눌렀을 때
+                navigate("/")
+            } else {
+                console.log(_data)
+                //뒤로가기를 눌렀을 때
+                setStep(-1)
+            }
         },
     })
 
@@ -49,7 +61,10 @@ const DiaryTop = () => {
                 //ai일기 마지막 수정 단계에서 x누르면 일기 삭제
                 if (lastSegment === "ai" && step === 4) {
                     if (diaryData.id != null) {
-                        deleteDiaryMutate.mutate(diaryData.id)
+                        deleteDiaryMutate.mutate({
+                            data: diaryData.id,
+                            type: 1,
+                        })
                     }
                 }
                 navigate("/")
@@ -66,8 +81,17 @@ const DiaryTop = () => {
         if (step <= 1) {
             navigate(-1)
         } else {
-            //아니면 이전 스텝으로 이동
-            setStep(-1)
+            if (lastSegment === "ai" && step === 4) {
+                setDiaryData({ ...diaryData, keyword: [], content: "" })
+                if (diaryData.id != null) {
+                    deleteDiaryMutate.mutate({
+                        data: diaryData.id,
+                        type: 2,
+                    })
+                }
+            } else {
+                setStep(-1)
+            }
         }
     }
 

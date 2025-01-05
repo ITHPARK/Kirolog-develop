@@ -134,7 +134,6 @@ export const deleteUser = async (user: string) => {
                 },
             },
         )
-        console.log(response)
 
         return response.data
     } catch (e) {
@@ -172,7 +171,6 @@ export const addOnboarding = async (data: { [key: string]: string[] }) => {
 
 export const duplicationCheck = async (userName: string) => {
     try {
-        console.log(userName)
         const duplicate = await axios.get(
             `https://www.kirolog.com/api/accounts/check/username?username=${userName}`,
         )

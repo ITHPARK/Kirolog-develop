@@ -166,7 +166,7 @@ const putImageToS3 = async (
 export const deleteDiary = async (id: number) => {
     try {
         const response = await axios.delete(
-            `https://www.kirolog.com/api/diaries/${id}`,
+            `https://www.kirolog.com/api/diaries/${id}/`,
             {
                 headers: {
                     Authorization: `Bearer ${getCookie("accessToken")}`,

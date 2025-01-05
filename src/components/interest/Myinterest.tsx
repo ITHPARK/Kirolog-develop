@@ -33,7 +33,6 @@ const Myinterest = ({
                 return prev.filter((item) => item !== value)
             }
         })
-        console.log(data)
     }
 
     return (
