@@ -36,6 +36,6 @@ export const mood: Record<MoodTypes, MoodProps> = {
     },
     type4: {
         title: "락",
-        subMood: ["즐거움", "따듯함", "기대감", "여유로움", "평온함"],
+        subMood: ["즐거움", "따뜻함", "기대감", "여유로움", "평온함"],
     },
 }
