@@ -49,7 +49,6 @@ const AddKeyword = () => {
             return await crateAiDiary(data)
         },
         onSuccess: (data) => {
-            console.log(data)
             setDiaryData({ ...diaryData, id: data.id, content: data.content })
             setStep(1)
         },
