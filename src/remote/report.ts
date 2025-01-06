@@ -1,4 +1,4 @@
-import axios from "axios"
+import apiClient from "@utils/apiClient"
 import { getCookie } from "@utils/cookieController"
 import { WeeklyReportProps } from "@models/report"
 
@@ -11,12 +11,11 @@ export const getReport = async ({
     week,
     date,
 }: getReportProps): Promise<WeeklyReportProps[]> => {
-    const response = await axios(
-        `${process.env.REACT_APP_API_URL}/api/diaries/statistics?year=${date.getFullYear()}&month=${date.getMonth() + 1}&basedate=${week}`,
+    const response = await apiClient.get(
+        `/api/diaries/statistics?year=${date.getFullYear()}&month=${date.getMonth() + 1}&basedate=${week}`,
         {
             headers: {
                 Authorization: `Bearer ${getCookie("accessToken")}`,
-                "Content-Type": "application/json",
             },
         },
     )
