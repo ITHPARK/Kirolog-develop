@@ -12,7 +12,7 @@ export const getReport = async ({
     date,
 }: getReportProps): Promise<WeeklyReportProps[]> => {
     const response = await axios(
-        `https://www.kirolog.com/api/diaries/statistics?year=${date.getFullYear()}&month=${date.getMonth() + 1}&basedate=${week}`,
+        `${process.env.REACT_APP_API_URL}/api/diaries/statistics?year=${date.getFullYear()}&month=${date.getMonth() + 1}&basedate=${week}`,
         {
             headers: {
                 Authorization: `Bearer ${getCookie("accessToken")}`,

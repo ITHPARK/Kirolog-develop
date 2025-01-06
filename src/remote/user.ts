@@ -7,7 +7,7 @@ import { getCookie } from "@utils/cookieController"
 export const createAccount = async (userData: CreateUserInfo) => {
     try {
         const response = await axios.post(
-            "https://www.kirolog.com/api/accounts/signup/",
+            `${process.env.REACT_APP_API_URL}/api/accounts/signup/`,
             userData, //{유저아이디, 패스워드}
             {
                 headers: {
@@ -20,9 +20,9 @@ export const createAccount = async (userData: CreateUserInfo) => {
     } catch (e) {
         // 에러를 상위로 전달
         if (axios.isAxiosError(e)) {
-            console.error("Axios 에러:", e.response?.data || e.message)
+            alert("데이터 요청중 오류가 발생하였습니다.")
         } else {
-            console.error("미확인 error:", e)
+            alert("예상치 못한 오류가 발생했습니다.")
         }
         throw e
     }
@@ -31,7 +31,7 @@ export const createAccount = async (userData: CreateUserInfo) => {
 export const login = async (userData: SigninProps) => {
     try {
         const response = await axios.post(
-            "https://www.kirolog.com/api/accounts/login/",
+            `${process.env.REACT_APP_API_URL}/api/accounts/login/`,
             userData, //{유저아이디, 패스워드}
             {
                 headers: {
@@ -44,9 +44,9 @@ export const login = async (userData: SigninProps) => {
     } catch (e) {
         // 에러를 상위로 전달
         if (axios.isAxiosError(e)) {
-            console.error("Axios 에러:", e.response?.data || e.message)
+            alert("데이터 요청중 오류가 발생하였습니다.")
         } else {
-            console.error("미확인 error:", e)
+            alert("예상치 못한 오류가 발생했습니다.")
         }
         throw e
     }
@@ -55,7 +55,7 @@ export const login = async (userData: SigninProps) => {
 export const getUser = async (username: string, accessToken: string) => {
     try {
         const response = await axios.get(
-            `https://www.kirolog.com/api/accounts/${username}`,
+            `${process.env.REACT_APP_API_URL}/api/accounts/${username}`,
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -70,9 +70,9 @@ export const getUser = async (username: string, accessToken: string) => {
             if (e.status === 401) {
                 console.log("토큰 만료 에러")
             }
-            console.error("Axios 에러:", e.response?.data || e.message)
+            alert("데이터 요청중 오류가 발생하였습니다.")
         } else {
-            console.error("미확인 error:", e)
+            alert("예상치 못한 오류가 발생했습니다.")
         }
         throw e
     }
@@ -81,7 +81,7 @@ export const getUser = async (username: string, accessToken: string) => {
 export const refreshToken = async (refresh: string) => {
     try {
         const response = await axios.post(
-            "https://www.kirolog.com/api/accounts/token/refresh/",
+            `${process.env.REACT_APP_API_URL}/api/accounts/token/refresh/`,
             { refresh: refresh },
             {
                 headers: {
@@ -93,9 +93,9 @@ export const refreshToken = async (refresh: string) => {
     } catch (e) {
         // 에러를 상위로 전달
         if (axios.isAxiosError(e)) {
-            console.error("Axios 에러:", e.response?.data || e.message)
+            alert("데이터 요청중 오류가 발생하였습니다.")
         } else {
-            console.error("미확인 error:", e)
+            alert("예상치 못한 오류가 발생했습니다.")
         }
         throw e
     }
@@ -104,7 +104,7 @@ export const refreshToken = async (refresh: string) => {
 export const replaceNickName = async (user: string, after: string) => {
     try {
         const response = await axios.put(
-            `https://www.kirolog.com/api/accounts/update-nickname/${user}/`,
+            `${process.env.REACT_APP_API_URL}/api/accounts/update-nickname/${user}/`,
             { nickname: after },
             {
                 headers: {
@@ -116,9 +116,9 @@ export const replaceNickName = async (user: string, after: string) => {
         return response.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
-            console.error("Axios 에러:", e.response?.data || e.message)
+            alert("데이터 요청중 오류가 발생하였습니다.")
         } else {
-            console.error("미확인 error:", e)
+            alert("예상치 못한 오류가 발생했습니다.")
         }
         throw e
     }
@@ -127,7 +127,7 @@ export const replaceNickName = async (user: string, after: string) => {
 export const deleteUser = async (user: string) => {
     try {
         const response = await axios.delete(
-            `https://www.kirolog.com/api/accounts/${user}/`,
+            `${process.env.REACT_APP_API_URL}/api/accounts/${user}/`,
             {
                 headers: {
                     Authorization: `Bearer ${getCookie("accessToken")}`,
@@ -138,9 +138,9 @@ export const deleteUser = async (user: string) => {
         return response.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
-            console.error("Axios 에러:", e.response?.data || e.message)
+            alert("데이터 요청중 오류가 발생하였습니다.")
         } else {
-            console.error("미확인 error:", e)
+            alert("예상치 못한 오류가 발생했습니다.")
         }
         throw e
     }
@@ -149,7 +149,7 @@ export const deleteUser = async (user: string) => {
 export const addOnboarding = async (data: { [key: string]: string[] }) => {
     try {
         const response = await axios.put(
-            "https://www.kirolog.com/api/accounts/onboarding/",
+            `${process.env.REACT_APP_API_URL}/api/accounts/onboarding/`,
             data,
             {
                 headers: {
@@ -161,9 +161,9 @@ export const addOnboarding = async (data: { [key: string]: string[] }) => {
         return response.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
-            console.error("Axios 에러:", e.response?.data || e.message)
+            alert("데이터 요청중 오류가 발생하였습니다.")
         } else {
-            console.error("미확인 error:", e)
+            alert("예상치 못한 오류가 발생했습니다.")
         }
         throw e
     }
@@ -172,16 +172,15 @@ export const addOnboarding = async (data: { [key: string]: string[] }) => {
 export const duplicationCheck = async (userName: string) => {
     try {
         const duplicate = await axios.get(
-            `https://www.kirolog.com/api/accounts/check/username?username=${userName}`,
+            `${process.env.REACT_APP_API_URL}/api/accounts/check/username?username=${userName}`,
         )
 
         return duplicate.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
-            alert("데이터를 요청하는 중 에러가 발생하였습니다.")
-            console.error("Axios 에러:", e.response?.data || e.message)
+            alert("데이터 요청중 오류가 발생하였습니다.")
         } else {
-            console.error("미확인 error:", e)
+            alert("예상치 못한 오류가 발생했습니다.")
         }
         throw e
     }

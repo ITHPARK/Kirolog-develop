@@ -29,7 +29,7 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
         }
 
         const diaryResponse = await axios.post(
-            "https://www.kirolog.com/api/diaries/ai/",
+            `${process.env.REACT_APP_API_URL}/api/diaries/ai/`,
             diaryRequest,
             {
                 headers: {
@@ -64,7 +64,7 @@ export const crateMyDiary = async (diaryDate: addDiaryProps) => {
         }
 
         const response = await axios.post(
-            "https://www.kirolog.com/api/diaries/",
+            `${process.env.REACT_APP_API_URL}/api/diaries/`,
             reqData,
             {
                 headers: {
@@ -81,7 +81,6 @@ export const crateMyDiary = async (diaryDate: addDiaryProps) => {
         } else {
             // 기타 에러 처리
             alert("예상치 못한 오류가 발생했습니다.")
-            console.error(e)
         }
 
         throw e
@@ -91,7 +90,7 @@ export const crateMyDiary = async (diaryDate: addDiaryProps) => {
 export const getDiary = async () => {
     try {
         const response = await axios.get(
-            "https://www.kirolog.com/api/diaries/",
+            `${process.env.REACT_APP_API_URL}/api/diaries/`,
             {
                 headers: {
                     Authorization: `Bearer ${getCookie("accessToken")}`,
@@ -106,7 +105,6 @@ export const getDiary = async () => {
         } else {
             // 기타 에러 처리
             alert("예상치 못한 오류가 발생했습니다.")
-            console.error(e)
         }
         throw e
     }
@@ -116,7 +114,7 @@ export const getDiary = async () => {
 const getS3ImageUrl = async (reqBody: ImageUploadProps): Promise<string> => {
     try {
         const imageResponse = await axios.post(
-            "https://dezbobv0gh.execute-api.ap-northeast-2.amazonaws.com/1221/",
+            `${process.env.REACT_APP_S3_API_URL}`,
             reqBody,
             {
                 headers: {
@@ -132,7 +130,6 @@ const getS3ImageUrl = async (reqBody: ImageUploadProps): Promise<string> => {
         } else {
             // 기타 에러 처리
             alert("예상치 못한 오류가 발생했습니다.")
-            console.error(e)
         }
         throw e
     }
@@ -157,7 +154,6 @@ const putImageToS3 = async (
         } else {
             // 기타 에러 처리
             alert("예상치 못한 오류가 발생했습니다.")
-            console.error(e)
         }
         throw e
     }
@@ -166,7 +162,7 @@ const putImageToS3 = async (
 export const deleteDiary = async (id: number) => {
     try {
         const response = await axios.delete(
-            `https://www.kirolog.com/api/diaries/${id}/`,
+            `${process.env.REACT_APP_API_URL}/${id}/`,
             {
                 headers: {
                     Authorization: `Bearer ${getCookie("accessToken")}`,
@@ -181,7 +177,6 @@ export const deleteDiary = async (id: number) => {
         } else {
             // 기타 에러 처리
             alert("예상치 못한 오류가 발생했습니다.")
-            console.error(e)
         }
         throw e
     }
@@ -196,7 +191,7 @@ export const updateDiary = async (data: addDiaryProps) => {
         }
 
         const response = await axios.put(
-            `https://www.kirolog.com/api/diaries/${data.id}/`,
+            `${process.env.REACT_APP_API_URL}/api/diaries/${data.id}/`,
             request,
             {
                 headers: {
@@ -208,12 +203,10 @@ export const updateDiary = async (data: addDiaryProps) => {
         return response.data
     } catch (e) {
         if (axios.isAxiosError(e)) {
-            console.log(e.response)
             alert("데이터 요청중 에러가 발생하였습니다.")
         } else {
             // 기타 에러 처리
             alert("예상치 못한 오류가 발생했습니다.")
-            console.error(e)
         }
         throw e
     }
