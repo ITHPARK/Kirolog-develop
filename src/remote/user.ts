@@ -1,188 +1,65 @@
+import apiClient from "@utils/apiClient"
 import { CreateUserInfo, SigninProps } from "@/models/user"
-
-import axios from "axios"
 import { getCookie } from "@utils/cookieController"
 
-//회원가입 요청
+// 회원가입 요청
 export const createAccount = async (userData: CreateUserInfo) => {
-    try {
-        const response = await axios.post(
-            "https://www.kirolog.com/api/accounts/signup/",
-            userData, //{유저아이디, 패스워드}
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            },
-        )
-
-        return response.data
-    } catch (e) {
-        // 에러를 상위로 전달
-        if (axios.isAxiosError(e)) {
-            console.error("Axios 에러:", e.response?.data || e.message)
-        } else {
-            console.error("미확인 error:", e)
-        }
-        throw e
-    }
+    const response = await apiClient.post("/api/accounts/signup/", userData)
+    return response.data
 }
 
+// 로그인 요청
 export const login = async (userData: SigninProps) => {
-    try {
-        const response = await axios.post(
-            "https://www.kirolog.com/api/accounts/login/",
-            userData, //{유저아이디, 패스워드}
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            },
-        )
-
-        return response.data
-    } catch (e) {
-        // 에러를 상위로 전달
-        if (axios.isAxiosError(e)) {
-            console.error("Axios 에러:", e.response?.data || e.message)
-        } else {
-            console.error("미확인 error:", e)
-        }
-        throw e
-    }
+    const response = await apiClient.post("/api/accounts/login/", userData)
+    return response.data
 }
 
+// 사용자 정보 요청
 export const getUser = async (username: string, accessToken: string) => {
-    try {
-        const response = await axios.get(
-            `https://www.kirolog.com/api/accounts/${username}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            },
-        )
-
-        return response.data
-    } catch (e) {
-        // 에러를 상위로 전달
-        if (axios.isAxiosError(e)) {
-            if (e.status === 401) {
-                console.log("토큰 만료 에러")
-            }
-            console.error("Axios 에러:", e.response?.data || e.message)
-        } else {
-            console.error("미확인 error:", e)
-        }
-        throw e
-    }
+    const response = await apiClient.get(`/api/accounts/${username}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+    })
+    return response.data
 }
 
+// 토큰 갱신
 export const refreshToken = async (refresh: string) => {
-    try {
-        const response = await axios.post(
-            "https://www.kirolog.com/api/accounts/token/refresh/",
-            { refresh: refresh },
-            {
-                headers: {
-                    Authorization: `Bearer ${refresh}`,
-                },
-            },
-        )
-        return response.data
-    } catch (e) {
-        // 에러를 상위로 전달
-        if (axios.isAxiosError(e)) {
-            console.error("Axios 에러:", e.response?.data || e.message)
-        } else {
-            console.error("미확인 error:", e)
-        }
-        throw e
-    }
+    const response = await apiClient.post("/api/accounts/token/refresh/", {
+        refresh,
+    })
+    return response.data
 }
 
+// 닉네임 변경
 export const replaceNickName = async (user: string, after: string) => {
-    try {
-        const response = await axios.put(
-            `https://www.kirolog.com/api/accounts/update-nickname/${user}/`,
-            { nickname: after },
-            {
-                headers: {
-                    Authorization: `Bearer ${getCookie("accessToken")}`,
-                },
-            },
-        )
-
-        return response.data
-    } catch (e) {
-        if (axios.isAxiosError(e)) {
-            console.error("Axios 에러:", e.response?.data || e.message)
-        } else {
-            console.error("미확인 error:", e)
-        }
-        throw e
-    }
+    const response = await apiClient.put(
+        `/api/accounts/update-nickname/${user}/`,
+        { nickname: after },
+        { headers: { Authorization: `Bearer ${getCookie("accessToken")}` } },
+    )
+    return response.data
 }
 
+// 사용자 삭제
 export const deleteUser = async (user: string) => {
-    try {
-        const response = await axios.delete(
-            `https://www.kirolog.com/api/accounts/${user}/`,
-            {
-                headers: {
-                    Authorization: `Bearer ${getCookie("accessToken")}`,
-                },
-            },
-        )
-
-        return response.data
-    } catch (e) {
-        if (axios.isAxiosError(e)) {
-            console.error("Axios 에러:", e.response?.data || e.message)
-        } else {
-            console.error("미확인 error:", e)
-        }
-        throw e
-    }
+    const response = await apiClient.delete(`/api/accounts/${user}/`, {
+        headers: { Authorization: `Bearer ${getCookie("accessToken")}` },
+    })
+    return response.data
 }
 
+// 온보딩 데이터 추가
 export const addOnboarding = async (data: { [key: string]: string[] }) => {
-    try {
-        const response = await axios.put(
-            "https://www.kirolog.com/api/accounts/onboarding/",
-            data,
-            {
-                headers: {
-                    Authorization: `Bearer ${getCookie("accessToken")}`,
-                },
-            },
-        )
-
-        return response.data
-    } catch (e) {
-        if (axios.isAxiosError(e)) {
-            console.error("Axios 에러:", e.response?.data || e.message)
-        } else {
-            console.error("미확인 error:", e)
-        }
-        throw e
-    }
+    const response = await apiClient.put("/api/accounts/onboarding/", data, {
+        headers: { Authorization: `Bearer ${getCookie("accessToken")}` },
+    })
+    return response.data
 }
 
+// 중복 확인
 export const duplicationCheck = async (userName: string) => {
-    try {
-        const duplicate = await axios.get(
-            `https://www.kirolog.com/api/accounts/check/username?username=${userName}`,
-        )
-
-        return duplicate.data
-    } catch (e) {
-        if (axios.isAxiosError(e)) {
-            alert("데이터를 요청하는 중 에러가 발생하였습니다.")
-            console.error("Axios 에러:", e.response?.data || e.message)
-        } else {
-            console.error("미확인 error:", e)
-        }
-        throw e
-    }
+    const response = await apiClient.get(
+        `/api/accounts/check/username?username=${userName}`,
+    )
+    return response.data
 }
