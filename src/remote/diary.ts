@@ -1,56 +1,118 @@
 import { ImageUploadProps, addDiaryProps } from "@models/addDiary"
-import apiClient from "@utils/apiClient"
-import axios from "axios"
+
+import axios, { AxiosResponse } from "axios"
 
 import { getCookie } from "@utils/cookieController"
 
-// AI 다이어리 생성 요청
 export const crateAiDiary = async (diaryDate: addDiaryProps) => {
-    const imgRequest: ImageUploadProps = {
-        username: getCookie("username") || "",
-        date: diaryDate.ymd || "",
-        filename: diaryDate.image.name,
+    try {
+        const imgRequest: ImageUploadProps = {
+            username: getCookie("username") || "",
+            date: diaryDate.ymd || "",
+            filename: diaryDate.image.name,
+        }
+
+        //s3이미지 url을 리턴하는 함수
+        const s3imageUrl = await getS3ImageUrl(imgRequest)
+
+        const putData = await putImageToS3(s3imageUrl, diaryDate)
+
+        const hashtags: string = diaryDate.keyword
+            ?.map((item) => `${item}`)
+            .join(",")
+
+        //ai생성 요청을 보낼 데이터
+        const diaryRequest = {
+            ymd: diaryDate.ymd,
+            moods: diaryDate.moods,
+            hashtags: hashtags,
+        }
+
+        const diaryResponse = await axios.post(
+            `${process.env.REACT_APP_API_URL}/api/diaries/ai/`,
+            diaryRequest,
+            {
+                headers: {
+                    Authorization: `Bearer ${getCookie("accessToken")}`,
+                    "Content-Type": "application/json",
+                },
+            },
+        )
+
+        return diaryResponse.data
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            alert("데이터를 요청하는중 에러가 발생하였습니다.")
+        } else {
+            // 기타 에러 처리
+            alert("예상치 못한 오류가 발생했습니다.")
+        }
+
+        throw e
     }
-
-    const s3imageUrl = await getS3ImageUrl(imgRequest)
-    await putImageToS3(s3imageUrl, diaryDate)
-
-    const hashtags = diaryDate.keyword?.map((item) => `${item}`).join(",")
-
-    const diaryRequest = {
-        ymd: diaryDate.ymd,
-        moods: diaryDate.moods,
-        hashtags: hashtags,
-    }
-
-    const response = await apiClient.post("/api/diaries/ai/", diaryRequest)
-    return response.data
 }
 
-// 일반 다이어리 생성 요청
 export const crateMyDiary = async (diaryDate: addDiaryProps) => {
-    const reqData = {
-        ymd: diaryDate.ymd,
-        moods: diaryDate.moods,
-        content: diaryDate.content,
-        images: [diaryDate.image?.name || ""],
-    }
+    try {
+        const reqData = {
+            ymd: diaryDate.ymd,
+            moods: diaryDate.moods,
+            content: diaryDate.content,
+            images: [diaryDate.image?.name || ""],
+        }
 
-    const response = await apiClient.post("/api/diaries/", reqData)
-    return response.data
+        const response = await axios.post(
+            `${process.env.REACT_APP_API_URL}/api/diaries/`,
+            reqData,
+            {
+                headers: {
+                    Authorization: `Bearer ${getCookie("accessToken")}`,
+                    "Content-Type": "application/json",
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            alert("데이터를 요청하는중 에러가 발생하였습니다.")
+        } else {
+            // 기타 에러 처리
+            alert("예상치 못한 오류가 발생했습니다.")
+        }
+
+        throw e
+    }
 }
 
-// 다이어리 조회
 export const getDiary = async () => {
-    const response = await apiClient.get("/api/diaries/")
-    return response.data
+    try {
+        const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/diaries/`,
+            {
+                headers: {
+                    Authorization: `Bearer ${getCookie("accessToken")}`,
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            alert("데이터를 요청하는중 에러가 발생하였습니다.")
+        } else {
+            // 기타 에러 처리
+            alert("예상치 못한 오류가 발생했습니다.")
+        }
+        throw e
+    }
 }
 
 //이미지를 올릴 S3의 저장소 url을 리턴받는 api
 const getS3ImageUrl = async (reqBody: ImageUploadProps): Promise<string> => {
     try {
         const imageResponse = await axios.post(
-            `${process.env.REACT_APP_S3_API_URL}`,
+            "https://dezbobv0gh.execute-api.ap-northeast-2.amazonaws.com/1221/",
             reqBody,
             {
                 headers: {
@@ -71,20 +133,40 @@ const getS3ImageUrl = async (reqBody: ImageUploadProps): Promise<string> => {
     }
 }
 
-// S3에 이미지 업로드
-const putImageToS3 = async (imgUrl: string, diaryDate: addDiaryProps) => {
-    return apiClient.put(imgUrl, diaryDate.image, {
-        headers: { "Content-Type": diaryDate.image.type as string },
-    })
+//S3에 이미지 업로드하는 함수
+const putImageToS3 = async (
+    imgUrl: string,
+    diaryDate: addDiaryProps,
+): Promise<AxiosResponse> => {
+    try {
+        const uploadImage = await axios.put(imgUrl, diaryDate.image, {
+            headers: {
+                "Content-Type": diaryDate.image.type as string,
+            },
+        })
+
+        return uploadImage
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            alert("데이터를 요청하는중 에러가 발생하였습니다.")
+        } else {
+            // 기타 에러 처리
+            alert("예상치 못한 오류가 발생했습니다.")
+        }
+        throw e
+    }
 }
 
 export const deleteDiary = async (id: number) => {
     try {
-        const response = await apiClient.delete(`/api/diaries/${id}/`, {
-            headers: {
-                Authorization: `Bearer ${getCookie("accessToken")}`,
+        const response = await axios.delete(
+            `${process.env.REACT_APP_API_URL}/api/diaries/${id}/`,
+            {
+                headers: {
+                    Authorization: `Bearer ${getCookie("accessToken")}`,
+                },
             },
-        })
+        )
 
         return response.data
     } catch (e) {
@@ -98,14 +180,33 @@ export const deleteDiary = async (id: number) => {
     }
 }
 
-// 다이어리 수정
 export const updateDiary = async (data: addDiaryProps) => {
-    const request = {
-        ymd: data.ymd,
-        content: data.content,
-        moods: data.moods,
-    }
+    try {
+        const request = {
+            ymd: data.ymd,
+            content: data.content,
+            moods: data.moods,
+        }
 
-    const response = await apiClient.put(`/api/diaries/${data.id}/`, request)
-    return response.data
+        const response = await axios.put(
+            `${process.env.REACT_APP_API_URL}/api/diaries/${data.id}/`,
+            request,
+            {
+                headers: {
+                    Authorization: `Bearer ${getCookie("accessToken")}`,
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            console.log(e.response)
+            alert("데이터 요청중 에러가 발생하였습니다.")
+        } else {
+            // 기타 에러 처리
+            alert("예상치 못한 오류가 발생했습니다.")
+        }
+        throw e
+    }
 }
