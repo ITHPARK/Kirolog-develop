@@ -1,65 +1,188 @@
-import apiClient from "@utils/apiClient"
 import { CreateUserInfo, SigninProps } from "@/models/user"
+
+import axios from "axios"
 import { getCookie } from "@utils/cookieController"
 
-// 회원가입 요청
+//회원가입 요청
 export const createAccount = async (userData: CreateUserInfo) => {
-    const response = await apiClient.post("/api/accounts/signup/", userData)
-    return response.data
+    try {
+        const response = await axios.post(
+            `${process.env.REACT_APP_API_URL}/api/accounts/signup/`,
+            userData, //{유저아이디, 패스워드}
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        // 에러를 상위로 전달
+        if (axios.isAxiosError(e)) {
+            console.error("Axios 에러:", e.response?.data || e.message)
+        } else {
+            console.error("미확인 error:", e)
+        }
+        throw e
+    }
 }
 
-// 로그인 요청
 export const login = async (userData: SigninProps) => {
-    const response = await apiClient.post("/api/accounts/login/", userData)
-    return response.data
+    try {
+        const response = await axios.post(
+            `${process.env.REACT_APP_API_URL}/api/accounts/login/`,
+            userData, //{유저아이디, 패스워드}
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        // 에러를 상위로 전달
+        if (axios.isAxiosError(e)) {
+            console.error("Axios 에러:", e.response?.data || e.message)
+        } else {
+            console.error("미확인 error:", e)
+        }
+        throw e
+    }
 }
 
-// 사용자 정보 요청
 export const getUser = async (username: string, accessToken: string) => {
-    const response = await apiClient.get(`/api/accounts/${username}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-    })
-    return response.data
+    try {
+        const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/accounts/${username}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        // 에러를 상위로 전달
+        if (axios.isAxiosError(e)) {
+            if (e.status === 401) {
+                console.log("토큰 만료 에러")
+            }
+            console.error("Axios 에러:", e.response?.data || e.message)
+        } else {
+            console.error("미확인 error:", e)
+        }
+        throw e
+    }
 }
 
-// 토큰 갱신
 export const refreshToken = async (refresh: string) => {
-    const response = await apiClient.post("/api/accounts/token/refresh/", {
-        refresh,
-    })
-    return response.data
+    try {
+        const response = await axios.post(
+            `${process.env.REACT_APP_API_URL}/api/accounts/token/refresh/`,
+            { refresh: refresh },
+            {
+                headers: {
+                    Authorization: `Bearer ${refresh}`,
+                },
+            },
+        )
+        return response.data
+    } catch (e) {
+        // 에러를 상위로 전달
+        if (axios.isAxiosError(e)) {
+            console.error("Axios 에러:", e.response?.data || e.message)
+        } else {
+            console.error("미확인 error:", e)
+        }
+        throw e
+    }
 }
 
-// 닉네임 변경
 export const replaceNickName = async (user: string, after: string) => {
-    const response = await apiClient.put(
-        `/api/accounts/update-nickname/${user}/`,
-        { nickname: after },
-        { headers: { Authorization: `Bearer ${getCookie("accessToken")}` } },
-    )
-    return response.data
+    try {
+        const response = await axios.put(
+            `${process.env.REACT_APP_API_URL}/api/accounts/update-nickname/${user}/`,
+            { nickname: after },
+            {
+                headers: {
+                    Authorization: `Bearer ${getCookie("accessToken")}`,
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            console.error("Axios 에러:", e.response?.data || e.message)
+        } else {
+            console.error("미확인 error:", e)
+        }
+        throw e
+    }
 }
 
-// 사용자 삭제
 export const deleteUser = async (user: string) => {
-    const response = await apiClient.delete(`/api/accounts/${user}/`, {
-        headers: { Authorization: `Bearer ${getCookie("accessToken")}` },
-    })
-    return response.data
+    try {
+        const response = await axios.delete(
+            `${process.env.REACT_APP_API_URL}/api/accounts/${user}/`,
+            {
+                headers: {
+                    Authorization: `Bearer ${getCookie("accessToken")}`,
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            console.error("Axios 에러:", e.response?.data || e.message)
+        } else {
+            console.error("미확인 error:", e)
+        }
+        throw e
+    }
 }
 
-// 온보딩 데이터 추가
 export const addOnboarding = async (data: { [key: string]: string[] }) => {
-    const response = await apiClient.put("/api/accounts/onboarding/", data, {
-        headers: { Authorization: `Bearer ${getCookie("accessToken")}` },
-    })
-    return response.data
+    try {
+        const response = await axios.put(
+            `${process.env.REACT_APP_API_URL}/api/accounts/onboarding/`,
+            data,
+            {
+                headers: {
+                    Authorization: `Bearer ${getCookie("accessToken")}`,
+                },
+            },
+        )
+
+        return response.data
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            console.error("Axios 에러:", e.response?.data || e.message)
+        } else {
+            console.error("미확인 error:", e)
+        }
+        throw e
+    }
 }
 
-// 중복 확인
 export const duplicationCheck = async (userName: string) => {
-    const response = await apiClient.get(
-        `/api/accounts/check/username?username=${userName}`,
-    )
-    return response.data
+    try {
+        const duplicate = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/accounts/check/username?username=${userName}`,
+        )
+
+        return duplicate.data
+    } catch (e) {
+        if (axios.isAxiosError(e)) {
+            alert("데이터를 요청하는 중 에러가 발생하였습니다.")
+            console.error("Axios 에러:", e.response?.data || e.message)
+        } else {
+            console.error("미확인 error:", e)
+        }
+        throw e
+    }
 }
