@@ -34,24 +34,6 @@ const SignIn = () => {
             document.cookie = `refreshToken=${data.refresh}`
             navigate("/")
         },
-        onError: (error) => {
-            //axios 에러라면
-            if (axios.isAxiosError(error)) {
-                const response = error.response
-                if (response) {
-                    //아이디 비번이 틀린경우
-                    if (response.status === 401) {
-                        alert("아이디 및 비밀번호가 일치하지 않습니다.") // 로그인 오류 메세지 출력
-                    }
-                } else {
-                    alert("서버로부터 응답이 없습니다.") //그 외 에러
-                }
-            } else {
-                //axios 에러가 아닌 별도의 에러
-                alert("예상치 못한 오류가 발생했습니다.")
-                console.error(error)
-            }
-        },
     })
 
     //로그인

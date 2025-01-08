@@ -1,6 +1,7 @@
 import axios from "axios"
 import { getCookie } from "@utils/cookieController"
 import { WeeklyReportProps } from "@models/report"
+import apiClient from "@/utils/apiClient"
 
 interface getReportProps {
     week: string | null
@@ -11,28 +12,17 @@ export const getReport = async ({
     week,
     date,
 }: getReportProps): Promise<WeeklyReportProps[]> => {
-    try {
-        const response = await axios(
-            `${process.env.REACT_APP_API_URL}/api/diaries/statistics?year=${date.getFullYear()}&month=${date.getMonth() + 1}&basedate=${week}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${getCookie("accessToken")}`,
-                    "Content-Type": "application/json",
-                },
+    const response = await apiClient.get(
+        `/api/diaries/statistics?year=${date.getFullYear()}&month=${date.getMonth() + 1}&basedate=${week}`,
+        {
+            headers: {
+                Authorization: `Bearer ${getCookie("accessToken")}`,
+                "Content-Type": "application/json",
             },
-        )
+        },
+    )
 
-        return response.data
-    } catch (e) {
-        if (axios.isAxiosError(e)) {
-            console.log(e.response)
-            alert("데이터 요청중 에러가 발생하였습니다.")
-        } else {
-            // 기타 에러 처리
-            alert("예상치 못한 오류가 발생했습니다.")
-        }
-        throw e
-    }
+    return response.data
 }
 
 // - 특정 월 조회
