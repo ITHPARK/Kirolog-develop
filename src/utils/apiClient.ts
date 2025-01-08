@@ -57,6 +57,7 @@ apiClient.interceptors.response.use(
                             // 리프레시 후, 원래의 요청을 갱신된 토큰으로 다시 보냄
                             errorResponese.headers["Authorization"] =
                                 `Bearer ${refreshResponse.access}`
+
                             return apiClient(errorResponese) // getUser 요청을 재전송
                         } catch (refreshError) {
                             console.error(

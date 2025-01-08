@@ -56,13 +56,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         retry: false, // 토큰 만료 시 재시도하지 않도록 설정
     })
 
-    useEffect(() => {
-        const accessToken = getCookie("accessToken")
+    // useEffect(() => {
+    //     const accessToken = getCookie("accessToken")
 
-        if (accessToken != null) {
-            refetch()
-        }
-    }, [getCookie("accessToken")]) // accessToken이 변경될 때마다 refetch
+    //     if (accessToken != null) {
+    //         refetch()
+    //     }
+    // }, [getCookie("accessToken")]) // accessToken이 변경될 때마다 refetch
 
     useEffect(() => {
         if (userData) {
