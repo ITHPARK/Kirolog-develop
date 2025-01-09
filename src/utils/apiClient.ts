@@ -35,8 +35,6 @@ apiClient.interceptors.response.use(
                 if (error.response?.status === 401) {
                     alert("아이디 또는 비밀번호가 일치하지 않습니다.")
                 }
-
-                return
             }
 
             const getUserUrl = /^\/api\/accounts\/[a-zA-Z0-9]+$/
@@ -67,8 +65,6 @@ apiClient.interceptors.response.use(
                         }
                     }
                 }
-
-                return
             }
 
             if (errorResponese.url === "/api/accounts/token/refresh/") {
@@ -81,14 +77,23 @@ apiClient.interceptors.response.use(
                     })
                 }
             }
+
+            // 개발 환경에서만 출력
             if (process.env.NODE_ENV !== "production") {
-                console.error("API 요청 실패:", error) // 개발 환경에서만 출력
+                console.error("API 요청 실패:", error)
+                return Promise.reject(error) // 에러를 상위로 전달
             }
+
             alert("데이터 요청 중 오류가 발생하였습니다.")
         } else {
+            // 개발 환경에서만 출력
+            if (process.env.NODE_ENV !== "production") {
+                console.error("API 요청 실패:", error)
+                return Promise.reject(error) // 에러를 상위로 전달
+            }
+
             alert("예상치 못한 오류가 발생했습니다.")
         }
-        return Promise.reject(error) // 에러를 상위로 전달
     },
 )
 
