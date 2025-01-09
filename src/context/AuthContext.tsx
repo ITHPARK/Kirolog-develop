@@ -45,7 +45,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         data: userData,
         isLoading,
         refetch,
-        isError,
     } = useQuery({
         queryKey: ["user", getCookie("username")],
         queryFn: () =>
@@ -57,25 +56,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         retry: false, // 토큰 만료 시 재시도하지 않도록 설정
     })
 
-    useEffect(() => {
-        if (isError && refreshTokenValue && !tokenRefreshing.current) {
-            tokenRefreshing.current = true // 중복 실행 방지 플래그 설정
+    // useEffect(() => {
+    //     const accessToken = getCookie("accessToken")
 
-            refreshToken(refreshTokenValue)
-                .then((refreshedToken) => {
-                    document.cookie = `accessToken=${refreshedToken.access}`
-
-                    refetch() // 데이터 재요청
-                })
-                .catch((e) => {
-                    console.error("리프레시 토큰 갱신 실패:", e)
-                    // logout() // 리프레시 토큰 만료 시 로그아웃
-                })
-                .finally(() => {
-                    tokenRefreshing.current = false // 플래그 초기화
-                })
-        }
-    }, [isError, refreshTokenValue]) // 필요한 의존성만 추가
+    //     if (accessToken != null) {
+    //         refetch()
+    //     }
+    // }, [getCookie("accessToken")]) // accessToken이 변경될 때마다 refetch
 
     useEffect(() => {
         if (userData) {

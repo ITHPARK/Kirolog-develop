@@ -51,8 +51,6 @@ const CalendarDiary = React.memo(
                     diary.ymd.split("-").slice(0, 2).join("-") === month,
             )
 
-            console.log(filteredDiary)
-
             setDiaryList(filteredDiary) // 필터링된 todo 항목들 출력
         }, [date, diarys])
 
@@ -62,7 +60,6 @@ const CalendarDiary = React.memo(
                 <DiaryContainer as="ul">
                     {diaryList.length > 0 ? (
                         diaryList.map((diary, index) => {
-                            console.log(diary.presignedUrl)
                             return (
                                 <li key={`month-diary-${index}`}>
                                     <Link to={`/diary/${diary.id}`}>
