@@ -23,7 +23,6 @@ const Report = () => {
 
     const [pickerDate, setPickerDate] = useState<Date>(new Date())
     const [week, setWeek] = useState<string | null>(null)
-    // const [weeklyList, setWeeklyList] = useState<WeeklyReportProps[]>([])
 
     const { data: weeklyReport, isLoading: weeklyReportLoading } = useQuery({
         queryKey: ["week", week],
@@ -75,26 +74,42 @@ const Report = () => {
             // start를 다시 날짜 객체로 만들어줘야한다. 아니면 start를 참조하여 currentDate가 변경되면 start도 변경된다.
             let currentDate = new Date(start);
             currentDate <= pickerDate; //오늘날짜까지만 순회
-            currentDate.setDate(currentDate.getDate() + 1) //현재 날짜에서 +1 을 한다.
+            currentDate.setDate(currentDate.getDate() + 1) //현재 날짜에서 +1 을 한다
         ) {
             // 월의 시작 날짜는 일요일 것에 상관없이 넣어준다.
             if (currentDate.getDate() === 1) {
                 const format = formatDate(new Date(currentDate))
                 if (arr.length === 0) {
                     arr += `${format}` // currentDate 복제해서 추가
-                } else {
-                    arr += `,${format}` // currentDate 복제해서 추가
                 }
             }
 
-            // 일요일이면 날짜 추가(1일이 일요일이면 이미 위에서 추가 되었으니 제외한다.)
+            // 토요일이면 날짜 추가(1일이 일요일이면 이미 위에서 추가 되었으니 제외한다)
+            if (currentDate.getDay() === 6 && !(currentDate.getDate() === 1)) {
+                const format = formatDate(new Date(currentDate))
+                arr += `@${format}` // currentDate 복제해서 추가
+            }
+
+            //일요일 때는 시작날짜로 지정
             if (currentDate.getDay() === 0 && !(currentDate.getDate() === 1)) {
                 const format = formatDate(new Date(currentDate))
                 arr += `,${format}` // currentDate 복제해서 추가
             }
+
+            //월 말일을 구한다
+            if (
+                currentDate.getDate() === new Date(year, month + 1, 0).getDate()
+            ) {
+                const format = formatDate(new Date(currentDate))
+                arr += `@${format}` // currentDate 복제해서 추가
+            }
         }
         setWeek(arr)
     }, [pickerDate])
+
+    useEffect(() => {
+        console.log(week)
+    }, [week])
 
     if (weeklyReportLoading) {
         return <Loading />
@@ -118,6 +133,7 @@ const Report = () => {
             </ReportTopContainer>
             <Spacing size={8} color="gray100" />
             <Spacing size={28} />
+
             <Flex
                 css={css`
                     padding: 0 20px;
@@ -133,6 +149,7 @@ const Report = () => {
                     {formatPickerDate(pickerDate)}
                 </Text>
             </Flex>
+
             <Flex
                 as="ul"
                 direction="column"
