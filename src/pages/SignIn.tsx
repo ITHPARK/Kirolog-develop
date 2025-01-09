@@ -4,7 +4,6 @@ import Flex from "@shared/Flex"
 import Form from "@/components/signin/Form"
 import Spacing from "@shared/Spacing"
 import Text from "@shared/Text"
-import axios from "axios"
 import { css } from "@emotion/react"
 import { login } from "@remote/user"
 import styled from "@emotion/styled"
@@ -24,7 +23,7 @@ const SignIn = () => {
     }, [])
 
     //로그인 mutate
-    const mutate = useMutation({
+    const loginMutate = useMutation({
         mutationFn: async (data: SigninProps) => {
             return await login(data) //로그인 api 요청
         },
@@ -38,13 +37,13 @@ const SignIn = () => {
 
     //로그인
     const handleClickLogin = (data: SigninProps) => {
-        mutate.mutate({
+        loginMutate.mutate({
             username: data.username,
             password: data.password,
         })
     }
 
-    if (mutate.isPending) {
+    if (loginMutate.isPending) {
         return <Loading />
     }
 
