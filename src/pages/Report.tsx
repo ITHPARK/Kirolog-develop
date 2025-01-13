@@ -164,6 +164,14 @@ const Report = () => {
                         )
                         .reverse()
                         .map((report, index) => {
+                            const weekEnd = week
+                                ?.split(",")
+                                .filter(
+                                    (item) =>
+                                        item.split("@")[0] === report.weekStart,
+                                )[0]
+                                .split("@")[1]
+
                             return (
                                 <ListContainer
                                     as="li"
@@ -198,11 +206,7 @@ const Report = () => {
                                             {report.weekStart
                                                 .split("-")
                                                 .join(".")}{" "}
-                                            ~
-                                            {report.weekStart
-                                                .split("-")
-                                                .slice(1)
-                                                .join(".")}
+                                            ~{weekEnd}
                                         </Text>
                                     </Flex>
                                 </ListContainer>
