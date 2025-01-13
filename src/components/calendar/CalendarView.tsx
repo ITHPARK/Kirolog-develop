@@ -139,10 +139,17 @@ const CalendarView = React.memo(
 
         //일기추가 팝업
         const handleClickAddDiary = () => {
-            open({
-                Component: AddPopup,
-                onClose: () => {},
-            })
+            //오늘 일기를 썻다면
+            if (
+                diaryData[diaryData.length - 1].ymd === formatDate(new Date())
+            ) {
+                alert("일기는 하루에 한번만 작성이 가능합니다.")
+            } else {
+                open({
+                    Component: AddPopup,
+                    onClose: () => {},
+                })
+            }
         }
 
         if (isLoading) {
