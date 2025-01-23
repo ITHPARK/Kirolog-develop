@@ -193,7 +193,6 @@ const ImageArea = styled.div<{ src: string }>`
 
     background-size: cover;
     background-position: center;
-    border-radius: 8px 8px 0 0;
 `
 
 const addDiaryImg = css`

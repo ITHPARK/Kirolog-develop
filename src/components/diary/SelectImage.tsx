@@ -9,7 +9,7 @@ import styled from "@emotion/styled"
 import { useLocation } from "react-router-dom"
 
 const SelectImage = ({ skipButton = false }: { skipButton?: boolean }) => {
-    const { step, setStep } = useAddDiaryStep()
+    const { setStep } = useAddDiaryStep()
     const { diaryData, setDiaryData } = useAddDiaryData()
 
     const location = useLocation()
@@ -70,7 +70,9 @@ const SelectImage = ({ skipButton = false }: { skipButton?: boolean }) => {
             </Flex>
             <ImageSelector
                 onSetImage={handleSetImage}
-                description={true}
+                description={
+                    location.pathname.split("/")[3] === "ai" ? true : false
+                }
                 skipButton={skipButton}
             />
         </>

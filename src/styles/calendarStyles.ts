@@ -59,6 +59,10 @@ export default css`
     .react-calendar__navigation {
         display: none;
     }
+    
+    .react-calendar__tile {
+         all: unset;
+    }
 
     .react-calendar__tile.react-calendar__month-view__days__day {
         gap: 8px;

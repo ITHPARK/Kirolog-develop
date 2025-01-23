@@ -48,6 +48,18 @@ const DiaryResult = () => {
         },
     })
 
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setDiaryData({ ...diaryData, content: e.target.value })
+    }
+
+    const handleClick = () => {
+        if (lastSegment === "my") {
+            myMutate.mutate(diaryData)
+        } else if (lastSegment === "ai") {
+            aiMutate.mutate(diaryData)
+        }
+    }
+
     useEffect(() => {
         //이미지 뷰어 생성
         const image = diaryData.image
@@ -63,17 +75,9 @@ const DiaryResult = () => {
         setIsPlaceholder(diaryData.content?.length === 0)
     }, [diaryData])
 
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setDiaryData({ ...diaryData, content: e.target.value })
-    }
-
-    const handleClick = () => {
-        if (lastSegment === "my") {
-            myMutate.mutate(diaryData)
-        } else if (lastSegment === "ai") {
-            aiMutate.mutate(diaryData)
-        }
-    }
+    useEffect(() => {
+        console.log(textRef.current?.value?.length === 0)
+    }, [])
 
     if (myMutate.isPending) {
         return <MyDiaryCreateLoading />
@@ -121,7 +125,10 @@ const DiaryResult = () => {
                 type="button"
                 label="완료"
                 onClick={handleClick}
-                disabled={textRef.current?.value?.length === 0}
+                disabled={
+                    textRef.current?.value?.length === 0 ||
+                    textRef.current === null
+                }
             />
         </>
     )

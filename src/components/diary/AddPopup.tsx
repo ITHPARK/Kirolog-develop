@@ -77,7 +77,7 @@ const AddButton = styled.button`
 `
 
 const aiAdd = css`
-    background: #836bba url(/images/character/addDiary_character1.svg) no-repeat
+    background: #9f97fc url(/images/character/addDiary_character1.svg) no-repeat
         right top;
     background-size: 100px auto;
 `
