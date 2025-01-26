@@ -84,7 +84,7 @@ const ImageSelector = ({
                 <ButtonItem>
                     <input
                         type="file"
-                        accept="image/jpeg"
+                        accept="image/png, image/jpeg, image/gif, image/bmp, image/webp"
                         id="diary_image"
                         css={css`
                             display: none;
