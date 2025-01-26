@@ -190,6 +190,10 @@ const UserTextForm = ({
                             type="button"
                             onClick={handleChechkId}
                             weight="bold"
+                            css={css`
+                                padding: 8px 27px;
+                                font-size: 14px;
+                            `}
                         >
                             중복확인
                         </Button>
@@ -233,29 +237,12 @@ const UserTextForm = ({
                                     "비밀번호는 최소 8자 이상이어야 합니다",
                             },
                             validate: {
-                                noOnlyNumbers: (value) =>
-                                    !/^\d+$/.test(value) ||
-                                    "숫자만 있는 비밀번호는 사용할 수 없습니다",
-                                noEmailFormat: (value) =>
-                                    !/^[^@]+@[^@]+\.[^@]+$/.test(value) ||
-                                    "이메일 형식의 비밀번호는 사용할 수 없습니다",
-                                // noCommonPasswords: (value) => {
-                                //     const commonPasswords = [
-                                //         "password",
-                                //         "123456",
-                                //         "qwerty",
-                                //         "12345678",
-                                //     ]
-                                //     return (
-                                //         !commonPasswords.includes(value) ||
-                                //         "흔한 비밀번호는 사용할 수 없습니다"
-                                //     )
-                                // },
                                 noPattern: (value) =>
-                                    /^(?=.[A-Z])(?=.[a-z])|(?=.[A-Z])(?=.\d)|(?=.[A-Z])(?=.[!@#$%^&])|(?=.[a-z])(?=.\d)|(?=.[a-z])(?=.[!@#$%^&])|(?=.\d)(?=.[!@#$%^&])[A-Za-z\d!@#$%^&]{6,20}$/.test(
+                                    !/^(?=(.*[A-Z].*[a-z]|.*[A-Z].*\d|.*[A-Z].*[!@#$%^&]|.*[a-z].*\d|.*[a-z].*[!@#$%^&]|.*\d.*[!@#$%^&]))[A-Za-z\d!@#$%^&]{6,20}$/.test(
                                         value,
-                                    ) ||
-                                    "영문 대문자와 소문자, 숫자, 특수문자 중 2가지 이상 조합하여 6~20자로 입력해주세요",
+                                    )
+                                        ? "영문 대문자와 소문자, 숫자, 특수문자 중 2가지 이상 조합하여 6~20자로 입력해주세요"
+                                        : true,
                             },
                         })}
                         onChange={handleChangePassword}
@@ -378,6 +365,7 @@ const UserTextForm = ({
 }
 
 const circleStyles = css`
+    height: 20px;
     position: absolute;
     top: 50%;
     right: 10px;
