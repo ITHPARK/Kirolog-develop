@@ -9,9 +9,11 @@ import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { getCookie } from "@utils/cookieController"
 import Loading from "@shared/Loading"
+import useLogin from "@hooks/useLogin"
 
 const Signup = () => {
     const navigate = useNavigate()
+    const loginMutate = useLogin()
 
     //로그인이 된 상태라면 메인페이지로 리다이렉트
     useEffect(() => {
@@ -25,9 +27,8 @@ const Signup = () => {
         mutationFn: async (data: CreateUserInfo) => {
             await createAccount(data)
         },
-        onSuccess: () => {
+        onSuccess: (data, variables: CreateUserInfo) => {
             alert("회원가입이 완료되었습니다.")
-            navigate("/signin")
             // data: mutationFn이 반환한 데이터
             // variables: mutation에 전달된 변수
             // context: mutation 호출 전 onMutate에서 반환된 값

@@ -14,7 +14,19 @@ export const createAccount = async (userData: CreateUserInfo) => {
         },
     )
 
-    return response.data
+    if (response.data === null) throw new Error("회원가입 에러")
+
+    const loginResponse = await login(userData)
+
+    if (loginResponse === null) throw new Error("로그인 에러")
+
+    document.cookie = `username=${userData.username}`
+    document.cookie = `accessToken=${loginResponse.access}`
+    document.cookie = `refreshToken=${loginResponse.refresh}`
+
+    window.location.href = "/"
+
+    return loginResponse
 }
 
 export const login = async (userData: SigninProps) => {
