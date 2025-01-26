@@ -107,10 +107,6 @@ const Report = () => {
         setWeek(arr)
     }, [pickerDate])
 
-    useEffect(() => {
-        console.log(week)
-    }, [week])
-
     if (weeklyReportLoading) {
         return <Loading />
     }
