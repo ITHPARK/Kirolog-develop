@@ -75,10 +75,6 @@ const DiaryResult = () => {
         setIsPlaceholder(diaryData.content?.length === 0)
     }, [diaryData])
 
-    useEffect(() => {
-        console.log(textRef.current?.value?.length === 0)
-    }, [])
-
     if (myMutate.isPending) {
         return <MyDiaryCreateLoading />
     }

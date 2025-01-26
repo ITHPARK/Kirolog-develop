@@ -32,7 +32,6 @@ const DiaryTop = () => {
                 //x를 눌렀을 때
                 navigate("/")
             } else {
-                console.log(_data)
                 //뒤로가기를 눌렀을 때
                 setStep(-1)
             }
