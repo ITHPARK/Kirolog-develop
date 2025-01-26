@@ -88,7 +88,7 @@ const RequierContainer = styled(Text)`
 const Image = styled.div`
     width: 123px;
     height: 168px;
-    background: url("/images/character/addImage_character.png") no-repeat center;
+    background: url("/images/character/addImage_character.svg") no-repeat center;
     background-size: 100% auto;
 `
 

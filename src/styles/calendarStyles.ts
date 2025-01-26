@@ -2,6 +2,7 @@ import { css } from "@emotion/react"
 
 export default css`
     .react-calendar {
+        padding-bottom: 106px;
         width: 100%;
         
 

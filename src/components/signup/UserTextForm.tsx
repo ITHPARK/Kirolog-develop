@@ -239,23 +239,23 @@ const UserTextForm = ({
                                 noEmailFormat: (value) =>
                                     !/^[^@]+@[^@]+\.[^@]+$/.test(value) ||
                                     "이메일 형식의 비밀번호는 사용할 수 없습니다",
-                                noCommonPasswords: (value) => {
-                                    const commonPasswords = [
-                                        "password",
-                                        "123456",
-                                        "qwerty",
-                                        "12345678",
-                                    ]
-                                    return (
-                                        !commonPasswords.includes(value) ||
-                                        "흔한 비밀번호는 사용할 수 없습니다"
-                                    )
-                                },
+                                // noCommonPasswords: (value) => {
+                                //     const commonPasswords = [
+                                //         "password",
+                                //         "123456",
+                                //         "qwerty",
+                                //         "12345678",
+                                //     ]
+                                //     return (
+                                //         !commonPasswords.includes(value) ||
+                                //         "흔한 비밀번호는 사용할 수 없습니다"
+                                //     )
+                                // },
                                 noPattern: (value) =>
-                                    /^(?=.*[A-Z])(?=.*[a-z]|.*\d|.*[!@#$%^&*(),.?":{}|<>]).{6,20}$/.test(
+                                    /^(?=.[A-Z])(?=.[a-z])|(?=.[A-Z])(?=.\d)|(?=.[A-Z])(?=.[!@#$%^&])|(?=.[a-z])(?=.\d)|(?=.[a-z])(?=.[!@#$%^&])|(?=.\d)(?=.[!@#$%^&])[A-Za-z\d!@#$%^&]{6,20}$/.test(
                                         value,
                                     ) ||
-                                    "영문 대문자와 소문자, 숫자, 특수문자 중 2가지 이상을 조합하여 6~20자로 입력해주세요",
+                                    "영문 대문자와 소문자, 숫자, 특수문자 중 2가지 이상 조합하여 6~20자로 입력해주세요",
                             },
                         })}
                         onChange={handleChangePassword}

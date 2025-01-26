@@ -192,9 +192,8 @@ const CalendarView = React.memo(
                         new Date(date.getFullYear(), date.getMonth() + 1, 0)
                     } // 선택할 수 있는 최대 일을 이번달말까지
                 />
-                <Flex justify="flex-end">
-                    <AddDiary onClick={handleClickAddDiary} />
-                </Flex>
+
+                <AddDiary onClick={handleClickAddDiary} />
             </div>
         )
     },
@@ -207,7 +206,9 @@ const dateTitle = css`
 `
 
 const AddDiary = styled.button`
-    margin-top: 52px;
+    position: fixed;
+    bottom: 128px;
+    right: 20px;
     width: 54px;
     height: 54px;
     background: url("/images/calendar/addDiary.svg") no-repeat center;
@@ -241,19 +242,19 @@ const MoodGuide = styled(Flex)`
             border-radius: 50%;
         }
 
-        &:nth-child(1)::after {
+        &:nth-of-type(1)::after {
             background-color: #ffeca7;
         }
 
-        &:nth-child(2)::after {
+        &:nth-of-type(2)::after {
             background-color: #ffd0d0;
         }
 
-        &:nth-child(3)::after {
+        &:nth-of-type(3)::after {
             background-color: #c1e8ff;
         }
 
-        &:nth-child(4)::after {
+        &:nth-of-type(4)::after {
             background-color: #ffd2a7;
         }
     }
