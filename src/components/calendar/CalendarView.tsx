@@ -158,15 +158,28 @@ const CalendarView = React.memo(
 
         return (
             <div css={calendarStyles}>
-                <Text
-                    display="inline-block"
-                    typography="t6"
-                    weight="semiBold"
-                    css={dateTitle}
-                    onClick={handleClickPopup}
+                <Flex
+                    justify="space-between"
+                    css={css`
+                        margin-bottom: 20px;
+                    `}
                 >
-                    {formatPickerDate(date)}
-                </Text>
+                    <Text
+                        display="inline-block"
+                        typography="t6"
+                        weight="semiBold"
+                        css={dateTitle}
+                        onClick={handleClickPopup}
+                    >
+                        {formatPickerDate(date)}
+                    </Text>
+                    <MoodGuide as="ul">
+                        <li>희</li>
+                        <li>로</li>
+                        <li>애</li>
+                        <li>락</li>
+                    </MoodGuide>
+                </Flex>
                 <Calendar
                     calendarType="gregory"
                     activeStartDate={date}
@@ -179,9 +192,8 @@ const CalendarView = React.memo(
                         new Date(date.getFullYear(), date.getMonth() + 1, 0)
                     } // 선택할 수 있는 최대 일을 이번달말까지
                 />
-                <Flex justify="flex-end">
-                    <AddDiary onClick={handleClickAddDiary} />
-                </Flex>
+
+                <AddDiary onClick={handleClickAddDiary} />
             </div>
         )
     },
@@ -189,19 +201,63 @@ const CalendarView = React.memo(
 
 const dateTitle = css`
     padding-right: 22px;
-    margin-bottom: 20px;
     background: url("/images/arrow/arrow_bottom.svg") no-repeat right center;
     background-size: 14px 7px;
 `
 
 const AddDiary = styled.button`
-    margin-top: 52px;
+    position: fixed;
+    bottom: 128px;
+    right: 20px;
     width: 54px;
     height: 54px;
     background: url("/images/calendar/addDiary.svg") no-repeat center;
     background-size: 22px;
     background-color: #000;
     border-radius: 50%;
+`
+
+const MoodGuide = styled(Flex)`
+    width: unset;
+    align-items: end;
+    gap: 12px;
+
+    li {
+        padding-left: 10px;
+        position: relative;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--gray500);
+        line-height: 1.5;
+
+        &::after {
+            content: "";
+            width: 8px;
+            height: 8px;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            display: block;
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        &:nth-of-type(1)::after {
+            background-color: #ffeca7;
+        }
+
+        &:nth-of-type(2)::after {
+            background-color: #ffd0d0;
+        }
+
+        &:nth-of-type(3)::after {
+            background-color: #c1e8ff;
+        }
+
+        &:nth-of-type(4)::after {
+            background-color: #ffd2a7;
+        }
+    }
 `
 
 export default CalendarView

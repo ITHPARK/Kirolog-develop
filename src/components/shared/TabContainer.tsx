@@ -6,6 +6,7 @@ const TabContainer = styled.div`
     top: 0;
     left: 0;
     background-color: var(--white);
+    z-index: 10;
 
     ul {
         padding: 5px;

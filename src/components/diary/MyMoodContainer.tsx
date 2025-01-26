@@ -19,7 +19,7 @@ const MyMoodContainer = ({ mood }: { mood: string }) => {
 
 const MoodContainer = styled.div`
     padding-top: 36px;
-    background: url(/images/character/mood_character.png) no-repeat right 10px
+    background: url(/images/character/mood_character.svg) no-repeat right 10px
         top;
     background-size: 60px auto;
 `

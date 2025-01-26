@@ -3,10 +3,8 @@ import Spacing from "@shared/Spacing"
 import Text from "@shared/Text"
 import { createPortal } from "react-dom"
 import { css } from "@emotion/react"
-import { keyframes } from "@emotion/react"
 import styled from "@emotion/styled"
 import { useAddDiaryStep } from "@store/useAddDiary"
-import { useRef } from "react"
 
 interface ImageSelectorProps {
     onSetImage: (item: File) => void
@@ -40,7 +38,6 @@ const ImageSelector = ({
     }
 
     const handleClickSkip = () => {
-        console.log(2321321)
         setStep(1)
     }
 
@@ -111,19 +108,11 @@ const ImageSelector = ({
     )
 }
 
-const slideup = keyframes`
-  to {
-    transform: translateY(0);
-  }
+const ImageAddContainer = styled.div`
+    width: 100%;
+    padding: 20px 18px 54px;
+    backgroundcolor: #fff;
 `
-
-const ImageAddContainer = styled.div(({ full }: { full?: boolean }) => ({
-    width: "100%",
-    padding: "20px 18px 54px",
-    backgroundColor: "#fff",
-    transform: "translateY(100%)",
-    animation: `${slideup} 0.5s ease-in-out forwards`,
-}))
 
 const ButtonItem = styled(Flex)`
     flex: 1;

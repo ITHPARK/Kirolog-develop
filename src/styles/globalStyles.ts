@@ -238,4 +238,32 @@ export default css`
     .swiper-slide {
         padding: 0 25px;
     }
+
+    .agree-list {
+        padding-left: 15px;
+        position: relative;
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--gray500);
+        line-height: 1.5;
+
+        &::after {
+            content: "";
+            display: block;
+            width: 2px;
+            height: 2px;
+            position: absolute;
+            left: 6px;
+            top: 7px;
+            background: var(--gray500);
+            border-radius: 50%;
+        }
+    }
+
+    .agree-list-caption {
+        display: block;
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--gray500);
+    }
 `

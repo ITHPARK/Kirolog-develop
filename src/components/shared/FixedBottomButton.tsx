@@ -66,18 +66,10 @@ const FixedBottomButton = ({
     )
 }
 
-const slideup = keyframes`
-  to {
-    transform: translateY(0);
-  }
-`
-
 const Container = styled.div<{ bggray?: boolean }>`
     /* bggray의 타입을 optional로 변경 */
     padding: 20px 18px 53px;
     background-color: ${(props) =>
         props.bggray ? "#f7f8fa" : "#fff"}; /* props.bggray로 조건 처리 */
-    transform: translateY(100%);
-    animation: ${slideup} 0.5s ease-in-out forwards;
 `
 export default FixedBottomButton

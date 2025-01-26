@@ -199,7 +199,7 @@ const Report = () => {
                                             size={4}
                                             direction="horizontal"
                                         />
-                                        {index === 0 && <New>new</New>}
+                                        {index === 0 && <New>NEW</New>}
                                     </Flex>
                                     <Flex justify="flex-end" align="center">
                                         <Text typography="t1" color="gray400">
@@ -226,9 +226,10 @@ const ListContainer = styled(Flex)`
     border-radius: 8px;
 `
 const New = styled.span`
-    padding: 0 8px;
-    display: inline-block
-    font-size: 12px;
+    padding: 3px 8px;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
     color: var(--primary500);
     border-radius: 12px;
     background-color: var(--primary100);

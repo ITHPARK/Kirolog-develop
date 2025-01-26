@@ -80,8 +80,11 @@ const UserTextForm = ({
         //입력한 패스워드 추적
         const conPass = watch("confirmPassword")
 
+        // React Hook Form의 setValue를 사용하여 비밀번호 값 업데이트
+        setValue("password", pass, { shouldValidate: true })
+
         //일치하지 않는다면
-        if (conPass !== pass) {
+        if (conPass !== pass && pass.length > 0 && conPass.length > 0) {
             setError("confirmPassword", {
                 type: "manual",
                 message: "비밀번호가 일치하지 않습니다.",
@@ -236,18 +239,23 @@ const UserTextForm = ({
                                 noEmailFormat: (value) =>
                                     !/^[^@]+@[^@]+\.[^@]+$/.test(value) ||
                                     "이메일 형식의 비밀번호는 사용할 수 없습니다",
-                                noCommonPasswords: (value) => {
-                                    const commonPasswords = [
-                                        "password",
-                                        "123456",
-                                        "qwerty",
-                                        "12345678",
-                                    ]
-                                    return (
-                                        !commonPasswords.includes(value) ||
-                                        "흔한 비밀번호는 사용할 수 없습니다"
-                                    )
-                                },
+                                // noCommonPasswords: (value) => {
+                                //     const commonPasswords = [
+                                //         "password",
+                                //         "123456",
+                                //         "qwerty",
+                                //         "12345678",
+                                //     ]
+                                //     return (
+                                //         !commonPasswords.includes(value) ||
+                                //         "흔한 비밀번호는 사용할 수 없습니다"
+                                //     )
+                                // },
+                                noPattern: (value) =>
+                                    /^(?=.[A-Z])(?=.[a-z])|(?=.[A-Z])(?=.\d)|(?=.[A-Z])(?=.[!@#$%^&])|(?=.[a-z])(?=.\d)|(?=.[a-z])(?=.[!@#$%^&])|(?=.\d)(?=.[!@#$%^&])[A-Za-z\d!@#$%^&]{6,20}$/.test(
+                                        value,
+                                    ) ||
+                                    "영문 대문자와 소문자, 숫자, 특수문자 중 2가지 이상 조합하여 6~20자로 입력해주세요",
                             },
                         })}
                         onChange={handleChangePassword}
