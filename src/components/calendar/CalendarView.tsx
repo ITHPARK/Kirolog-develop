@@ -141,6 +141,7 @@ const CalendarView = React.memo(
         const handleClickAddDiary = () => {
             //오늘 일기를 썻다면
             if (
+                diaryData.length > 0 &&
                 diaryData[diaryData.length - 1].ymd === formatDate(new Date())
             ) {
                 alert("일기는 하루에 한번만 작성이 가능합니다.")
