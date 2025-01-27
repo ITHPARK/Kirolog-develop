@@ -23,7 +23,7 @@ const Signup = () => {
     }, [])
 
     //리액트 쿼리 useMutation 설정
-    const mutate = useMutation({
+    const signupMutate = useMutation({
         mutationFn: async (data: CreateUserInfo) => {
             await createAccount(data)
         },
@@ -39,13 +39,7 @@ const Signup = () => {
                 const response = error.response
                 if (response) {
                     alert(response.data.password) // 비밀번호 오류 메세지 출력
-                } else {
-                    alert("서버로부터 응답이 없습니다.") //그 외 에러
                 }
-            } else {
-                //axios 에러가 아닌 별도의 에러
-                alert("예상치 못한 오류가 발생했습니다.")
-                console.error(error)
             }
         },
     })
@@ -53,7 +47,7 @@ const Signup = () => {
     //폼 결과를 가져온다.
     const handleSubmit = (signupValues: CreateUserInfo) => {
         // 회원 가입 실행
-        mutate.mutate({
+        signupMutate.mutate({
             username: signupValues.username,
             password: signupValues.password,
         })
@@ -63,7 +57,7 @@ const Signup = () => {
         navigate("/signin")
     }
 
-    if (mutate.isPending) {
+    if (signupMutate.isPending) {
         return <Loading />
     }
     return (
