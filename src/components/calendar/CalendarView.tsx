@@ -72,17 +72,10 @@ const CalendarView = React.memo(
 
                 //일기를 쓴 날에 추가
                 if (diary) {
-                    return (
-                        <DayCircle
-                            moodStr={diary.moods}
-                            onClick={() => navigate(`/diary/${diary.id}`)}
-                        />
-                    )
+                    return <DayCircle moodStr={diary.moods} />
                 } else if (dateStr === today) {
                     //오늘 아직 일기를 쓰지 않았다면 클릭했을 때 일기 추가를 뜨게 한다.
-                    return (
-                        <DayCircle today={true} onClick={handleClickAddDiary} />
-                    )
+                    return <DayCircle today={true} />
                 }
             }
 
@@ -90,6 +83,29 @@ const CalendarView = React.memo(
             if (dateStr > today) {
                 return <DayCircle />
             }
+        }
+
+        const handleClickDay = (
+            date: Date,
+            event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+        ) => {
+            const dateStr = formatDate(date)
+            const today = formatDate(new Date())
+
+            if (dateStr <= today) {
+                const diary = diaryData.find(
+                    (item: DiaryResponseProps) => item.ymd === dateStr,
+                )
+
+                //일기를 쓴 날에 추가
+                if (diary) {
+                    return navigate(`/diary/${diary.id}`)
+                } else if (dateStr === today) {
+                    return handleClickAddDiary()
+                }
+            }
+
+            return
         }
 
         // 현재 달력 페이지를 순회하면서 각 조건마다 클래스를 추가한다.
@@ -192,6 +208,7 @@ const CalendarView = React.memo(
                     maxDate={
                         new Date(date.getFullYear(), date.getMonth() + 1, 0)
                     } // 선택할 수 있는 최대 일을 이번달말까지
+                    onClickDay={handleClickDay}
                 />
 
                 <AddDiary onClick={handleClickAddDiary} />
