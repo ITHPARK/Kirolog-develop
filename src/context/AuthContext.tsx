@@ -1,13 +1,7 @@
-import React, {
-    createContext,
-    useCallback,
-    useContext,
-    useEffect,
-    useRef,
-} from "react"
+import React, { createContext, useCallback, useContext, useEffect } from "react"
 import { deleteCookie, getCookie } from "@utils/cookieController"
-import { getUser, refreshToken } from "@remote/user"
-
+import { getUser } from "@remote/user"
+import { useQueryClient } from "@tanstack/react-query"
 import { useCalendar } from "@store/useCalendar"
 import { useNavigate } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
@@ -21,8 +15,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const tokenRefreshing = useRef(false) // useRef로 선언
-
+    const queryClient = useQueryClient()
     const { user, setUser } = useUserStore()
     const { setTab, setViewDate, setDiaryDate } = useCalendar()
     const navigate = useNavigate()
@@ -36,16 +29,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setViewDate(new Date())
         setDiaryDate(new Date())
         navigate("/signin") // 로그아웃 후 로그인 페이지로 이동
+        queryClient.resetQueries({ queryKey: ["diary"], exact: true }) //캐싱된 일기 데이터 초기화
     }, [])
 
-    const refreshTokenValue = getCookie("refreshToken")
-
     // 사용자 데이터 가져오기 (토큰이 있는 경우)
-    const {
-        data: userData,
-        isLoading,
-        refetch,
-    } = useQuery({
+    const { data: userData, isLoading } = useQuery({
         queryKey: ["user", getCookie("username")],
         queryFn: () =>
             getUser(
@@ -55,14 +43,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         enabled: !!getCookie("accessToken"), // token이 있을 때만 쿼리 실행
         retry: false, // 토큰 만료 시 재시도하지 않도록 설정
     })
-
-    // useEffect(() => {
-    //     const accessToken = getCookie("accessToken")
-
-    //     if (accessToken != null) {
-    //         refetch()
-    //     }
-    // }, [getCookie("accessToken")]) // accessToken이 변경될 때마다 refetch
 
     useEffect(() => {
         if (userData) {

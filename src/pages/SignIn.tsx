@@ -23,19 +23,6 @@ const SignIn = () => {
         }
     }, [])
 
-    // //로그인 mutate
-    // const mutate = useMutation({
-    //     mutationFn: async (data: SigninProps) => {
-    //         return await login(data) //로그인 api 요청
-    //     },
-    //     onSuccess: (data: TokenProps, variables: SigninProps) => {
-    //         document.cookie = `username=${variables.username}`
-    //         document.cookie = `accessToken=${data.access}`
-    //         document.cookie = `refreshToken=${data.refresh}`
-    //         navigate("/")
-    //     },
-    // })
-
     //로그인
     const handleClickLogin = (data: SigninProps) => {
         loginMutate.mutate({
