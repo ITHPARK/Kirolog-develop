@@ -28,7 +28,7 @@ const CalendarDiary = React.memo(
     }) => {
         const [diaryList, setDiaryList] = useState<DiaryProps[]>([])
 
-        const [today, setToday] = useState(new Date())
+        const today = new Date()
         const { open } = useDrawerContext()
         const formatDate = useFormatDate()
         const handleClickAddDiary = () => {
@@ -77,8 +77,10 @@ const CalendarDiary = React.memo(
                                             <Flex
                                                 direction="column"
                                                 css={css`
-                                                    height: 50%;
-                                                    padding: 18px;
+                                                    ${diary.presignedUrl
+                                                        ? " height: 50%;"
+                                                        : "height: 100%;"}
+                                                    padding: 16px;
                                                 `}
                                             >
                                                 <Text
@@ -112,6 +114,7 @@ const CalendarDiary = React.memo(
                                                         overflow: hidden;
                                                         text-overflow: ellipsis;
                                                         display: -webkit-box;
+                                                        flex: 1;
                                                         -webkit-line-clamp: ${diary.presignedUrl
                                                             ? "1"
                                                             : "5"};
