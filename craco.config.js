@@ -21,14 +21,27 @@ module.exports = {
         plugins: ["@emotion/babel-plugin"],
     },
     webpack: {
-        //pnp 플러그인을 추가
         configure: (webpackConfig) => {
+            // PnP 플러그인 추가
             webpackConfig.resolve.plugins = [
                 ...(webpackConfig.resolve.plugins || []),
-
-                //yarn의 pnp 모드를 활성화하여 node_modules 없이 의존성을 해결할 수 있도록 설정
                 PnpWebpackPlugin,
             ]
+
+            // 기존 svg 관련 로더 제거 (file-loader, url-loader와 충돌 방지)
+            const svgRuleIndex = webpackConfig.module.rules.findIndex((rule) =>
+                rule.test?.toString().includes("svg"),
+            )
+            if (svgRuleIndex !== -1) {
+                webpackConfig.module.rules.splice(svgRuleIndex, 1)
+            }
+
+            // @svgr/webpack 로더 추가
+            webpackConfig.module.rules.push({
+                test: /\.svg$/i,
+                issuer: /\.[jt]sx?$/,
+                use: ["@svgr/webpack"],
+            })
 
             return webpackConfig
         },

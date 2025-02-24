@@ -61,6 +61,7 @@
         "@babel/preset-react": "^7.26.3",
         "@craco/craco": "^7.1.0",
         "@emotion/babel-plugin": "^11.13.5",
+        "@svgr/webpack": "^8.1.0",
         "craco-alias": "^3.0.1",
         "eslint": "8.57.0",
         "eslint-config-prettier": "^9.1.0",

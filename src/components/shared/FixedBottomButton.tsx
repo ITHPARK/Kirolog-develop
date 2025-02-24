@@ -1,7 +1,5 @@
 import Button from "@shared/Button"
-import React from "react"
 import { createPortal } from "react-dom"
-import { keyframes } from "@emotion/react"
 import styled from "@emotion/styled"
 import { SerializedStyles } from "@emotion/react"
 import Text from "@shared/Text"

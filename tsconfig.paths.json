@@ -14,7 +14,8 @@
             "@utils/*": ["src/utils/*"],
             "@hooks/*": ["src/hooks/*"],
             "@store/*": ["src/store/*"],
-            "@context/*": ["src/context/*"]
+            "@context/*": ["src/context/*"],
+            "@assets/*": ["src/assets/*"]
         }
     }
 }

@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom"
 import useUserStore from "@/store/useUserStore"
 import Loading from "@shared/Loading"
 import useLogin from "@hooks/useLogin"
+import { ReactComponent as Loginlogy } from "@assets/icons/character_login.svg"
 
 const SignIn = () => {
     const navigate = useNavigate()
@@ -39,13 +40,9 @@ const SignIn = () => {
         <>
             <LoginContainer direction="column" align="center">
                 <Flex direction="column" align="center">
-                    <img
-                        src="/images/character/character_login.svg"
-                        alt="캐릭터 이미지"
-                        css={imageStyles}
-                    />
+                    <Loginlogy css={imageStyles} />
                     <Spacing size={20} />
-                    <Text typography="t2" color="gray500">
+                    <Text typography="t2" color="gray600">
                         로기와 함께하는 기로록
                         <br />
                         지금 바로 시작해보세요!
