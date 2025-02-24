@@ -6,8 +6,8 @@ export default css`
         --dimmed-zindex: 10;
         --alert-zindex: 11;
     }
+
     ${colorPalette} // 색상을 추가
-    
 
     html,
     body,
@@ -90,7 +90,7 @@ export default css`
     mark,
     audio,
     video,
-    input ,
+    input,
     textarea {
         margin: 0;
         padding: 0;
@@ -115,8 +115,9 @@ export default css`
             "Segoe UI Emoji",
             "Segoe UI Symbol",
             sans-serif;
+        font-display: swap;
     }
-    /* HTML5 display-role reset for older browsers */
+
     article,
     aside,
     details,
