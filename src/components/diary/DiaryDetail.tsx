@@ -15,9 +15,7 @@ import Loading from "@shared/Loading"
 const DiaryDetail = () => {
     const [dayDiary, setDayDiary] = useState<DiaryResponseProps>()
     const [date, setDate] = useState<string | null>()
-
-    const { data: diaryData, isLoading } = useDiaryData()
-
+    const { data: diaryData } = useDiaryData()
     const { id } = useParams()
 
     useEffect(() => {
@@ -26,6 +24,8 @@ const DiaryDetail = () => {
             const diary = diaryData.find(
                 (item: DiaryResponseProps) => item.id === Number(id),
             )
+
+            console.log(diary)
 
             setDayDiary(diary)
             // -를 기준으로 나누기
@@ -57,9 +57,12 @@ const DiaryDetail = () => {
                 leftOnClick={handleClickBack}
             />
             <Flex direction="column">
-                {dayDiary?.presignedUrl && (
+                {dayDiary.presignedUrl && (
                     <>
-                        <ImageArea src={dayDiary?.presignedUrl} />
+                        <ImageArea
+                            src={dayDiary.presignedUrl}
+                            alt={`${date} 일기`}
+                        />
                         <Spacing size={20} />
                     </>
                 )}

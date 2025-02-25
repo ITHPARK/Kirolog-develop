@@ -72,10 +72,20 @@ const CalendarView = React.memo(
 
                 //일기를 쓴 날에 추가
                 if (diary) {
-                    return <DayCircle moodStr={diary.moods} />
+                    return (
+                        <DayCircle
+                            moodStr={diary.moods}
+                            aria-label={`${dateStr}-tile`}
+                        />
+                    )
                 } else if (dateStr === today) {
                     //오늘 아직 일기를 쓰지 않았다면 클릭했을 때 일기 추가를 뜨게 한다.
-                    return <DayCircle today={true} />
+                    return (
+                        <DayCircle
+                            today={true}
+                            aria-label={`${dateStr}-tile`}
+                        />
+                    )
                 }
             }
 
@@ -201,6 +211,7 @@ const CalendarView = React.memo(
                     calendarType="gregory"
                     activeStartDate={date}
                     tileContent={getTileContent}
+                    navigationAriaLabel={"tileButton"}
                     tileClassName={getTitleClass}
                     formatDay={(locale, date) => moment(date).format("D")} // 일 삭제
                     view="month"

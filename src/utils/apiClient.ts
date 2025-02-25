@@ -1,6 +1,6 @@
 import axios from "axios"
 import { getCookie } from "@utils/cookieController"
-import { refreshToken, getUser } from "@remote/user"
+import { refreshToken } from "@remote/user"
 
 // Axios 인스턴스 생성
 const apiClient = axios.create({

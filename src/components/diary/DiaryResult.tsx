@@ -54,6 +54,7 @@ const DiaryResult = () => {
 
     const handleClick = () => {
         if (lastSegment === "my") {
+            console.log(diaryData)
             myMutate.mutate(diaryData)
         } else if (lastSegment === "ai") {
             aiMutate.mutate(diaryData)
