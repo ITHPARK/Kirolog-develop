@@ -145,10 +145,6 @@ const DiaryContent = styled.textarea`
     z-index: 10;
 `
 
-const ContentContainer = styled.div`
-    position: relative;
-`
-
 const PlaceholderWrap = styled(Flex)`
     position: absolute;
     left: 0;
