@@ -17,6 +17,7 @@ import { useDrawerContext } from "@/context/DrawContext"
 import useFormatDate from "@hooks/useFormatDate"
 import useFormatPickerDate from "@hooks/useFormatPickerDate"
 import { useNavigate } from "react-router-dom"
+import { ReactComponent as AddDiaryIcon } from "@assets/icons/addDiary.svg"
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
@@ -211,7 +212,9 @@ const CalendarView = React.memo(
                     onClickDay={handleClickDay}
                 />
 
-                <AddDiary onClick={handleClickAddDiary} />
+                <AddDiary onClick={handleClickAddDiary}>
+                    <AddDiaryIcon />
+                </AddDiary>
             </div>
         )
     },
@@ -229,7 +232,7 @@ const AddDiary = styled.button`
     right: 20px;
     width: 54px;
     height: 54px;
-    background: url("/images/calendar/addDiary.svg") no-repeat center;
+
     background-size: 22px;
     background-color: #000;
     border-radius: 50%;
