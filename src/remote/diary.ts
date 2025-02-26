@@ -15,7 +15,7 @@ export const crateAiDiary = async (diaryDate: addDiaryProps) => {
     //s3이미지 url을 리턴하는 함수
     const s3imageUrl = await getS3ImageUrl(imgRequest)
 
-    const putData = await putImageToS3(s3imageUrl, diaryDate)
+    await putImageToS3(s3imageUrl, diaryDate)
 
     const hashtags: string = diaryDate.keyword
         ?.map((item) => `${item}`)
@@ -49,6 +49,17 @@ export const crateMyDiary = async (diaryDate: addDiaryProps) => {
         content: diaryDate.content,
         images: [diaryDate.image?.name || ""],
     }
+
+    const imgRequest: ImageUploadProps = {
+        username: getCookie("username") || "",
+        date: diaryDate.ymd || "",
+        filename: diaryDate.image.name,
+    }
+
+    //s3이미지 url을 리턴하는 함수
+    const s3imageUrl = await getS3ImageUrl(imgRequest)
+
+    await putImageToS3(s3imageUrl, diaryDate)
 
     const response = await apiClient.post(`/api/diaries/`, reqData, {
         headers: {
