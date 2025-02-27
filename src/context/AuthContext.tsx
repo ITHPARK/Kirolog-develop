@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     })
 
     useEffect(() => {
+        console.log(userData)
         if (userData) {
             setUser({
                 username: getCookie("username") || "",
