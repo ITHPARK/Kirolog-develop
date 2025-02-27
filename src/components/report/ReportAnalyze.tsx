@@ -6,6 +6,7 @@ import { css } from "@emotion/react"
 import Button from "@shared/Button"
 import { WeeklyReportProps } from "@models/report"
 import { getWeekLabel } from "@utils/getWeekend"
+import { ReactComponent as ReportTitleIcon } from "@assets/icons/reportTitle.svg"
 
 const ReportAnalyze = ({
     onClose,
@@ -29,6 +30,11 @@ const ReportAnalyze = ({
                 <Spacing size={30} />
                 <Flex direction="column">
                     <AnalyzeTitle typography="t3" weight="bold" color="gray600">
+                        <ReportTitleIcon
+                            width={16}
+                            height={16}
+                            css={reportTitle}
+                        />
                         이번주 감정 분석
                     </AnalyzeTitle>
                     <Spacing size={16} />
@@ -118,8 +124,14 @@ const ReportAnalyze = ({
 
 const AnalyzeTitle = styled(Text)`
     padding-left: 24px;
-    background: url("/images/reportTitle.svg") no-repeat left center;
-    background-size: 16px;
+    position: relative;
+`
+
+const reportTitle = css`
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
 `
 
 const WeekText = styled(Flex)`

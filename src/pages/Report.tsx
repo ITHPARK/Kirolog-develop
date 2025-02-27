@@ -14,6 +14,8 @@ import { useQuery } from "@tanstack/react-query"
 import { getReport } from "@remote/report"
 import { getWeekLabel } from "@utils/getWeekend"
 import Loading from "@shared/Loading"
+import { ReactComponent as ReportCharacter } from "@assets/icons/report_character.svg"
+import ArrowDown from "@shared/ArrowDown"
 
 const Report = () => {
     const { user } = useUserStore()
@@ -115,6 +117,7 @@ const Report = () => {
         <Flex direction="column">
             <Spacing size={30} />
             <ReportTopContainer direction="column">
+                <ReportCharacter css={reportIconPos} />
                 <Text typography="t4" weight="bold" color="primary500">
                     {user?.nickname}님!
                 </Text>
@@ -142,6 +145,7 @@ const Report = () => {
                     css={dateTitle}
                     onClick={handleClickPopup}
                 >
+                    <ArrowDown />
                     {formatPickerDate(pickerDate)}
                 </Text>
             </Flex>
@@ -234,12 +238,16 @@ const New = styled.span`
 const dateTitle = css`
     padding-right: 22px;
     margin-bottom: 20px;
-    background: url("/images/arrow/arrow_bottom.svg") no-repeat right center;
-    background-size: 14px 7px;
+    position: relative;
 `
 
 const ReportTopContainer = styled(Flex)`
     padding: 0 20px;
-    background: url("/images/character/report_character.svg") no-repeat right
-        5px bottom;
+    position: relative;
+`
+
+const reportIconPos = css`
+    position: absolute;
+    right: 5px;
+    bottom: 0;
 `

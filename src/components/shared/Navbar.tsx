@@ -5,6 +5,10 @@ import Flex from "@shared/Flex"
 import Spacing from "@shared/Spacing"
 import Text from "@shared/Text"
 import styled from "@emotion/styled"
+import { css } from "@emotion/react"
+import { ReactComponent as NavHome } from "@assets/icons/nav_home.svg"
+import { ReactComponent as NavMy } from "@assets/icons/nav_my.svg"
+import { ReactComponent as NavReport } from "@assets/icons/nav_report.svg"
 
 const Navbar = () => {
     const [menu, setMenu] = useState<boolean[]>([false, true, false])
@@ -48,7 +52,13 @@ const Navbar = () => {
             <li>
                 <div onClick={() => handleClick(0)}>
                     <Flex direction="column" align="center">
-                        <IconContainer iconName="nav_report" active={menu[0]} />
+                        <NavMy
+                            css={css`
+                                color: ${menu[0]
+                                    ? "var(--gray700)"
+                                    : "var(--gray300)"};
+                            `}
+                        />
                         <Spacing size={2} />
                         <Text
                             typography="t1"
@@ -63,7 +73,13 @@ const Navbar = () => {
             <li>
                 <div onClick={() => handleClick(1)}>
                     <Flex direction="column" align="center">
-                        <IconContainer iconName="nav_home" active={menu[1]} />
+                        <NavHome
+                            css={css`
+                                color: ${menu[1]
+                                    ? "var(--gray700)"
+                                    : "var(--gray300)"};
+                            `}
+                        />
                         <Spacing size={2} />
                         <Text
                             typography="t1"
@@ -78,7 +94,13 @@ const Navbar = () => {
             <li>
                 <div onClick={() => handleClick(2)}>
                     <Flex direction="column" align="center">
-                        <IconContainer iconName="nav_my" active={menu[2]} />
+                        <NavReport
+                            css={css`
+                                color: ${menu[2]
+                                    ? "var(--gray700)"
+                                    : "var(--gray300)"};
+                            `}
+                        />
                         <Spacing size={2} />
                         <Text
                             typography="t1"
@@ -123,9 +145,6 @@ const IconContainer = styled.span<{ iconName: string; active: boolean }>`
     display: inline-block;
     width: 24px;
     height: 24px;
-    background: url(/images/nav/${(props) => props.iconName}.svg) no-repeat;
-    background-position: ${(props) =>
-        props.active ? "left center" : "right center"};
 `
 
 export default Navbar

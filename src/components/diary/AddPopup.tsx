@@ -4,6 +4,8 @@ import Text from "@shared/Text"
 import { css } from "@emotion/react"
 import styled from "@emotion/styled"
 import { useNavigate } from "react-router-dom"
+import { ReactComponent as AiAddIcon } from "@assets/icons/addDiary_character1.svg"
+import { ReactComponent as MyAddIcon } from "@assets/icons/addDiary_character2.svg"
 
 const AddPopup = ({ onClose }: { onClose: () => void }) => {
     const navigate = useNavigate()
@@ -32,6 +34,7 @@ const AddPopup = ({ onClose }: { onClose: () => void }) => {
             <Spacing size={20} />
             <Flex direction="column">
                 <AddButton css={aiAdd} onClick={() => handleClickAdd("ai")}>
+                    <AiAddIcon css={buttonIconPos} />
                     <Text
                         typography="t4"
                         weight="bold"
@@ -48,7 +51,8 @@ const AddPopup = ({ onClose }: { onClose: () => void }) => {
                     </Text>
                 </AddButton>
                 <Spacing size={11} />
-                <AddButton css={normalAdd} onClick={() => handleClickAdd("my")}>
+                <AddButton css={myAdd} onClick={() => handleClickAdd("my")}>
+                    <MyAddIcon css={buttonIconPos} />
                     <Text
                         typography="t4"
                         weight="bold"
@@ -73,17 +77,21 @@ const AddButton = styled.button`
     min-height: 130px;
     padding: 23px 0 34px 28px;
     border-radius: 12px;
-    background: red;
+    position: relative;
 `
 
 const aiAdd = css`
-    background: #9f97fc url(/images/character/addDiary_character1.svg) no-repeat
-        right top;
-    background-size: 100px auto;
+    background-color: var(--primary300);
 `
-const normalAdd = css`
-    background: #dbdbff url(/images/character/addDiary_character2.svg) no-repeat
-        right top;
-    background-size: 100px auto;
+
+const myAdd = css`
+    background-color: var(--primary100);
 `
+
+const buttonIconPos = css`
+    position: absolute;
+    right: 0;
+    top: 0;
+`
+
 export default AddPopup

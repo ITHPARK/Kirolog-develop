@@ -28,7 +28,7 @@ const DayCircleStyles = styled.div<{
     border-radius: 50%;
     ${(props) =>
         props.today
-            ? `background: url('/images/calendar/diary_plus.png') no-repeat center;
+            ? `background: url('/images/calendar/diary_plus.svg') no-repeat center;
                background-size: 100%;`
             : `background-color: ${
                   props.moodType === "희"

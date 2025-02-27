@@ -15,6 +15,7 @@ import styled from "@emotion/styled"
 import useDiaryData from "@hooks/useDiaryData"
 import { useDrawerContext } from "@/context/DrawContext"
 import useFormatDate from "@hooks/useFormatDate"
+import { ReactComponent as DiaryPlusIcon } from "@assets/icons/diaryPlus.svg"
 
 const CalendarDiary = React.memo(
     ({
@@ -141,11 +142,7 @@ const CalendarDiary = React.memo(
                                 `}
                                 onClick={() => handleClickAddDiary()}
                             >
-                                <img
-                                    src="/images/calendar/diaryPlus.svg"
-                                    alt="플러스 아이콘"
-                                    css={addDiaryImg}
-                                />
+                                <DiaryPlusIcon width={22} height={22} />
                                 <Spacing size={9} />
                                 <Text
                                     typography="t2"
@@ -196,11 +193,6 @@ const ImageArea = styled.div<{ src: string }>`
 
     background-size: cover;
     background-position: center;
-`
-
-const addDiaryImg = css`
-    width: 22px;
-    height: 22px;
 `
 
 export default CalendarDiary

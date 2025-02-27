@@ -1,4 +1,4 @@
-import Close from "@shared/ico/Close"
+import CloseButton from "@/components/shared/ico/CloseButton"
 import { CreateUserInfo } from "@models/user"
 import Topbar from "@shared/Topbar"
 import UserTextForm from "@components/signup/UserTextForm"
@@ -64,7 +64,7 @@ const Signup = () => {
         <div>
             <Topbar
                 title="회원가입"
-                right={<Close />}
+                right={<CloseButton />}
                 rightOnClick={handleClick}
             />
             <UserTextForm onSubmit={handleSubmit} />

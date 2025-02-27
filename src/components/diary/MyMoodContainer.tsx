@@ -1,10 +1,13 @@
 import Flex from "@shared/Flex"
 import Text from "@shared/Text"
 import styled from "@emotion/styled"
+import { css } from "@emotion/react"
+import { ReactComponent as MoodCharacter } from "@assets/icons/mood_character.svg"
 
 const MyMoodContainer = ({ mood }: { mood: string }) => {
     return (
         <MoodContainer>
+            <MoodCharacter css={moodIcon} />
             <MoodBox justify="space-between">
                 <Text typography="t2" color="gray800">
                     오늘 당신의 감정은
@@ -19,9 +22,7 @@ const MyMoodContainer = ({ mood }: { mood: string }) => {
 
 const MoodContainer = styled.div`
     padding-top: 36px;
-    background: url(/images/character/mood_character.svg) no-repeat right 10px
-        top;
-    background-size: 60px auto;
+    position: relative;
 `
 
 const MoodBox = styled(Flex)`
@@ -29,6 +30,12 @@ const MoodBox = styled(Flex)`
     width: 100%;
     background: var(--gray100);
     border-radius: 8px;
+`
+
+const moodIcon = css`
+    position: absolute;
+    right: 0;
+    top: 0;
 `
 
 export default MyMoodContainer

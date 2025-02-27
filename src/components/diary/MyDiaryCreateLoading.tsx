@@ -3,6 +3,8 @@ import Spacing from "@shared/Spacing"
 import Text from "@shared/Text"
 import { createPortal } from "react-dom"
 import styled from "@emotion/styled"
+import { ReactComponent as AiDiaryCreateSplash } from "@assets/icons/AiDiaryCreateSplash.svg"
+import { css } from "@emotion/react"
 
 const MyDiaryCreateLoading = () => {
     const $portal = document.getElementById("splash")
@@ -14,7 +16,15 @@ const MyDiaryCreateLoading = () => {
     return createPortal(
         <SplashContainer>
             <SplashContent direction="column" align="center">
-                <Text typography="t4" weight="bold" color="gray800">
+                <AiDiaryCreateSplash width={176} height={184} />
+                <Text
+                    typography="t4"
+                    weight="bold"
+                    color="gray800"
+                    css={css`
+                        margin-top: 8px;
+                    `}
+                >
                     잠시만 기다려주세요!
                 </Text>
                 <Spacing size={12} />
@@ -37,11 +47,7 @@ const SplashContainer = styled.div`
 `
 
 const SplashContent = styled(Flex)`
-    padding-top: 192px;
     margin-top: 182px;
-    background: url(/images/character/AiDiaryCreateSplash.png) no-repeat center
-        top;
-    background-size: 176px 184px;
 `
 
 export default MyDiaryCreateLoading
