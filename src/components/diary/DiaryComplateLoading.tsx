@@ -5,7 +5,8 @@ import Spacing from "@shared/Spacing"
 import Text from "@shared/Text"
 import { createPortal } from "react-dom"
 import styled from "@emotion/styled"
-
+import { ReactComponent as AiDiaryComplateSplash } from "@assets/icons/AiDiaryComplateSplash.svg"
+import { css } from "@emotion/react"
 interface DiaryComplateLoadingProps {
     onClick: () => void // onClick을 props로 전달받기 위한 타입 정의
 }
@@ -23,11 +24,15 @@ const DiaryComplateLoading: React.FC<DiaryComplateLoadingProps> = ({
         <>
             <SplashContainer>
                 <SplashContent direction="column" align="center">
+                    <AiDiaryComplateSplash width={176} height={184} />
                     <Text
                         typography="t4"
                         weight="bold"
                         color="gray800"
                         align="center"
+                        css={css`
+                            margin-top: 8px;
+                        `}
                     >
                         오늘도 무사히 하루를
                         <br />
@@ -56,11 +61,7 @@ const SplashContainer = styled.div`
 `
 
 const SplashContent = styled(Flex)`
-    padding-top: 192px;
     margin-top: 182px;
-    background: url(/images/character/AiDiaryComplateSplash.png) no-repeat
-        center top;
-    background-size: 176px 184px;
 `
 
 export default DiaryComplateLoading

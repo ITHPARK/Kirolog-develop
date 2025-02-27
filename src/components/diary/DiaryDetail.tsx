@@ -16,7 +16,7 @@ const DiaryDetail = () => {
     const [dayDiary, setDayDiary] = useState<DiaryResponseProps>()
     const [date, setDate] = useState<string | null>()
 
-    const { data: diaryData, isLoading } = useDiaryData()
+    const { data: diaryData } = useDiaryData()
 
     const { id } = useParams()
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 
 import AgreeText from "@components/signup/AgreeText"
 import Button from "@shared/Button"
@@ -13,7 +13,8 @@ import styled from "@emotion/styled"
 import { useAlertContext } from "@context/AlertContext"
 import { useForm } from "react-hook-form"
 import { duplicationCheck } from "@remote/user"
-
+import { ReactComponent as AgreeArrow } from "@assets/icons/arrow_right_16.svg"
+import { ReactComponent as XCircle } from "@assets/icons/x-circle.svg"
 const UserTextForm = ({
     onSubmit,
 }: {
@@ -178,10 +179,7 @@ const UserTextForm = ({
                                 onClick={handleDeleteId}
                                 css={circleStyles}
                             >
-                                <img
-                                    src="/images/circle/x-circle.svg"
-                                    alt="이미지"
-                                />
+                                <XCircle />
                             </button>
                         </div>
                         <Spacing size={10} direction="horizontal" />
@@ -324,7 +322,7 @@ const UserTextForm = ({
                                 >
                                     서비스 이용약관에 동의합니다.
                                 </Text>
-                                <AgreeArrow></AgreeArrow>
+                                <AgreeArrow />
                             </Flex>
                         </li>
                         <li onClick={() => handleClickAgree(2)}>
@@ -336,7 +334,7 @@ const UserTextForm = ({
                                 >
                                     개인정보 수집ㆍ이용에 동의합니다.
                                 </Text>
-                                <AgreeArrow></AgreeArrow>
+                                <AgreeArrow />
                             </Flex>
                         </li>
                         <li onClick={() => handleClickAgree(3)}>
@@ -348,7 +346,7 @@ const UserTextForm = ({
                                 >
                                     개인정보 제 3자 제공 동의합니다.
                                 </Text>
-                                <AgreeArrow></AgreeArrow>
+                                <AgreeArrow />
                             </Flex>
                         </li>
                     </Flex>
@@ -395,14 +393,6 @@ const ErrorMessageContainer = styled.div`
     position: absolute;
     left: 10px;
     top: calc(100% + 8px);
-`
-
-const AgreeArrow = styled.span`
-    display: block;
-    width: 16px;
-    height: 16px;
-    background: url("/images/arrow/arrow_right_16.svg") no-repeat center;
-    background-size: 100% 100%;
 `
 
 export default UserTextForm

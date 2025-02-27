@@ -53,18 +53,22 @@ const CalendarPicker = ({ onClose, setPickerDate }: PickerProps) => {
     return (
         <div css={calendarStyles}>
             <Flex justify="center" align="center">
-                <ArrowLeft onClick={() => handleClickYear(0)} />
+                <button onClick={() => handleClickYear(0)}>
+                    <ArrowLeft />
+                </button>
                 <Text
                     typography="t4"
                     weight="bold"
                     color="gray800"
                     css={css`
-                        margin: 0 35px;
+                        margin: 0 35px;F
                     `}
                 >
                     {date.getFullYear()}년
                 </Text>
-                <ArrowRight onClick={() => handleClickYear(1)} />
+                <button onClick={() => handleClickYear(1)}>
+                    <ArrowRight />
+                </button>
             </Flex>
             <MonthPicker as="ul">
                 {Array.from({ length: 12 }, (_, index) => {
