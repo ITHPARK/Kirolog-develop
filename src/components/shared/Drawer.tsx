@@ -2,6 +2,8 @@ import React from "react"
 import styled from "@emotion/styled"
 import Dimmed from "@shared/Dimmed"
 import { keyframes } from "@emotion/react"
+import { ReactComponent as Close } from "@assets/icons/close.svg"
+import { ReactComponent as CloseGray } from "@assets/icons/close_gray.svg"
 
 interface DrawerProps {
     open?: boolean
@@ -25,14 +27,7 @@ const Drawer = ({
             <DrawerContainer open={open ? open : "1"}>
                 <DrawerContent>
                     <CloseButton onClick={onClose}>
-                        {closeGray ? (
-                            <img
-                                src="/images/close/close_gray.svg"
-                                alt="닫기"
-                            />
-                        ) : (
-                            <img src="/images/close/close.svg" alt="닫기" />
-                        )}
+                        {closeGray ? <CloseGray /> : <Close />}
                     </CloseButton>
                     {Component != null && (
                         <Component {...componentProps} onClose={onClose} />

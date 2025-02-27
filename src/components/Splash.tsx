@@ -2,16 +2,13 @@ import Flex from "@shared/Flex"
 import Text from "@shared/Text"
 import { css } from "@emotion/react"
 import styled from "@emotion/styled"
+import { ReactComponent as Character } from "@assets/icons/character.svg"
 
 const Splash = () => {
     return (
         <SplashContainer>
             <Flex direction="column" justify="center" align="center">
-                <img
-                    src="/images/character/character.svg"
-                    alt="캐릭터 이미지"
-                    css={imageStyles}
-                />
+                <Character width={148} height={187} />
                 <Flex direction="column" align="center">
                     <Text typography="t5" color="white" weight="bold">
                         기록하는 순간
@@ -32,11 +29,6 @@ const SplashContainer = styled(Flex)`
     top: 0;
     bottom: 0;
     background-color: #9F97FC; 
-`
-
-const imageStyles = css`
-    width: 148px;
-    height: 187px;
 `
 
 export default Splash

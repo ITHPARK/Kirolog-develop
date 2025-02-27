@@ -2,7 +2,7 @@ import { useAddDiaryData, useAddDiaryStep } from "@store/useAddDiary"
 
 import Alert from "@shared/Alert/Alert"
 import ArrowLeft from "@shared/ico/ArrowLeft"
-import Close from "@shared/ico/Close"
+import Close from "@/components/shared/ico/CloseButton"
 import Topbar from "../shared/Topbar"
 import { useAlertContext } from "@context/AlertContext"
 import { useNavigate } from "react-router-dom"

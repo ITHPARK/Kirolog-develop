@@ -36,8 +36,6 @@ const DateTitle = ({ pickerDate, setPickerDate }: DateTitleProps) => {
 const DateTitleText = styled(Text)`
     padding-right: 22px;
     margin-bottom: 20px;
-    background: url("/images/arrow/arrow_bottom.svg") no-repeat right center;
-    background-size: 14px 7px;
 `
 
 export default DateTitle

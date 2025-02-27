@@ -4,7 +4,6 @@ import Flex from "@shared/Flex"
 import Form from "@/components/signin/Form"
 import Spacing from "@shared/Spacing"
 import Text from "@shared/Text"
-import { css } from "@emotion/react"
 import styled from "@emotion/styled"
 
 import { useNavigate } from "react-router-dom"
@@ -40,7 +39,7 @@ const SignIn = () => {
         <>
             <LoginContainer direction="column" align="center">
                 <Flex direction="column" align="center">
-                    <Loginlogy css={imageStyles} />
+                    <Loginlogy width={80} height={80} />
                     <Spacing size={20} />
                     <Text typography="t2" color="gray600">
                         로기와 함께하는 기로록
@@ -57,11 +56,6 @@ const SignIn = () => {
 
 const LoginContainer = styled(Flex)`
     padding-top: 112px;
-`
-
-const imageStyles = css`
-    width: 80px;
-    height: 80px;
 `
 
 export default SignIn

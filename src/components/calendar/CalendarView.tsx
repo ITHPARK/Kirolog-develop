@@ -18,6 +18,7 @@ import useFormatDate from "@hooks/useFormatDate"
 import useFormatPickerDate from "@hooks/useFormatPickerDate"
 import { useNavigate } from "react-router-dom"
 import { ReactComponent as AddDiaryIcon } from "@assets/icons/addDiary.svg"
+import ArrowDown from "@shared/ArrowDown"
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
@@ -189,6 +190,7 @@ const CalendarView = React.memo(
                         css={dateTitle}
                         onClick={handleClickPopup}
                     >
+                        <ArrowDown />
                         {formatPickerDate(date)}
                     </Text>
                     <MoodGuide as="ul">
@@ -222,8 +224,13 @@ const CalendarView = React.memo(
 
 const dateTitle = css`
     padding-right: 22px;
-    background: url("/images/arrow/arrow_bottom.svg") no-repeat right center;
-    background-size: 14px 7px;
+    position: relative;
+`
+const arrowPos = css`
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 `
 
 const AddDiary = styled.button`

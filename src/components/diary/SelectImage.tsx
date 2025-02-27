@@ -7,6 +7,7 @@ import Text from "@shared/Text"
 import { css } from "@emotion/react"
 import styled from "@emotion/styled"
 import { useLocation } from "react-router-dom"
+import { ReactComponent as UploadImage } from "@assets/icons/addImage_character.svg"
 
 const SelectImage = ({ skipButton = false }: { skipButton?: boolean }) => {
     const { setStep } = useAddDiaryStep()
@@ -44,7 +45,7 @@ const SelectImage = ({ skipButton = false }: { skipButton?: boolean }) => {
                 </Flex>
                 <Spacing size={8} />
                 <Flex direction="column" align="center">
-                    <Image />
+                    <UploadImage width={123} height={168} />
                     <Spacing size={5} />
                     <Text
                         typography="t4"
@@ -84,14 +85,6 @@ const RequierContainer = styled(Text)`
     background-color: var(--gray100);
     border-radius: 12px;
 `
-
-const Image = styled.div`
-    width: 123px;
-    height: 168px;
-    background: url("/images/character/addImage_character.svg") no-repeat center;
-    background-size: 100% auto;
-`
-
 const textcustom = css`
     display: inline-block;
     font-size: 20px;
