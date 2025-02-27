@@ -6,7 +6,7 @@ const ArrowRight = () => {
 }
 
 const arrowReverse = css`
-    transfrom: lotate(180deg);
+    transform: lotate(180deg);
 `
 
 export default ArrowRight
