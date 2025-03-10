@@ -20,7 +20,6 @@ import PrivateRoute from "@components/auth/PrivateRoute"
 import Report from "@pages/Report"
 import Onboarding from "@pages/Onboarding"
 import Interest from "@pages/Interest"
-import Loading from "@shared/Loading"
 
 // Navbar를 포함하는 컴포넌트들과 아닌 컴포넌트 구분
 const LayoutWithNavbar = () => {
