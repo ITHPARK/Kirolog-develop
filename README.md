@@ -1,8 +1,7 @@
 <a href="https://www.kirolog.com/" target="_blank">
-<img src="https://github.com/user-attachments/assets/3fb8700e-d04e-4545-b7e9-9176c530ae2d" alt="배너" width="100%"/>
+<img src="https://github.com/user-attachments/assets/a0a92162-abb8-4e5a-806f-598d23ad3a02" alt="배너" width="100%"/>
 </a>
 
-<br/>
 <br/>
 
 # 0. Getting Started (시작하기)
@@ -10,16 +9,13 @@
 $ yarn install
 $ yarn start
 ```
-[서비스 링크](https://www.kirolog.com/)
 
-<br/>
 <br/>
 
 # 1. Project Overview (프로젝트 개요)
 - 프로젝트 이름: 기로록
 - 프로젝트 설명: 일상을 기록하는 AI 일기 서비스
 
-<br/>
 <br/>
 
 # 2. Team Members (팀원 및 팀 소개)
@@ -35,30 +31,33 @@ $ yarn start
 # 3. Key Features (주요 기능)
 - **회원가입**:
   - 회원가입 시 DB에 유저정보가 등록되면 바로 로그인 됩니다.
-  <img src="https://github.com/user-attachments/assets/e872eca3-1639-421c-8bff-a3fc812e6fcd" alt="회원가입" width="175">
+  <img src="https://github.com/user-attachments/assets/ef531002-73bc-4494-ab7d-de83a4ea5c4e" alt="회원가입" width="175">
+
 
 - **로그인**:
   - 사용자 인증 정보를 통해 로그인합니다.
-  <img src="https://github.com/user-attachments/assets/f94d89f8-a4e8-42c6-bab5-3ccbabf4a022" alt="로그인" width="175">
+  <img src="https://github.com/user-attachments/assets/3bc6453a-2157-4944-b6e1-9612e7e1571d" alt="로그인" width="175">
 
 - **내 일기 보기 및 일기 작성**:
   - 캘린더 UI를 통해 일기 데이터를 확인할 수 있습니다.
   - 오늘 날짜에 일기를 추가하지 않았다면 일기를 작성할 수 있습니다.
-  <img src="https://github.com/user-attachments/assets/0efc1ff6-dc57-437a-8f6c-9f81020c6430" alt="메인" width="175">
-  
+  <img src="https://github.com/user-attachments/assets/e9534cf7-1555-4d87-9ade-697f61c0c2eb" alt="메인1" width="175">
+  <img src="https://github.com/user-attachments/assets/8776523d-fe06-4410-924e-6637ce10ddd3" alt="메인2" width="175">
+
 - **일기 작성(직접 작성/AI작성)**:
   - 오늘 일기를 작성할 수 있습니다.
   - 사용자가 직접 일기를 작성할 수 있습니다.
   - 감정과 키워드를 추가하면 AI가 일기를 작성해줍니다.
 
-| <img src="https://github.com/user-attachments/assets/f9e9f6ad-bd99-4e70-93f0-879f1bbca221" alt="일기작성" width="175"> | <img src="https://github.com/user-attachments/assets/9fb841f2-5137-4e6d-9a10-437c0439b46c" alt="일기작성" width="175"> | <img src="https://github.com/user-attachments/assets/105f68c1-4f55-4dce-992c-961ee7a76e88" alt="일기작성" width="175"> | <img src="https://github.com/user-attachments/assets/b4a34d78-dc39-477e-b292-ffbf3f776f3d" alt="일기작성" width="175"> | <img src="https://github.com/user-attachments/assets/5e90c86f-05d3-4218-9210-ded8a39666de" alt="일기작성" width="175"> |
+| <img src="https://github.com/user-attachments/assets/e8c27c62-9d61-4c0c-8387-6fa7bdcd552e" alt="일기작성" width="175"> | <img src="https://github.com/user-attachments/assets/bed81520-86a7-4121-a7ad-a88b33a60a91" alt="일기작성" width="175"> | <img src="https://github.com/user-attachments/assets/6f817328-5987-4518-9397-8a770613e5bc" alt="일기작성" width="175"> | <img src="https://github.com/user-attachments/assets/729bb408-89fa-4d94-9187-cc74e31a59c9" alt="일기작성" width="175"> | <img src="https://github.com/user-attachments/assets/9fd3849a-80ea-4de5-871e-01d9a00668f1" alt="일기작성" width="175"> |
 |:------:|:------:|:------:|:------:|:------:|
 
 - **주간 리포트**:
   - 일주일동안 작성한 일기를 토대로 AI가 감정과 추천 활동을 제시합니다.
     
-| <img src="https://github.com/user-attachments/assets/e7017a80-58dc-46fd-ad3b-4e4b375f505f" alt="리포트" width="175"> | <img src="https://github.com/user-attachments/assets/bddb6b91-7299-41a1-87cb-64e112b9d4c1" alt="리포트" width="175"> | 
+| <img src="https://github.com/user-attachments/assets/491eeab4-af01-481c-a6aa-26524433efcc" alt="리포트" width="175"> | <img src="https://github.com/user-attachments/assets/8b800816-036b-4021-aae8-9b3969468060" alt="리포트" width="175"> | 
 |:------:|:------:|
+
 
 - **마이페이지**:
   - 현재 로그인된 계정정보를 확인합니다.
@@ -66,11 +65,9 @@ $ yarn start
   - 현재 계정의 관심사를 설정할 수 있습니다.
   - 로그아웃 및 로그인이 가능합니다.
 
-| <img src="https://github.com/user-attachments/assets/f8330c86-1efa-43c3-8193-e1b25177ee43" alt="마이페이지" width="175"> | <img src="https://github.com/user-attachments/assets/a0e42233-b30c-4c7b-baa6-543b440b9d19" alt="마이페이지" width="175"> | <img src="https://github.com/user-attachments/assets/db6388bf-5d73-42b2-b6f0-69b3fb643639" alt="마이페이지" width="175">| <img src="https://github.com/user-attachments/assets/88aeeffc-e649-42a3-83a1-cf8d4786a1c1" alt="마이페이지" width="175"> | <img src="https://github.com/user-attachments/assets/0c604264-efea-489c-87f7-136f7bfb0839" alt="마이페이지" width="175"> | 
+| <img src="https://github.com/user-attachments/assets/d33069c5-0856-4ca2-8d0a-1183345592bc" alt="마이페이지" width="175"> | <img src="https://github.com/user-attachments/assets/c4f23cfd-7e05-4215-bd21-251daf3b3d59" alt="마이페이지" width="175"> | <img src="https://github.com/user-attachments/assets/a133d177-61b4-4091-85a4-bd6fa78312a8" alt="마이페이지" width="175">| <img src="https://github.com/user-attachments/assets/a779abd5-52e8-40fa-8b32-6de08ca46280" alt="마이페이지" width="175"> | <img src="https://github.com/user-attachments/assets/d2f5314c-b1b1-46d7-ae6c-face2e0017d0" alt="마이페이지" width="175"> | 
 |:------:|:------:|:------:|:------:|:------:|
 
-
-<br/>
 <br/>
 
 # 4. Tasks & Responsibilities (작업 및 역할 분담)
