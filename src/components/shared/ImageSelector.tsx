@@ -24,20 +24,19 @@ const ImageSelector = ({
 
     const convertImage = async (
         file: File,
-        format: string = "image/jpeg",
-        quality: number = 0.7, // 압축 품질
-        maxWidth: number = 800, // 최대 너비 제한
+        format: string = "image/webp",
+        quality: number = 0.7,
+        maxWidth: number = 800,
     ) => {
         // Blob 객체는 파일을 저장할 수 있음
         return new Promise<Blob>((resolve, reject) => {
             const reader = new FileReader()
 
             reader.onload = (event) => {
+                //이 안에서 img.src를 실행하면 안된다. (이미 이미지는 업로드 되었는데 다시 새로운 이미지를 로딩하게 할 수 있다.)
                 const img = new Image()
 
                 img.onload = () => {
-                    //이 안에서 img.src를 실행하면 안된다. (이미 이미지는 업로드 되었는데 다시 새로운 이미지를 로딩하게 할 수 있다.)
-
                     let width = img.width
                     let height = img.height
 
@@ -51,7 +50,6 @@ const ImageSelector = ({
                     canvas.height = height
 
                     const ctx = canvas.getContext("2d")
-
                     if (!ctx)
                         return reject(
                             new Error("캔버스 컨텍스트를 사용할 수 없습니다."),
@@ -59,13 +57,24 @@ const ImageSelector = ({
 
                     ctx.drawImage(img, 0, 0, width, height)
 
-                    canvas.toBlob(
-                        (blob) => {
-                            if (blob) resolve(blob)
-                        },
-                        format,
-                        quality,
-                    )
+                    const tryConvert = (format: string) => {
+                        canvas.toBlob(
+                            (blob) => {
+                                if (blob) {
+                                    resolve(blob)
+                                } else if (format === "image/webp") {
+                                    // WebP 변환 실패 시 JPEG로 재시도
+                                    tryConvert("image/jpeg")
+                                } else {
+                                    reject(new Error("이미지 변환 실패"))
+                                }
+                            },
+                            format,
+                            quality,
+                        )
+                    }
+
+                    tryConvert(format)
                 }
 
                 // 에러처리
@@ -75,10 +84,7 @@ const ImageSelector = ({
                 img.src = event.target?.result as string
             }
 
-            reader.onerror = (error) =>
-                reject(() => {
-                    console.log(error)
-                })
+            reader.onerror = (error) => reject(error)
 
             // 객체를 Url로 변환
             reader.readAsDataURL(file)
